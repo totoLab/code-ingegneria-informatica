@@ -14,6 +14,10 @@ public class Lampadina {
 		}
 	}
 	
+	public boolean eAccesa() {
+		return accesa;
+	}
+	
 	public void premiBottone() {
 		accesa = !(accesa);
 	}
