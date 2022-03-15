@@ -25,4 +25,19 @@ public class Lampadina {
 	public Lampadina (Lampadina l) { // copy constructor
 		this.accesa = l.accesa;
 	}
+	
+	public boolean equals(Object o) {
+		// obvious cases first
+		if (o == null) {
+			return false;
+		} else if (o == this) {
+			return true;
+		} else if (!(o instanceof Lampadina)) {
+			return false;
+		}
+		// in the end, verify that "this" object [status] is equal to "o" object [status]
+		// in this case verify value of the only field: "accesa"
+		Lampadina l = (Lampadina) o;
+		return l.accesa == this.accesa;
+	}
 }
