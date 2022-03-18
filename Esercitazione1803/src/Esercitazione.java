@@ -72,4 +72,19 @@ public class Esercitazione {
         }
         return v2;
     }
+
+    /* Si scrivano:
+    1) un metodo costruisciMatrice che riceve una matrice di interi M
+    e restituisce una matrice di booleani M1 della stessa dimensione t.c:
+        a) le celle di M1 sulla cornice esterna contengano tute false;
+        b) ogni altra cella M[i][j] contiene true sse:
+            la somma delle celle adiacenti a M[i][j] è uguale al valore M[i][j]
+    2) un metodo verificaMatrice che riceve in ingresso una matrice di interi M
+    e restituisce true sse le colonne pari sono ordinate in modo non crescente
+    e quelle dispari in modo non decrescente. */
+    public static boolean[][] costruisciMatrice(int[][] M) {
+        boolean[][] M1 = new boolean[M.length][M[0].length];
+        
+        return M1;
+    }
 }
