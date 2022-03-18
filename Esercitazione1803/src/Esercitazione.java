@@ -2,7 +2,21 @@
 public class Esercitazione {
 
 	public static void main(String[] args) {
-        
+        int[] l = {1,2,3,2,1,3};
+  
+    int[] res1 = rollup(l);
+    System.out.println("Rollup:");
+    for (int i=0; i<res1.length; i++) {
+        System.out.println(res1[i]);
+    }
+    
+    boolean res2 = alternati(l);
+    System.out.println("Alternati: "+res2);
+    
+    int[] res3 = costruisciArray(l);
+    System.out.println("Costruisci array:");
+    for (int i=0; i<res3.length; i++)
+    System.out.println(res3[i]);  
 	}
 
     /* scrivere metodo rollup che prende in input un array l di lunghezza n (con n pari) 
@@ -38,7 +52,7 @@ public class Esercitazione {
     - se la media degli elementi di v1 con indice maggiore o uguale a i è maggiore o uguale a v1[i], allora v2[i] è uguale a tale media;
     - altrimenti v2[i] è uguale alla differenza tra la somma degli elementi a sinistra di v1[i] e la somma degli degli elementi alla destra di v1[i].
     Ovviamente se non ci sono elementi a sx o a dx la somma vale 0. */
-    public static int[] costrusciArray(int[] v1) {
+    public static int[] costruisciArray(int[] v1) {
         int[] v2 = new int[v1.length];
         for (int i = 0; i < v1.length; i++) {
             int sommaDx = 0;
@@ -53,7 +67,7 @@ public class Esercitazione {
                 for (int k = 0; k < i; i++) {
                     sommaSx += v2[k];
                 }
-                v2[i] = sommaDx - sommaSx;
+                v2[i] = sommaDx - sommaSx + v1[i]; // non lo contiamo in nessuna somma perciò lo riaggiungiamo
             }
         }
         return v2;
