@@ -4,7 +4,7 @@ import java.lang.Math;
 public class Lezione {
 
 	public static void main(String[] args) {
-		int[] arrei = {1, 5, 3};
+		// int[] arrei = {1, 5, 3};
 		// gliArrei(arrei);
 		
 		Lampadina lampadina = new Lampadina();

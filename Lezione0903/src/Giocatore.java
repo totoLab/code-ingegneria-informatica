@@ -1,4 +1,3 @@
-import terminale.Terminale;
 
 public class Giocatore {
 	
