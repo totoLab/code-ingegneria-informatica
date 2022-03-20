@@ -2,7 +2,7 @@
 public class Esercitazione {
 
 	public static void main(String[] args) {
-        int[] l = {1,2,3,2,1,3};
+		int[] l = {1,2,3,2,1,3};
   
     int[] res1 = rollup(l);
     System.out.println("Rollup:");
@@ -83,8 +83,22 @@ public class Esercitazione {
     e restituisce true sse le colonne pari sono ordinate in modo non crescente
     e quelle dispari in modo non decrescente. */
     public static boolean[][] costruisciMatrice(int[][] M) {
-        boolean[][] M1 = new boolean[M.length][M[0].length];
-        
+    	boolean[][] M1 = new boolean[M.length][M[0].length];
+    	// soluzione prof
+    	// ...
+    	
+    	// soluzione mia  	
+        for (int i = 0; i < M.length; i++) {
+        	for (int j = 0; j < M[0].length; j++) {
+        		if (i == 0 || i == (M.length - 1) || j == 0 || j == (M[0].length - 1)) {
+        			M1[i][j] = false; 
+        		} else if ((M[i + 1][j] + M[i - 1][j] + M[i][j + 1] + M[i][j - 1]) == M[i][j]) {
+        			M1[i][j] = true;
+        		} else {
+        			M1[i][j] = false;
+        		}
+        	}
+        }
         return M1;
     }
 }
