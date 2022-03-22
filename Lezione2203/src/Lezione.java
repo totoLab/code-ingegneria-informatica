@@ -4,6 +4,15 @@ import java.util.*;
 public class Lezione {
 
 	public static void main(String[] args) {
+		
+		//esempioSquadraJuventus();
+		
+		esempioSquadraReggina();
+	}
+	
+	
+	
+	public static void arrayPiuListe() {
 		ArrayList<Integer> a = new ArrayList<>();
 		a.add(5);
 		a.add(4);
@@ -19,6 +28,7 @@ public class Lezione {
 		//metodiListe(a);
 		//garbageCollection();
 		//metodiArrayClassici();
+		
 	}
 	
 	public static void metodiListe(ArrayList<Integer> a) {
@@ -87,5 +97,71 @@ public class Lezione {
 		// ecc...
 	}
 	
-
+	public static void banale() {
+		int eta = Terminale.richiediInt("Inserisci l'età");
+		/*
+		String risultato = null;
+		if (eta >= 18) {
+			risultato = "Maggiorenne";
+		} else {
+			risultato = "Minorenne";
+		}
+		*/
+		
+		// CONDITIONAL EXPRESSION [condizione] ? [valore se condizione vera] : [valore se condizione falsa];
+		String risultato = eta >= 18 ? "Maggiorenne" : "Minorenne";
+		
+		Terminale.stampa(risultato);
+	}
+	
+	public static void esempioSquadraJuventus() {
+		Squadra juventus = new Squadra("Juventus");
+		
+		Giocatore dybala = new Giocatore("Paulo", "Dybala", 1993);
+		Giocatore deLigt = new Giocatore("Matthijs", "De Ligt", 1999);
+		
+		juventus.aggiungiGiocatore(dybala);
+		juventus.aggiungiGiocatore(deLigt);
+		
+		// juventus.rimuoviGiocatorePosizione(1);
+		// juventus.rimuoviGiocatorePosizione(0);
+		
+		ArrayList<Giocatore> a = juventus.getGiocatori();
+		a.remove(0); // non rimuove il giocatore nell'oggetto originale
+		Terminale.stampa(a);
+		Terminale.stampa(juventus);
+		
+		juventus.getGiocatorePosizione(0);
+		
+		Terminale.stampa(juventus);
+		Giocatore chiellini = new Giocatore("Giorgio", "Chiellini", 1984);
+		juventus.sostituisciGiocatorePosizione(chiellini, 1);
+		Terminale.stampa(juventus);
+		
+		Terminale.stampa(juventus.contiene(dybala));
+	}
+	
+	
+	public static void esempioSquadraReggina() {
+		Squadra reggina = new Squadra("Reggina 1914");
+		
+		Giocatore turati = new Giocatore("Alessandro", "Micai", 1993);
+		Giocatore cionek = new Giocatore("Thiago", "Cionek", 1986);
+		Giocatore amione = new Giocatore("Bruno", "Amione", 2002);
+		Giocatore diChiara = new Giocatore("Gianluca", "Di Chiara", 1993);
+		Giocatore giraudo = new Giocatore("Federico", "Giraudo", 1998);
+		Giocatore perparim = new Giocatore("Perparim", "Hetemaj", 1986);
+		Giocatore crisetig = new Giocatore("Lorenzo", "Crisetig", 1993);
+		Giocatore cortinovis = new Giocatore("Alessandro", "Cortinovis", 2001);
+		Giocatore kupisz = new Giocatore("Tomasz", "Kupisz", 1990);
+		Giocatore folorunsho = new Giocatore("Michael", "Folorunsho", 1998);
+		Giocatore rivas = new Giocatore("Rigoberto", "Rivas", 1998);
+		
+		Giocatore[] giocatori = {turati, cionek, amione, diChiara, giraudo, perparim, crisetig, cortinovis, kupisz, folorunsho, rivas};
+		for (Giocatore g : giocatori) {
+			reggina.aggiungiGiocatore(g);
+		}
+		Terminale.stampa(reggina);
+	}
+	
 }
