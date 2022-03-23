@@ -85,9 +85,32 @@ public class Esercitazione {
     public static boolean[][] costruisciMatrice(int[][] M) {
     	boolean[][] M1 = new boolean[M.length][M[0].length];
     	// soluzione prof
-    	// ...
     	
-    	// soluzione mia  	
+    	// cornice righe
+    	for (int j = 0; j < M[0].length; j++) {
+    		M1[0][j] = false;
+    		M1[M.length - 1][j] = false; 
+    	}
+    	
+    	// cornice colonne
+    	for (int i = 0; i < M[0].length; i++) {
+    		M1[i][0] = false;
+    		M1[i][M[0].length - 1] = false; 
+    	}
+    	
+    	// interno
+    	for (int i = 1; i < M.length - 1; i++) {
+    		for (int j = 1; i < M[0].length - 1; j++) {
+    			int sommaAd = 0;
+    			sommaAd += M[i - 1][j - 1] + M[i - 1][j] + M[i - 1][j];
+    			sommaAd += M[i][j - 1] + M[i][j + 1];
+    			sommaAd += M[i + 1][j - 1] + M[i + 1][j] + M[i + 1][j + 1];
+    			M1[i][j] = M[i][j] == sommaAd;
+    		}
+    		return M1;
+    	}
+    	
+    	/* soluzione mia  	
         for (int i = 0; i < M.length; i++) {
         	for (int j = 0; j < M[0].length; j++) {
         		if (i == 0 || i == (M.length - 1) || j == 0 || j == (M[0].length - 1)) {
@@ -99,6 +122,7 @@ public class Esercitazione {
         		}
         	}
         }
+        */
         return M1;
     }
 }
