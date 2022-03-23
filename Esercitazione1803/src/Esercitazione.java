@@ -107,7 +107,6 @@ public class Esercitazione {
     			sommaAd += M[i + 1][j - 1] + M[i + 1][j] + M[i + 1][j + 1];
     			M1[i][j] = M[i][j] == sommaAd;
     		}
-    		return M1;
     	}
     	
     	/* soluzione mia  	
