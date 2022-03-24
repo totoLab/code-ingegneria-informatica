@@ -124,4 +124,23 @@ public class Esercitazione {
         */
         return M1;
     }
+    
+    public static boolean verificaMatrice(int[][] M) {
+    	for(int j=0; j<M.length; j++) {
+    		if(j%2==0) {
+    			for (int i=0; i<M.length-1; i++) {
+    				if(M[i][j]<M[i+1][j]) {
+    					return false;
+    				}
+    			}
+    		} else {
+    			for (int i=0; i<M.length-1; i++) {
+    				if (M[i][j]>M[i+1][j]) {
+    					return false;
+    				}
+    			}
+    		}
+    	}
+    	return true;
+    }
 }
