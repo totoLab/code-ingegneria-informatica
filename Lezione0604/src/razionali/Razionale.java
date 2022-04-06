@@ -60,6 +60,11 @@ public class Razionale { // mutabile
 		semplifica();
 	}
 	
+	public void moltiplica(int x) {
+		numeratore *= x;
+		semplifica();
+	}
+	
 	public String toString()
 	{	if(denominatore == 1)
 			return ""+numeratore;

@@ -10,6 +10,12 @@ public class Lezione {
 			lista.add(new Razionale(n, 10));
 		}
 		Terminale.stampa(lista);
+		
+		Razionale due = new Razionale(2);
+		for (Razionale r : lista) {
+			r.moltiplica(due);
+		}
+		Terminale.stampa(lista);
 	}
 
 	
