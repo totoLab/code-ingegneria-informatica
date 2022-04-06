@@ -5,7 +5,7 @@ import java.util.*;
 public class Lezione {
 
 	public static void main(String[] args) {
-		ordinamento();
+		new Razionale(1,0);
 	}
 
 	

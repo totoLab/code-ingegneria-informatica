@@ -14,6 +14,12 @@ public class Razionale implements Comparable<Razionale> { // mutabile
 			this.denominatore *= -1; // sempre positivo
 		}
 		
+		if (denominatore == 0) {
+			// System.exit(-1); // che schifezza dai
+			// EXCEPTION MANAGEMENT fatta bene
+			throw(new EccezioneDenominatoreZero());
+		}
+		
 		semplifica(); // sempre ridotto ai minimi termini
 	}
 	
