@@ -5,9 +5,13 @@ import java.util.*;
 public class Lezione {
 
 	public static void main(String[] args) {
+	
+		try {
 		new Razionale(1,0);
+		} catch(EccezioneDenominatoreZero e) {
+			// gestione dell'errore
+		}
 	}
-
 	
 	public static void automa() {
 		Automa a = new Automa();
