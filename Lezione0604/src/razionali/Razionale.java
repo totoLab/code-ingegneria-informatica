@@ -61,8 +61,11 @@ public class Razionale { // mutabile
 	}
 	
 	public void moltiplica(int x) {
-		numeratore *= x;
-		semplifica();
+		moltiplica(new Razionale(x));
+		
+		// alternativa:
+		// numeratore *= x;
+		// semplifica();
 	}
 	
 	public String toString()
