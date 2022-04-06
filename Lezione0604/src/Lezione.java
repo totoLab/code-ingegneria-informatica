@@ -16,6 +16,14 @@ public class Lezione {
 			r.moltiplica(due);
 		}
 		Terminale.stampa(lista);
+		
+		Razionale mezzo = new Razionale(1, 2);
+		for (Razionale r : lista) {
+			r.dividi(mezzo);
+		}
+		
+		Terminale.stampa(lista);
+
 	}
 
 	

@@ -72,6 +72,10 @@ public class Razionale { // mutabile
 		return new Razionale(denominatore, numeratore);
 	}
 	
+	public void dividi(Razionale r) {
+		moltiplica(r.reciproco());
+	}
+	
 	public String toString()
 	{	if(denominatore == 1)
 			return ""+numeratore;
