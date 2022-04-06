@@ -68,6 +68,10 @@ public class Razionale { // mutabile
 		// semplifica();
 	}
 	
+	public Razionale reciproco() {
+		return new Razionale(denominatore, numeratore);
+	}
+	
 	public String toString()
 	{	if(denominatore == 1)
 			return ""+numeratore;
