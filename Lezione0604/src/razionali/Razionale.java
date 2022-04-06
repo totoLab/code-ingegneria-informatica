@@ -1,6 +1,6 @@
 package razionali;
 
-public class Razionale { // mutabile
+public class Razionale implements Comparable<Razionale> { // mutabile
 	private int numeratore;
 	private int denominatore; 
 	
@@ -93,7 +93,28 @@ public class Razionale { // mutabile
 			return ""+numeratore;
 		return numeratore+"/"+denominatore;
 	}
-
 	
+	public boolean equals(Object o)
+	{	if(o == null)
+			return false;
+		if(o == this)
+			return true;
+		if(!(o instanceof Razionale))
+			return false;
+		Razionale r = (Razionale)o;
+		return numeratore == r.numeratore && denominatore == r.denominatore;
+	}
+
+	public int compareTo(Razionale r) {
+		int sinistra = numeratore * r.denominatore;
+		int destra = denominatore * r.numeratore;
+		if (sinistra < destra) {
+			return -1;
+		} else if (sinistra > destra) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
 	
 }
