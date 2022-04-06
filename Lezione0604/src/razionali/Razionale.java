@@ -76,6 +76,13 @@ public class Razionale { // mutabile
 		moltiplica(r.reciproco());
 	}
 	
+	public void aggiungi(Razionale r) {
+		numeratore = numeratore * r.denominatore + denominatore * r.numeratore;
+		denominatore *= r.denominatore;
+		
+		semplifica();
+	}
+	
 	public String toString()
 	{	if(denominatore == 1)
 			return ""+numeratore;
