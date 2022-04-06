@@ -83,6 +83,11 @@ public class Razionale { // mutabile
 		semplifica();
 	}
 	
+	public void sottrai(Razionale r) {
+		Razionale menoR = new Razionale(-r.numeratore, r.denominatore);
+		aggiungi(menoR);
+	}
+	
 	public String toString()
 	{	if(denominatore == 1)
 			return ""+numeratore;
