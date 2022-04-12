@@ -89,4 +89,30 @@ public class ListaConcatenataInt
 		coda = nuovoNodo;
 		lunghezza++;			
 	}
+	
+	public void aggiungiInTesta(int valore) {
+		NodoInt nuovoNodo = new NodoInt(valore, testa);
+		testa = nuovoNodo;
+		if (coda == null) {
+			coda = nuovoNodo;
+		lunghezza++;
+		}
+	}
+	
+	public String toString() {
+		String ret = "[";
+		for (NodoInt corrente = testa; corrente != null; corrente = corrente.getSuccessivo()) {
+			ret += corrente.toString();
+			if (corrente.getSuccessivo() != null) {
+				ret += ", ";
+			}
+		}
+		ret += "]";
+		return ret;
+	}
+	
+	public boolean equals(Object o) {
+		//DA FARE
+		return false;
+	}
 }
