@@ -82,6 +82,37 @@ public class MetodiRicorsivi {
 		return merge(primaMeta, secondaMeta);
 	}
 	
+	// QUICK SORT
+	private static void scambia(int[] v, int i, int j) {
+		int t = v[i];
+		v[i] = v[j];
+		v[j] = t;
+	}
+	
+	private static int partiziona(int[] v, int inizio, int fine) {
+		int pivot = v[fine];
+		int posLibera = inizio;
+		for (int j = inizio; j < fine; j++) {
+			if (v[j] <= pivot) {
+				scambia(v, posLibera, j);
+				posLibera++;
+			}
+		}
+		scambia(v, posLibera, fine);
+		return posLibera;
+	}
+	
+	private static void quickSort(int[] v, int inizio, int fine) {
+		if (inizio < fine) {
+			int p = partiziona(v, inizio, fine);
+			quickSort(v, inizio, p - 1);
+			quickSort(v, p + 1, fine);
+		}
+	}
+	
+	public void quickSort(int[] v) {
+		quickSort(v, 0, v.length - 1);
+	}
 	
 }
 
