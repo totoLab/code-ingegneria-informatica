@@ -66,7 +66,7 @@ public class MetodiRicorsivi {
 		}
 		
 		int[] primaMeta = new int[n / 2];
-		int[] secondaMeta = new int[n / 2];
+		int[] secondaMeta = new int[n - (n / 2)];
 		
 		for (int i = 0; i < n / 2; i++) {
 			primaMeta[i] = v[i];
