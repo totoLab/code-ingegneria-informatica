@@ -89,4 +89,13 @@ public class ListaConcatenataInt
 		coda = nuovoNodo;
 		lunghezza++;			
 	}
+	
+	public void aggiungiInTesta(int valore) {
+		NodoInt nuovoNodo = new NodoInt(valore, testa);
+		testa = nuovoNodo;
+		if (coda == null) {
+			coda = nuovoNodo;
+		lunghezza++;
+		}
+	}
 }
