@@ -49,4 +49,23 @@ public class Tesserato {
 	public ArrayList<Abbonamento> getListaAbbonamenti() {
 		return this.listaAbbonamenti;
 	}
+	
+	public String toString() {
+		return "Tesseato con codice tessera: " + codiceTessera + ", data di scadenza: " + dataScadenza; // ......
+	}
+	
+	public boolean equals(Object o) {
+		if (o == null) {
+			return false;
+		}
+		if (o == this) {
+			return true;
+		}
+		if (!(o instanceof Tesserato)) {
+			return false;
+		}
+		
+		Tesserato t = (Tesserato) o;
+		return this.cf.equals(t.cf);
+	}
 }

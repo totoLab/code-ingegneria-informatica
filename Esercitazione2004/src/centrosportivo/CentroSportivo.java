@@ -19,14 +19,27 @@ public class CentroSportivo {
 	}
 	
 	public boolean aggiorna(String codiceFiscale, int codServizio, String mese, boolean[] settimane) {
+		Tesserato t = trovaTesserato(codiceFiscale);
+		if (t == null) return false;
+		Servizio s = trovaServizio(codServizio);
+		if (s == null || !(s.verificaPostiDisponibili())) return false;
 		
+		s.aggiornaPostiDisponibili();
+
 	}
 	
 	private Tesserato trovaTesserato(String cf) {
-		
+		for (Tesserato t : listaTesserati) {
+			if (t.getCf() == cf) return t;
+		}
+		return null;
 	}
 	
 	private Servizio trovaServizio(int codice) {
+		for (Servizio s : listaServizi) {
+			if (s.getCodice() == codice) return s;
+		}
+		return null;
 		
 	}
 	

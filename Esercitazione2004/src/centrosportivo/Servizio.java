@@ -36,5 +36,30 @@ public class Servizio {
 		return costoSettimanale;
 	}
 	
+	public boolean verificaPostiDisponibili() {
+		return postiDisponibili > 0;
+	}
 	
+	public void aggiornaPostiDisponibili() {
+		postiDisponibili--;
+	}
+	
+	public String toString() {
+		return "Servizio con codice: " + codice; // ......
+	}
+	
+	public boolean equals(Object o) {
+		if (o == null) {
+			return false;
+		}
+		if (o == this) {
+			return true;
+		}
+		if (!(o instanceof Servizio)) {
+			return false;
+		}
+		
+		Servizio s = (Servizio) o;
+		return this.codice == s.codice;
+	}
 }
