@@ -192,4 +192,33 @@ public class ListaConcatenataInt
 		return indiceDi(info) != -1;
 	}
 	
+	public int get(int indice) {
+		if (indice < 0 || indice >= lunghezza) throw new EccezioneIndiceNonValido();
+		NodoInt corrente = testa;
+		for (int i = 0; i < indice; i++) {
+			corrente = corrente.getSuccessivo();
+		}
+		return corrente.getInfo();
+	}
+	
+	private int sommaDa(NodoInt n) {
+		if (n == null) return 0;
+		return n.getInfo() + sommaDa(n.getSuccessivo());
+	}
+	
+	public int somma() {
+		return sommaDa(testa);
+	}
+	
+	private int contaDa(NodoInt n, int info) {
+		if (n == null) return 0;
+		if (n.haInfo(info)) {
+			return 1 + contaDa(n.getSuccessivo(), info);
+		} 
+		return contaDa(n.getSuccessivo(), info);
+	}
+	
+	public int conta(int info) {
+		return contaDa(testa, info);
+	}
 }
