@@ -176,6 +176,46 @@ public class ListaConcatenataInt
 		testa = testa.getSuccessivo();
 		lunghezza--;
 	}
+	
+	public void rimuoviCoda() {
+		if (eVuota()) {
+			throw new EccezioneListaVuota();
+		}
+		if (lunghezza == 1) {
+			svuota();
+			return;
+		}
+		for (NodoInt corrente = testa; corrente != null; corrente = corrente.getSuccessivo()) {
+			if (corrente.getSuccessivo() == null) {
+				corrente.setSuccessivo(null);
+				coda = corrente;
+			}
+		}
+		lunghezza--;
+	}
+	
+	public void rimuovi(int indice) {
+		if (indice < 0 || indice >= lunghezza) {
+			throw new EccezioneIndiceNonValido();
+		}
+		if (indice == 0) {
+			rimuoviTesta();
+			return;
+		}
+		if (indice == lunghezza - 1) {
+			rimuoviCoda();
+			return;
+		}
+		NodoInt corrente = testa;
+		for (int i = 1; i <= indice - 1; i++) {
+			corrente = corrente.getSuccessivo();
+		}
+		corrente.setSuccessivo(corrente.getSuccessivo().getSuccessivo());
+	}
+	
+	public void rimuoviPrimo(int valore) {
+		// TODO
+	}
 		
 	public int indiceDi(int info) {
 		int pos = 0;
@@ -195,7 +235,7 @@ public class ListaConcatenataInt
 	public int get(int indice) {
 		if (indice < 0 || indice >= lunghezza) throw new EccezioneIndiceNonValido();
 		NodoInt corrente = testa;
-		for (int i = 0; i < indice; i++) {
+		for (int i = 1; i <= indice; i++) {
 			corrente = corrente.getSuccessivo();
 		}
 		return corrente.getInfo();
@@ -208,6 +248,34 @@ public class ListaConcatenataInt
 	
 	public int somma() {
 		return sommaDa(testa);
+	}
+	
+	private int minimoDa(NodoInt n) {
+		NodoInt successivoAdN = n.getSuccessivo();
+		if (successivoAdN == null)
+			return n.getInfo();
+		return Math.min(n.getInfo(), minimoDa(successivoAdN));
+	}
+	
+	public int minimo() {
+		if (eVuota()) {
+			throw new EccezioneListaVuota();
+		}
+		return minimoDa(testa);
+	}
+	
+	private int massimoDa(NodoInt n) {
+		NodoInt successivoAdN = n.getSuccessivo();
+		if (successivoAdN == null)
+			return n.getInfo();
+		return Math.max(n.getInfo(), massimoDa(successivoAdN));
+	}
+	
+	public int massimo() {
+		if (eVuota()) {
+			throw new EccezioneListaVuota();
+		}
+		return massimoDa(testa);
 	}
 	
 	private int contaDa(NodoInt n, int info) {
