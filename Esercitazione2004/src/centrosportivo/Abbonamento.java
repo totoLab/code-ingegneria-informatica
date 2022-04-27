@@ -24,4 +24,26 @@ public class Abbonamento {
 	public boolean[][] getMesiSettimane() {
 		return this.mesiSettimane;
 	}
+	
+	public static int getIndiceMese(String mese) {
+		int i = -1;
+		for (int k = 0; k < mesi.length; k++) {
+			if (mese.equalsIgnoreCase(mesi[k])) {
+				i = k;
+				break;
+			}
+		}
+		return i;
+	}
+
+	public int getSettimaneEffettive(String mese) {
+		int i = getIndiceMese(mese);
+		int cont = 0;
+		for (int j = 0; j < 4; j++) {
+			if (mesiSettimane[i][j]) {
+				cont++;
+			}
+		}
+		return cont;
+	}
 }

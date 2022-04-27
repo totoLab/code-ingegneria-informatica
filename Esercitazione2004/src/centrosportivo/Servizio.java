@@ -1,6 +1,6 @@
 package centrosportivo;
 
-public class Servizio {
+public class Servizio implements Comparable<Servizio> {
 	
 	private int codice;
 	private int postiTotali;
@@ -61,5 +61,23 @@ public class Servizio {
 		
 		Servizio s = (Servizio) o;
 		return this.codice == s.codice;
+	}
+
+	@Override
+	public int compareTo(Servizio s) {
+		if (this.turno < s.turno) {
+			return -1;
+		}
+		if (this.turno > s.turno) {
+			return 1;
+		}
+		
+		if (this.costoSettimanale < s.costoSettimanale) {
+			return 1;
+		}
+		if (this.costoSettimanale > s.costoSettimanale) {
+			return -1;
+		}
+		return 0;
 	}
 }

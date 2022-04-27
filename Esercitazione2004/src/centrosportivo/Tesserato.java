@@ -68,4 +68,8 @@ public class Tesserato {
 		Tesserato t = (Tesserato) o;
 		return this.cf.equals(t.cf);
 	}
+
+	public void aggiungiAbbonamento(Abbonamento a) {
+		listaAbbonamenti.add(a);
+	}
 }
