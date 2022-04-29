@@ -289,4 +289,21 @@ public class ListaConcatenataInt
 	public int conta(int info) {
 		return contaDa(testa, info);
 	}
+	
+	private int contaTripleDa(NodoInt n) {
+		if (n == null || n.getSuccessivo() == null || n.getSuccessivo().getSuccessivo() == null) {
+			return 0;
+		}
+		NodoInt successivo = n.getSuccessivo();
+		NodoInt successivoDelSuccessivo = n.getSuccessivo().getSuccessivo();
+		
+		if (n.getInfo() < 0 && successivo.getInfo() == 0 && successivoDelSuccessivo.getInfo() > 0) {
+			return 1 + contaTripleDa(successivoDelSuccessivo.getSuccessivo());
+		}
+		return contaTripleDa(successivo);
+	}
+	
+	public int contaTriple() {
+		return contaTripleDa(testa);
+	}
 }
