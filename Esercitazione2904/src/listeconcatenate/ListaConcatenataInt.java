@@ -306,4 +306,17 @@ public class ListaConcatenataInt
 	public int contaTriple() {
 		return contaTripleDa(testa);
 	}
+	
+	private boolean verificaDa(NodoInt n, boolean vistoZero) {
+		if (n == null) return vistoZero;		
+		if (vistoZero && n.getInfo() <= 0) return false;
+		if (n.getInfo() == 0) {
+			return verificaDa(n.getSuccessivo(), true);
+		}
+		return verificaDa(n.getSuccessivo(), vistoZero);
+	}
+	
+	public boolean verifica() {
+		return verificaDa(testa, false);
+	}
 }
