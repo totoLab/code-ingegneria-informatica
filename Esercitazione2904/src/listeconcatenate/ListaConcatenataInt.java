@@ -319,4 +319,17 @@ public class ListaConcatenataInt
 	public boolean verifica() {
 		return verificaDa(testa, false);
 	}
+	
+	private int contaUgualiConsecutiviDa(NodoInt n) {
+		if (n == null || n.getSuccessivo() == null) return 0;
+		NodoInt successivo = n.getSuccessivo();
+		if (n.getInfo() == successivo.getInfo()) {
+			return 1 + contaUgualiConsecutiviDa(successivo.getSuccessivo());
+		}
+		return contaUgualiConsecutiviDa(successivo);
+	}
+	
+	public boolean verificaUgualiConsecutivi(int x) {
+		return contaUgualiConsecutiviDa(testa) >= x;
+	}
 }
