@@ -12,7 +12,7 @@ public class Sistema {
 	
 	private Componente trovaComponente(String codice) {
 		for (Componente c : componenti) {
-			if (c.getCodice.equals(codice)) {
+			if (c.getCodice().equals(codice)) {
 				return c;
 			}
 		}
@@ -22,7 +22,7 @@ public class Sistema {
 	private float profitto(Articolo a) {
 		float sommaPrezziComponenti = 0;
 		for (String codice : a.getComponenti()) {
-			sommaPrezziComponenti += trovaComponente(codice).getPrezzo;
+			sommaPrezziComponenti += trovaComponente(codice).getPrezzo();
 		}
 		return a.getPrezzo() - sommaPrezziComponenti;
 	}
