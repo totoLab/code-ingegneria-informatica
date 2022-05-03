@@ -40,4 +40,42 @@ public class Sistema {
 		return articoloMax.getNome();
 	}
 	
+	private boolean eUniversale(String codice) {
+		for (Articolo a : articoli) {
+			 if (!a.getComponenti().contains(codice)) {
+				 return false;
+			 }
+		}
+		return true;
+	}
+	
+	public LinkedList<String> componentiUniversali() {
+		LinkedList<String> ret = new LinkedList<>();
+		for (Componente c : componenti) {
+			String codice = c.getCodice();
+			if (eUniversale(codice)) {
+				ret.addLast(codice);
+			}
+		}
+		return ret;
+	}
+	
+	private boolean haComponentiCostosi(Articolo a, float p) {
+		for (String codice : a.getComponenti()) {
+			if (trovaComponente(codice).getPrezzo() > p) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public LinkedList<String> articoliComponentiCostosi(float p) {
+		LinkedList<String> ret = new LinkedList<>();
+		for (Articolo a : articoli) {
+			if (haComponentiCostosi(a, p)) {
+				ret.addLast(a.getNome());
+			}
+		}
+		return ret;
+	}		
 }
