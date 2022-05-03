@@ -213,8 +213,26 @@ public class ListaConcatenataInt
 		corrente.setSuccessivo(corrente.getSuccessivo().getSuccessivo());
 	}
 	
-	public void rimuoviPrimo(int valore) {
-		// TODO
+	public void rimuoviPrimo(int info) {
+		if (eVuota()) {
+			return;
+		}
+		if (testa.haInfo(info)) {
+			rimuoviTesta();
+			return;
+		}
+		for (NodoInt corrente = testa; corrente != null; corrente = corrente.getSuccessivo()) {
+			NodoInt successivo = corrente.getSuccessivo();
+			if (successivo != null && successivo.haInfo(info)) {
+				corrente.setSuccessivo(successivo.getSuccessivo());
+				if (coda == successivo) {
+					coda = corrente;
+				}
+				lunghezza--;
+				return;
+			}
+		}
+		
 	}
 		
 	public int indiceDi(int info) {
@@ -332,4 +350,5 @@ public class ListaConcatenataInt
 	public boolean verificaUgualiConsecutivi(int x) {
 		return contaUgualiConsecutiviDa(testa) >= x;
 	}
+	
 }
