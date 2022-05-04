@@ -39,5 +39,14 @@ public class GestioneParentele {
 		ret.addAll(nomiAscendenti(indiceMadre(i)));
 		return ret;
 	}
+	
+	public int contaAscendenti(int i) {
+		if (!genitoriMemorizzati(i)) return 0;
+		return 2 + contaAscendenti(indicePadre(i)) + contaAscendenti(indiceMadre(i));
+	}
+	
+	public boolean eAscendente(int i1, int i2) { // i1 è ascendente di i2
+		return (i1 == indicePadre(i2) || i1 == indiceMadre(i2) || eAscendente(i1, indicePadre(i2)) || eAscendente(i1, indiceMadre(i2)));
+	}
 
 }
