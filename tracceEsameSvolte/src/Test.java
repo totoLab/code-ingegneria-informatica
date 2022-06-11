@@ -6,13 +6,15 @@ import listaconcatenata.*;
 import traccia16092020.*;
 import traccia18022019.*;
 import traccia20072021.*;
+import traccia23072020.*;
 
 public class Test {
 
 	public static void main(String[] args) {
 		// testTraccia18022019();
 		// testTraccia16092020();
-		testTraccia20072021();
+		// testTraccia20072021();
+		testTraccia23072020();
 	}
 	
 	public static void testTraccia18022019() {
@@ -79,7 +81,7 @@ public class Test {
 		
 		ArrayList<Integer> listaDaCopiare = new ArrayList<>(Arrays.asList(7,2,7,2,7,2,7,2));
 		ListaConcatenataInt lista = new ListaConcatenataInt(listaDaCopiare);
-		Terminale.stampa(lista.toString());
+		// Terminale.stampa(lista.toString());
 		Terminale.stampa(lista.stesseSottoSequenze());
 	}
 	
@@ -109,5 +111,26 @@ public class Test {
 		ArrayList<Integer> listaDaCopiare = new ArrayList<>(Arrays.asList(7,7,1,1,-1,3));
 		ListaConcatenataInt lista = new ListaConcatenataInt(listaDaCopiare);
 		Terminale.stampa(lista.verifica0ePoiPositivi());
+	}
+	
+	public static void testTraccia23072020() {
+		Squadra s1 = new Squadra("Juventus", "Torino");
+		Squadra s2 = new Squadra("Milan", "Milano");
+		Squadra s3 = new Squadra("Lazio", "Roma");
+		LinkedList<Squadra> listaSquadre = new LinkedList<>(Arrays.asList(s1, s2, s3));
+		
+		Partita p1 = new Partita("Juventus", "Milan", 2, 0, "Arbitro A", "Roma"); 
+		Partita p2 = new Partita("Milan", "Juventus", 1,3, "Arbitro A", "Roma");
+		Partita p3 = new Partita("Lazio", "Milan", 2, 0, "Arbitro A", "Roma");
+		Partita p4 = new Partita("Juventus", "Lazio", 2, 0, "Arbitro B", "Milano");
+		Partita p5 = new Partita("Lazio", "Juventus", 2, 1, "Arbitro B", "Milano");
+		Partita p6 = new Partita("Milan", "Lazio", 1, 1, "Arbitro A", "Roma");
+		LinkedList<Partita> listaPartite = new LinkedList<>(Arrays.asList(p1, p2, p3, p4, p5, p6));
+		
+		traccia23072020.Torneo t = new traccia23072020.Torneo(listaSquadre, listaPartite);
+		
+		Terminale.stampa(t.squadreCasalinghe());
+		Terminale.stampa(t.arbitriFuoriCItta());
+		Terminale.stampa(t.arbitri3squadre());
 	}
 }
