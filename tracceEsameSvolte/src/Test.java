@@ -14,7 +14,7 @@ public class Test {
 		// testTraccia18022019();
 		// testTraccia16092020();
 		// testTraccia20072021();
-		testTraccia23072020();
+		// testTraccia23072020();
 	}
 	
 	public static void testTraccia18022019() {
