@@ -7,6 +7,7 @@ import traccia16092020.*;
 import traccia18022019.*;
 import traccia20072021.*;
 import traccia23072020.*;
+import traccia03072020.*;
 
 public class Test {
 
@@ -15,6 +16,7 @@ public class Test {
 		// testTraccia16092020();
 		// testTraccia20072021();
 		// testTraccia23072020();
+		testTraccia03072020();
 	}
 	
 	public static void testTraccia18022019() {
@@ -132,5 +134,27 @@ public class Test {
 		Terminale.stampa(t.squadreCasalinghe());
 		Terminale.stampa(t.arbitriFuoriCItta());
 		Terminale.stampa(t.arbitri3squadre());
+	}
+	
+	public static void testTraccia03072020() {
+		Negozio n1 = new Negozio("Negozio A", "Roma");
+		Negozio n2 = new Negozio("Negozio B", "Roma");
+		Negozio n3 = new Negozio("Negozio C", "Milano");
+		ArrayList<Negozio> listaNegozi = new ArrayList<>(Arrays.asList(n1, n2, n3));
+		
+		Acquisto a1 = new Acquisto("Negozio A", 10, "ABCDEF", "Roma");
+		Acquisto a2 = new Acquisto("Negozio A", 10, "GHIJKL", "Napoli");
+		Acquisto a3 = new Acquisto("Negozio A", 10, "MNOPQR", "Palermo");
+		Acquisto a4 = new Acquisto("Negozio B", 10, "MNOPQR", "Palermo");
+		Acquisto a5 = new Acquisto("Negozio B", 20, "GHIJKL", "Napoli");
+		Acquisto a6 = new Acquisto("Negozio C", 20, "MNOPQR", "Palermo");
+		Acquisto a7 = new Acquisto("Negozio C", 20, "ABCDEF", "Roma");
+		ArrayList<Acquisto> listaAcquisti = new ArrayList<>(Arrays.asList(a1, a2, a3, a4, a5, a6, a7));
+	
+		traccia03072020.Sistema s = new traccia03072020.Sistema(listaNegozi, listaAcquisti);
+		
+		Terminale.stampa(s.negoziPreferiti(10));
+		Terminale.stampa(s.clientiEsterniPeriodo(10, 20));
+		Terminale.stampa(s.clientiCittaDiverse());
 	}
 }
