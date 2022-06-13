@@ -13,17 +13,17 @@ public class Sistema {
 	
 	
 	
-	private ArrayList<String> listaValoriMaggiori(ArrayList<String> negozi, ArrayList<Integer> numeroAcquisti) {
+	private ArrayList<String> listaValoriMaggiori(ArrayList<String> chiavi, ArrayList<Integer> valori) {
 		int max = -1;
 		ArrayList<String> ret = new ArrayList<>();
-		for (int i = 0; i < numeroAcquisti.size(); i++) {
-			int numeroAcquistiN = numeroAcquisti.get(i);
-			if (numeroAcquistiN > max) {
+		for (int i = 0; i < valori.size(); i++) {
+			int valoreN = valori.get(i);
+			if (valoreN > max) {
 				ret = new ArrayList<>();
-				ret.add(negozi.get(i));
-				max = numeroAcquistiN;
-			} else if (numeroAcquistiN == max) {
-				ret.add(negozi.get(i));
+				ret.add(chiavi.get(i));
+				max = valoreN;
+			} else if (valoreN == max) {
+				ret.add(chiavi.get(i));
 			}
 		}
 		return ret;
