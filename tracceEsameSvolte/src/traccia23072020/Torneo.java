@@ -25,33 +25,53 @@ public class Torneo {
 		return listaPartite;
 	}
 	
-	public LinkedList<String> squadreCasalinghe() {
-		LinkedList<String> squadre = new LinkedList<>();
-		LinkedList<Integer> vittorie = new LinkedList<>();
-		for (Partita p : listaPartite) {
-			int differenzaReti = p.getGoalSquadraInCasa() - p.getGoalSquadraOspite();
-			if (differenzaReti > 0) {
-				String squadraCasa = p.getNomeSquadraInCasa();
-				if (!(squadre.contains(squadraCasa)))
-					squadre.add(squadraCasa);
-			}
-		}
-
+	private LinkedList<String> listaChiaviAValoriMaggiori(LinkedList<String> chiavi, LinkedList<Integer> valori) {
 		int max = -1;
 		LinkedList<String> ret = new LinkedList<>();
-		ListIterator<String> itSquadre = squadre.listIterator();
-		ListIterator<Integer> itVittorie = vittorie.listIterator();
-		for (; itSquadre.hasNext() && itVittorie.hasNext();) {
-			String squadra = itSquadre.next();
-			int vittoreDi = itVittorie.next();
-			if (vittoreDi > max) {
+		ListIterator<String> itChiavi = chiavi.listIterator();
+		ListIterator<Integer> itValori = valori.listIterator();
+		for (; itChiavi.hasNext() && itValori.hasNext();) {
+			String chiave = itChiavi.next();
+			int valore = itValori.next();
+			if (valore > max) {
 				ret = new LinkedList<>();
-				ret.add(squadra);
-			} else if (vittoreDi == max) {
-				ret.add(squadra);
+				ret.add(chiave);
+				max = valore;
+			} else if (valore == max) {
+				ret.add(chiave);
 			}
 		}
 		return ret;
+	}
+
+	private int contaVittorie(String squadra) {
+		int vittorie = 0;
+		for (Partita p : listaPartite) {
+			if (squadra.equals(p.getNomeSquadraInCasa()) && p.getGoalSquadraInCasa() > p.getGoalSquadraOspite()) {
+				vittorie += 1;
+			}
+		}
+		return vittorie;
+	}
+
+	private LinkedList<String> estraiNomiSquadre() {
+		LinkedList<String> ret = new LinkedList<>();
+		for (Squadra s : listaSquadre) {
+				ret.add(s.getNome());
+		}
+		return ret;
+	}
+
+	public LinkedList<String> squadreCasalinghe() {
+		LinkedList<String> squadre = estraiNomiSquadre();
+		LinkedList<Integer> vittorie = new LinkedList<>();
+		for (int i = 0; i < squadre.size(); i++) vittorie.add(0);
+		for (String s : squadre) {
+			int vittorieS = contaVittorie(s);
+			int indice = squadre.indexOf(s);
+			vittorie.set(indice, vittorieS);
+		}
+		return listaChiaviAValoriMaggiori(squadre, vittorie);
 	}
 	
 	private Squadra trovaSquadra(String nomeSquadraInCasa) {
