@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="Esercitazione0504/src"/>
+	<classpathentry kind="src" path="Esercitazione1105/src"/>
+	<classpathentry kind="src" path="Esercitazione1305/src"/>
+	<classpathentry kind="src" path="Esercitazione1803/src"/>
+	<classpathentry kind="src" path="Esercitazione2004/src"/>
+	<classpathentry kind="src" path="Esercitazione2204/src"/>
+	<classpathentry kind="src" path="Esercitazione2303/src"/>
+	<classpathentry kind="src" path="Esercitazione2704/src"/>
+	<classpathentry kind="src" path="Esercitazione2903+0504/src"/>
+	<classpathentry kind="src" path="Esercitazione2904/src"/>
+	<classpathentry kind="src" path="Lezione0104/src"/>
+	<classpathentry kind="src" path="Lezione0305/src"/>
+	<classpathentry kind="src" path="Lezione0403"/>
+	<classpathentry kind="src" path="Lezione0405/src"/>
+	<classpathentry kind="src" path="Lezione0604/src"/>
+	<classpathentry kind="src" path="Lezione0803/src"/>
+	<classpathentry kind="src" path="Lezione0804/src"/>
+	<classpathentry kind="src" path="Lezione0903/src"/>
+	<classpathentry kind="src" path="Lezione1103/src"/>
+	<classpathentry kind="src" path="Lezione1204/src"/>
+	<classpathentry kind="src" path="Lezione1503/src"/>
+	<classpathentry kind="src" path="Lezione2203/src"/>
+	<classpathentry kind="src" path="Lezione2503/src"/>
+	<classpathentry kind="src" path="Lezione2604/src"/>
+	<classpathentry kind="src" path="Lezione3003/src"/>
+	<classpathentry kind="src" path="tracceEsameSvolte/src"/>
+	<classpathentry kind="output" path="Esercitazione0504/bin"/>
+</classpath>
