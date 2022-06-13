@@ -8,6 +8,7 @@ import traccia18022019.*;
 import traccia20072021.*;
 import traccia23072020.*;
 import traccia03072020.*;
+import traccia20092021.*;
 
 public class Test {
 
@@ -16,7 +17,8 @@ public class Test {
 		// testTraccia16092020();
 		// testTraccia20072021();
 		// testTraccia23072020();
-		testTraccia03072020();
+		// testTraccia03072020();
+		// testTraccia20092021();
 	}
 	
 	public static void testTraccia18022019() {
@@ -157,4 +159,29 @@ public class Test {
 		Terminale.stampa(s.clientiEsterniPeriodo(10, 20));
 		Terminale.stampa(s.clientiCittaDiverse());
 	}
+	
+	public static void testTraccia20092021() {
+		Tennista t1 = new Tennista("Angela");
+		Tennista t2 = new Tennista("Beatrice");
+		Tennista t3 = new Tennista("Carla");
+		Tennista t4 = new Tennista("Daria");
+		Tennista t5 = new Tennista("Elisa");
+		LinkedList<Tennista> listaTennisti = new LinkedList<>(Arrays.asList(t1, t2, t3, t4, t5));
+		
+		Incontro i1 = new Incontro(1, "Elisa", "Daria", "quarto di finale");
+		Incontro i2 = new Incontro(1, "Elisa", "Beatrice", "semifinale");
+		Incontro i3 = new Incontro(1, "Angela", "Carla", "semifinale");
+		Incontro i4 = new Incontro(1, "Angela", "Elisa", "finale");
+		Incontro i5 = new Incontro(2, "Carla", "Beatrice", "quarto di finale");
+		Incontro i6 = new Incontro(2, "Carla", "Angela", "semifinale");
+		LinkedList<Incontro> listaIncontri = new LinkedList<>(Arrays.asList(i1, i2, i3, i4, i5, i6));
+		
+		traccia20092021.Sistema s = new traccia20092021.Sistema(listaTennisti, listaIncontri);
+		
+		Terminale.stampa(s.edizioniOK("Elisa"));
+		Terminale.stampa(s.tennistiFrequenti(2));
+		Terminale.stampa(s.tennistiSorprendenti(1, 2));
+
+	}
+	
 }
