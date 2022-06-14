@@ -9,6 +9,7 @@ import traccia20072021.*;
 import traccia23072020.*;
 import traccia03072020.*;
 import traccia20092021.*;
+import traccia23062021.*;
 
 public class Test {
 
@@ -19,6 +20,7 @@ public class Test {
 		// testTraccia23072020();
 		// testTraccia03072020();
 		// testTraccia20092021();
+		// testTraccia23062021();
 	}
 	
 	public static void testTraccia18022019() {
@@ -181,7 +183,24 @@ public class Test {
 		Terminale.stampa(s.edizioniOK("Elisa"));
 		Terminale.stampa(s.tennistiFrequenti(2));
 		Terminale.stampa(s.tennistiSorprendenti(1, 2));
-
 	}
 	
+	public static void testTraccia23062021() {
+		Operaio o1 = new Operaio("Alberto", 10);
+		Operaio o2 = new Operaio("Gianni", 12);
+		Operaio o3 = new Operaio("Eva", 12);
+		Operaio o4 = new Operaio("Filippo", 8);
+		LinkedList<Operaio> listaOperai = new LinkedList<>(Arrays.asList(o1, o2, o3, o4));
+		
+		Intervento i1 = new Intervento("I1", 1, 10, new LinkedList<String>(Arrays.asList("Alberto", "Filippo")));
+		Intervento i2 = new Intervento("I2", 2, 9, new LinkedList<String>(Arrays.asList("Alberto", "Eva")));
+		Intervento i3 = new Intervento("I3", 3, 8, new LinkedList<String>(Arrays.asList("Alberto", "Gianni", "Eva")));
+		LinkedList<Intervento> listaInterventi = new LinkedList<>(Arrays.asList(i1, i2, i3));
+		
+		traccia23062021.Sistema s = new traccia23062021.Sistema(listaOperai, listaInterventi);
+		
+		Terminale.stampa(s.interventoPiuCostoso(1, 2));
+		Terminale.stampa(s.operaiSemprePresenti(9));
+		Terminale.stampa(s.operaiUtilizzatiConDurateDiverse());
+	}
 }
