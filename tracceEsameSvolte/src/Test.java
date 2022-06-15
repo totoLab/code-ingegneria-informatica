@@ -4,7 +4,7 @@ import terminale.Terminale;
 
 import listaconcatenata.*;
 import traccia16092020.*;
-import traccia18022019.*;
+//import traccia18022019.*;
 import traccia20072021.*;
 import traccia23072020.*;
 import traccia03072020.*;
@@ -199,6 +199,21 @@ public class Test {
 	}
 	*/
 	public static void testTraccia17022021() {
+		Componente c1 = new Componente("C1", 100);
+		Componente c2 = new Componente("C2", 200);
+		Componente c3 = new Componente("C3", 50);
+		Componente c4 = new Componente("C4", 100);
+		LinkedList<Componente> listaComponenti = new LinkedList<>(Arrays.asList(c1, c2, c3, c4));
 		
+		Articolo a1 = new Articolo("Articolo A", 210, new LinkedList<>(Arrays.asList("C1", "C4")));
+		Articolo a2 = new Articolo("Articolo B", 400, new LinkedList<>(Arrays.asList("C1", "C2", "C3")));
+		Articolo a3 = new Articolo("Articolo C", 370, new LinkedList<>(Arrays.asList("C1", "C2","C3")));
+		LinkedList<Articolo> listaArticoli = new LinkedList<>(Arrays.asList(a1, a2, a3));
+		
+		traccia17022021.Sistema s = new traccia17022021.Sistema(listaComponenti, listaArticoli);
+		
+		Terminale.stampa(s.articoloTop());
+		Terminale.stampa(s.componentiUniversali());
+		Terminale.stampa(s.articoliComponentiCostosi(150));
 	}
 }
