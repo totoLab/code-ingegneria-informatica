@@ -10,6 +10,7 @@ import traccia23072020.*;
 import traccia03072020.*;
 import traccia20092021.*;
 import traccia23062021.*;
+import traccia17022021.*;
 
 public class Test {
 
@@ -21,8 +22,9 @@ public class Test {
 		// testTraccia03072020();
 		// testTraccia20092021();
 		// testTraccia23062021();
+		testTraccia17022021();
 	}
-	
+	/*
 	public static void testTraccia18022019() {
 		Cliente c1 = new Cliente("Rossi","Cosenza");
 		Cliente c2 = new Cliente("Bianchi","Torino");
@@ -46,14 +48,6 @@ public class Test {
 		ArrayList<Articolo> listaArticoli = new ArrayList<>();
 		listaArticoli.addAll(Arrays.asList(a1, a2, a3, a4, a5, a6, a7, a8));
 		
-		//for (Cliente c : listaClienti) { Terminale.stampa(c.getNome()); };
-		
-		/* for (Articolo a : listaArticoli) {
-			Terminale.stampa("-------- articolo" + a + "----------");
-			for (Cliente acquirente : a.getListaAcquirenti())
-				Terminale.stampa(acquirente.getNome() + ": " + acquirente.getCitta());
-		}
-		*/
 		traccia18022019.Sistema s = new traccia18022019.Sistema(listaClienti, listaArticoli);
 		Terminale.stampa(s.articoliCitta("Cosenza"));
 		Terminale.stampa(s.acquirentiUnici(2,3));
@@ -202,5 +196,9 @@ public class Test {
 		Terminale.stampa(s.interventoPiuCostoso(1, 2));
 		Terminale.stampa(s.operaiSemprePresenti(9));
 		Terminale.stampa(s.operaiUtilizzatiConDurateDiverse());
+	}
+	*/
+	public static void testTraccia17022021() {
+		
 	}
 }
