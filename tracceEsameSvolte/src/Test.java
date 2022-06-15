@@ -11,6 +11,7 @@ import traccia03072020.*;
 import traccia20092021.*;
 import traccia23062021.*;
 import traccia17022021.*;
+import traccia27012021.*;
 
 public class Test {
 
@@ -22,7 +23,8 @@ public class Test {
 		// testTraccia03072020();
 		// testTraccia20092021();
 		// testTraccia23062021();
-		testTraccia17022021();
+		// testTraccia17022021();
+		testTraccia27012021();
 	}
 	/*
 	public static void testTraccia18022019() {
@@ -215,5 +217,24 @@ public class Test {
 		Terminale.stampa(s.articoloTop());
 		Terminale.stampa(s.componentiUniversali());
 		Terminale.stampa(s.articoliComponentiCostosi(150));
+	}
+	
+	public static void testTraccia27012021() {
+		Fornitore f1 = new Fornitore("F1", "Roma");
+		Fornitore f2 = new Fornitore("F2", "Roma");
+		Fornitore f3 = new Fornitore("F3", "Milano");
+		Fornitore f4 = new Fornitore("F4", "Roma");
+		LinkedList<Fornitore> listaFornitori = new LinkedList<>(Arrays.asList(f1, f2, f3, f4));
+		
+		Merce m1 = new Merce("M1", "Barilla", new LinkedList<>(Arrays.asList("F1", "F4")));
+		Merce m2 = new Merce("M2", "Barilla", new LinkedList<>(Arrays.asList("F1", "F2", "F3")));
+		Merce m3 = new Merce("M3", "Voiello", new LinkedList<>(Arrays.asList( "F3")));
+		LinkedList<Merce> listaMerci = new LinkedList<>(Arrays.asList(m1, m2, m3));
+		
+		traccia27012021.Sistema s = new traccia27012021.Sistema(listaFornitori, listaMerci);
+		
+		Terminale.stampa(s.grandiFornitori());
+		Terminale.stampa(s.fornitoriMonoMarca("Barilla"));
+		Terminale.stampa(s.merciCittaDiverse());
 	}
 }
