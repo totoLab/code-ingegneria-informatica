@@ -328,7 +328,7 @@ public class ListaConcatenataInt
 		return verificaDa(testa, true);
 	}
 	
-	// --------------------------------------------------------- //
+	// ------------------ 20/07/2021 --------------------------- //
 	
 	private boolean verifica0ePoiPositiviDa(NodoInt n, boolean vistoZero) { // manca caso in cui 0 non c'�
 		if (n == null) return true;
@@ -340,7 +340,7 @@ public class ListaConcatenataInt
 		return verifica0ePoiPositiviDa(n.getSuccessivo(), vistoZero);
 	}
 	
-	public boolean verifica0ePoiPositivi() { // traccia20072021
+	public boolean verifica0ePoiPositivi() {
 		if (eVuota()) return false;
 		if (lunghezza == 1 && testa.getInfo() != 0) return false;
 		return verifica0ePoiPositiviDa(testa, false);
