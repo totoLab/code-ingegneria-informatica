@@ -346,5 +346,19 @@ public class ListaConcatenataInt
 		return verifica0ePoiPositiviDa(testa, false);
 	}
 	
+	// ------------------- 03/07/2020 ----------------------- //
 	
+	private boolean alternatiDa(NodoInt n) {
+		if (n == null || n.getSuccessivo() == null) return true;
+		if (n.getInfo() >= 0 != (n.getSuccessivo().getInfo() >= 0)) {
+			return alternatiDa(n.getSuccessivo());
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean alternati() {
+		if (eVuota()) return true;
+		return alternatiDa(testa);
+	}	
 }
