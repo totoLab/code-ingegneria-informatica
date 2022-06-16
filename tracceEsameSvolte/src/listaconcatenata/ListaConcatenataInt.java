@@ -360,5 +360,27 @@ public class ListaConcatenataInt
 	public boolean alternati() {
 		if (eVuota()) return true;
 		return alternatiDa(testa);
-	}	
+	}
+	
+	// ------------------- 23/06/20221 ----------------------- //
+
+	private int numeroScaliniDa(NodoInt n) {
+		if (n == null ||
+			n.getSuccessivo() == null ||
+			n.getSuccessivo().getSuccessivo() == null)
+				return 0;
+		NodoInt successivo = n.getSuccessivo();
+		NodoInt succDelSuccessivo = n.getSuccessivo().getSuccessivo();
+		float media = (successivo.getInfo() + succDelSuccessivo.getInfo()) / 2;
+		if (n.getInfo() < media) {
+			return 1 + numeroScaliniDa(successivo);
+		}
+        return numeroScaliniDa(successivo);
+	}
+	
+	public boolean verifica(int x) { // numero scalini minimo
+		if (eVuota() && x != 0) return false;
+		return numeroScaliniDa(testa) >= x;
+	}
+	
 }
