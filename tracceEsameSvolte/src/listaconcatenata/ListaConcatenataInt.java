@@ -330,7 +330,7 @@ public class ListaConcatenataInt
 	
 	// ------------------ 20/07/2021 --------------------------- //
 	
-	private boolean verifica0ePoiPositiviDa(NodoInt n, boolean vistoZero) { // manca caso in cui 0 non c'�
+	private boolean verifica0ePoiPositiviDa(NodoInt n, boolean vistoZero) { // manca caso con 0 assente
 		if (n == null) return true;
 		if (vistoZero && n.getInfo() < 0) {
 			return false;
