@@ -2,6 +2,8 @@ package listaconcatenata;
 
 import java.util.*;
 
+import terminale.Terminale;
+
 
 class NodoInt
 {	private int info;
@@ -383,4 +385,23 @@ public class ListaConcatenataInt
 		return numeroScaliniDa(testa) >= x;
 	}
 	
+	// ------------------- 23/07/2020 ----------------------- //
+
+	private int contaElementiDa(NodoInt n, int precedente) {
+		if (n == null) return 0;
+        if (n.getSuccessivo() == null) {
+        	return (n.getInfo() < precedente) ? 1 : 0;
+        }
+        int corrente = n.getInfo();
+        int successivo = n.getSuccessivo().getInfo();
+        if (n.getInfo() < (precedente + successivo) / 2) {
+        	return 1 + contaElementiDa(n.getSuccessivo(),corrente);
+        }
+        return contaElementiDa(n.getSuccessivo(), corrente);
+	}
+	
+	public int contaElementi() {
+		if (eVuota()) return 0;
+		return contaElementiDa(testa, 0);
+	}
 }
