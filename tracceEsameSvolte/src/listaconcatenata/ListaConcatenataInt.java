@@ -289,19 +289,15 @@ public class ListaConcatenataInt
 	public int conta(int info)
 	{	return contaDa(testa,info);
 	}
-	/*
+	
+	// ------------------- esercizi esame ----------------------- //
+	
 	private boolean stesseSottoSequenzeDa(NodoInt n) {
+		/*
 		return n == coda || n.getSuccessivo() == coda ||
 				n.getInfo() != n.getSuccessivo().getSuccessivo().getInfo() &&
 					stesseSottoSequenzeDa(n.getSuccessivo());
-	}
-	
-	public boolean stesseSottoSequenze() {
-		if (eVuota() || lunghezza % 2 != 0) return false;
-		return stesseSottoSequenzeDa(testa);
-	}*/
-	
-	private boolean stesseSottoSequenzeDa(NodoInt n) {
+		*/
 		if (n == coda || n.getSuccessivo() == coda) return true;
 		if (n.getInfo() != n.getSuccessivo().getSuccessivo().getInfo()) {
 			return false;
@@ -317,7 +313,24 @@ public class ListaConcatenataInt
 		return stesseSottoSequenzeDa(testa);
 	}
 	
-	private boolean verifica0ePoiPositiviDa(NodoInt n, boolean vistoZero) { // manca caso in cui 0 non c'è
+	// --------------------------------------------------------- //
+	
+	private boolean verificaDa(NodoInt n, boolean posizionePari) {
+		if (n == null || n.getSuccessivo() == null || n.getSuccessivo().getSuccessivo() == null) return true;
+		NodoInt successivoDelSuccessivo = n.getSuccessivo().getSuccessivo();
+		if (posizionePari && 2 * n.getInfo() >= successivoDelSuccessivo.getInfo()) return false;
+		if (!posizionePari && 3 * n.getInfo() >= successivoDelSuccessivo.getInfo()) return false;
+		return verificaDa(n.getSuccessivo(), !posizionePari);
+	}
+	
+	public boolean verifica() {
+		if (lunghezza < 3) return true;
+		return verificaDa(testa, true);
+	}
+	
+	// --------------------------------------------------------- //
+	
+	private boolean verifica0ePoiPositiviDa(NodoInt n, boolean vistoZero) { // manca caso in cui 0 non c'ï¿½
 		if (n == null) return true;
 		if (vistoZero && n.getInfo() < 0) {
 			return false;
@@ -333,16 +346,5 @@ public class ListaConcatenataInt
 		return verifica0ePoiPositiviDa(testa, false);
 	}
 	
-	private boolean verificaDa(NodoInt n, boolean posizionePari) {
-		if (n == null || n.getSuccessivo() == null || n.getSuccessivo().getSuccessivo() == null) return true;
-		NodoInt successivoDelSuccessivo = n.getSuccessivo().getSuccessivo();
-		if (posizionePari && 2 * n.getInfo() >= successivoDelSuccessivo.getInfo()) return false;
-		if (!posizionePari && 3 * n.getInfo() >= successivoDelSuccessivo.getInfo()) return false;
-		return verificaDa(n.getSuccessivo(), !posizionePari);
-	}
 	
-	public boolean verifica() {
-		if (lunghezza < 3) return true;
-		return verificaDa(testa, true);
-	}
 }
