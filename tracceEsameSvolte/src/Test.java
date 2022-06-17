@@ -12,6 +12,7 @@ import traccia20092021.*;
 import traccia23062021.*;
 import traccia17022021.*;
 import traccia27012021.*;
+import traccia17062022.*;
 
 public class Test {
 
@@ -24,7 +25,8 @@ public class Test {
 		// testTraccia20092021();
 		// testTraccia23062021();
 		// testTraccia17022021();
-		testTraccia27012021();
+		// testTraccia27012021();
+		// testTraccia17062022();
 	}
 	/*
 	public static void testTraccia18022019() {
@@ -236,5 +238,27 @@ public class Test {
 		Terminale.stampa(s.grandiFornitori());
 		Terminale.stampa(s.fornitoriMonoMarca("Barilla"));
 		Terminale.stampa(s.merciCittaDiverse());
+	}
+	
+	public static void testTraccia17062022() {
+		Volo v1 = new Volo("Roma", "Milano", 300, 150);
+		Volo v2 = new Volo("Lamezia", "Roma", 200, 120);
+		Volo v3 = new Volo("Lamezia", "Milano", 240, 130);
+		Volo v4 = new Volo("Roma", "Londra", 450, 250);
+		Volo v5 = new Volo("Milano", "Parigi",  350, 200);
+		LinkedList<Volo> listaVoli = new LinkedList<>(Arrays.asList(v1, v2, v3, v4, v5));
+		
+		Prenotazione p1 = new Prenotazione(new LinkedList<String>(Arrays.asList("Lamezia","Roma","Londra")), "Rossi", "business");
+		Prenotazione p2 = new Prenotazione(new LinkedList<String>(Arrays.asList("Roma","Milano","Parigi")), "Rossi", "business");
+		Prenotazione p3 = new Prenotazione(new LinkedList<String>(Arrays.asList("Milano","Parigi")), "Bianchi", "economica");
+		Prenotazione p4 = new Prenotazione(new LinkedList<String>(Arrays.asList("Lamezia","Milano","Parigi")), "Bianchi", "economica");
+		Prenotazione p5 = new Prenotazione(new LinkedList<String>(Arrays.asList("Lamezia","Roma")), "Verdi", "economica");		
+		LinkedList<Prenotazione> listaPrenotazioni = new LinkedList<>(Arrays.asList(p1, p2, p3, p4, p5));
+		
+		traccia17062022.Sistema s = new traccia17062022.Sistema(listaVoli, listaPrenotazioni);
+		
+		Terminale.stampa(s.verificaPrenotazioni());
+		Terminale.stampa(s.voloMax());
+		Terminale.stampa(s.destinazioneComune("Rossi"));
 	}
 }
