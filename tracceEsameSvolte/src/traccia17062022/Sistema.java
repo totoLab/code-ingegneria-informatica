@@ -72,19 +72,17 @@ public class Sistema {
 		}
 		return incasso;
 	}
-
+	
 	private boolean contieneVolo(LinkedList<String> percorso, Volo v) {
 		String partenzaV = v.getPartenza();
 		String arrivoV = v.getArrivo();
 		ListIterator<String> it = percorso.listIterator();
-		for (; it.hasNext(); ) {
-			String partenza = it.next();
-			if (it.hasNext()) {
-				String arrivo = it.next();
-				if (partenzaV.equals(partenza) && arrivoV.equals(arrivo)) {
-					return true;
-				}
-			}
+		String partenza = it.next();
+		while(it.hasNext()) {
+			String arrivo = it.next();
+			if (partenzaV.equals(partenza) && arrivoV.equals(arrivo))
+				return true;
+			partenza = arrivo; 
 		}
 		return false;
 	}
