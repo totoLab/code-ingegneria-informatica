@@ -417,8 +417,8 @@ public class ListaConcatenataInt {
 		return contaElementiDa(testa, 0);
 	}
 	
-	// ------------------- 28-06-2022 - orale per 30 e lode ----------------------- //
-	
+	// ------------------- 28-06-2022 - orale per 30 e lode -----------------------
+
 	public ListaConcatenataInt inversione() {
 		if (eVuota())
 			return this;
