@@ -404,4 +404,23 @@ public class ListaConcatenataInt
 		if (eVuota()) return 0;
 		return contaElementiDa(testa, 0);
 	}
+	
+	// ------------------- 28-06-2022 - orale per 30 e lode ----------------------- //
+	
+	public ListaConcatenataInt inversione() {
+		if (eVuota()) return this;
+		return inversioneDa(testa);
+	}
+	
+	private ListaConcatenataInt inversioneDa(NodoInt n) {
+		if (n.getSuccessivo() == null) {
+			ListaConcatenataInt l = new ListaConcatenataInt();
+			l.aggiungiInCoda(n.getInfo());
+			return l;
+		}
+		rimuoviTesta();
+		inversioneDa(n.getSuccessivo()).aggiungiInCoda(n.getInfo());
+		return this;
+	}
+	
 }
