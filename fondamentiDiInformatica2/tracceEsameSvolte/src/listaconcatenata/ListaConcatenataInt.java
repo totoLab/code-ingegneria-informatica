@@ -416,7 +416,35 @@ public class ListaConcatenataInt {
 			return 0;
 		return contaElementiDa(testa, 0);
 	}
-	
+
+	// ------------------- 11/07/2022 ----------------------- //
+
+	private boolean verificaOrdinamentoDa(NodoInt n, int prec) {
+		if (n == null || n.getSuccessivo() == null)
+			return true;
+		int valore = n.getInfo();
+		if (valore >= 0 == prec >= 0) {
+			if (prec >= 0) {
+				if (valore > prec) {
+					return false;
+				}
+			} else {
+				if (valore < prec) {
+					return false;
+				}
+			}
+		} else {
+			prec = valore;
+		}
+		return verificaOrdinamentoDa(n.getSuccessivo(), prec);
+	}
+
+	public boolean verificaOrdinamento() {
+		if (lunghezza < 2)
+			return true;
+		return verificaOrdinamentoDa(testa.getSuccessivo(), testa.getInfo());
+	}
+
 	// ------------------- 28-06-2022 - orale per 30 e lode -----------------------
 
 	public ListaConcatenataInt inversione() {
