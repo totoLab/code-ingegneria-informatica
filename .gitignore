@@ -23,7 +23,7 @@
 hs_err_pid*
 
 # compilation
-*/bin/
+*/bin/*
 
 # metadata files
 .metadata/
