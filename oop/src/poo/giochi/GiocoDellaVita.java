@@ -1,3 +1,4 @@
+package poo.giochi;
 public class GiocoDellaVita{
 	private char [][]mappa;
 	private char [][]nuovaMappa;
@@ -45,7 +46,7 @@ public class GiocoDellaVita{
 				else
 					nuovaMappa[i][j]=( v==3 ) ? '*' : '.';
 			}
-		char[][] tmp=mappa;
+		char[][] tmp=mappa; //scambia mappa e nuovaMappa
 		mappa=nuovaMappa;
 		nuovaMappa=tmp;
 	}//prossimaGenerazione

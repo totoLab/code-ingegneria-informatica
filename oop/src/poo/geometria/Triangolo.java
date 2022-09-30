@@ -1,6 +1,9 @@
+package poo.geometria;
+
 public class Triangolo{
 	private Punto p1,p2,p3; //variabili di istanza o campi 2- stato di un punto
 	private double a, b, c;
+	public enum Tipo{ ISOSCELE, EQUILATERO, SCALENO }
 
 	public Triangolo( Punto p1, Punto p2, Punto p3){ //costruttore normale
 		a=p1.distanza(p2);
@@ -21,8 +24,10 @@ public class Triangolo{
 		return v;
 	}//getVertici
 
-    public String tipo(){
-		return "NON SO"; //TODO
+    public Tipo tipo(){
+		if( a==b && b==c && a==c ) return Tipo.EQUILATERO;
+		if( a==b || b==c || a==c ) return Tipo.ISOSCELE;
+		return Tipo.SCALENO;
 	}//tipo
 
 	public double perimetro(){
@@ -47,6 +52,8 @@ public class Triangolo{
 		p.muovi( -3, 5 );
 		System.out.println(t);
 		System.out.println("area="+t.area()+" perimetro="+t.perimetro());
+		Triangolo.Tipo tipo=t.tipo();
+		System.out.println("Tipo triangolo="+tipo);
 	}//main
 
 }//Triangolo

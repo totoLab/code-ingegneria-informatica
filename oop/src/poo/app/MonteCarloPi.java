@@ -1,3 +1,6 @@
+package poo.app;
+import poo.geometria.Punto;
+
 public class MonteCarloPi{
 	public static void main( String[] args ){
 		final int N=1000000;

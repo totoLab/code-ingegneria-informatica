@@ -1,3 +1,5 @@
+package poo.geometria; //DEVE ESSERE SEMPRE LA PRIMA LINEA!!!!
+
 public class Punto{
 	private double x, y; //variabili di istanza o campi 2- stato di un punto
 	public Punto(){//costruttore di default
