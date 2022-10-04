@@ -4,33 +4,22 @@ public final class Matrix {
 	private Matrix() {}
 	
 	public static int[][] add( int[][]a, int[][] b ){
-		for( int i=0; i<a.length; ++i )
-			if( a[i].length != a.length )
-				throw new IllegalArgumentException("Matrici non quadrate.");
-		for( int i=0; i<b.length; ++i )
-			if( b[i].length != b.length )
-				throw new IllegalArgumentException("Matrici non quadrate.");	
-		if( a.length != b.length )
-			throw new IllegalArgumentException("Matrici non quadrate.");
-
-		int[][] sum=new int[a.length][a.length];
-		for( int i=0; i<a.length; ++i )
-			for( int j=0; j<a.length; ++j )
+		if (!(eQuadrata(a) && eQuadrata(b))) throw new IllegalArgumentException("Matrici non quadrate.");
+		if (a.length != b.length) throw new IllegalArgumentException("Matrici di ordine diverso");
+		
+		int n = a.length;
+		int[][] sum = new int[n][n];
+		for( int i=0; i<n; i++ )
+			for( int j=0; j<n; j++)
 				sum[i][j]=a[i][j]+b[i][j];
 		return sum;
 	}//add
 	
 	public static int[][] mul( int[][]a, int[][]b ){
-		for( int i=0; i<a.length; ++i )
-			if( a[i].length != a.length )
-				throw new IllegalArgumentException("Matrici non quadrate.");
-		for( int i=0; i<b.length; ++i )
-			if( b[i].length != b.length )
-				throw new IllegalArgumentException("Matrici non quadrate.");	
-		if( a.length != b.length )
-			throw new IllegalArgumentException("Matrici non quadrate.");
-		int[][] prod=new int[a.length][a.length];
-		int n=a.length;
+		if (!(eQuadrata(a) && eQuadrata(b))) throw new IllegalArgumentException("Matrici non quadrate.");
+		if (a.length != b.length) throw new IllegalArgumentException("Matrici di ordine diverso");
+		int n = a.length;
+		int[][] prod=new int[n][n];
 		
 		for( int i=0; i<n; ++i )
 			for( int j=0; j<n; ++j ) {
@@ -42,6 +31,15 @@ public final class Matrix {
 		return prod;
 	}//mul
 	
+	private static boolean eQuadrata(int[][] m) {
+		for (int i = 0; i < m.length; i++ ) {
+			if( m[i].length != m.length ) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	public static double[][] add( double[][] m1, double[][] m2 ){
 		//accetta due matrici quadrate o rettangolari compatibili alla somma
 		//crea e restituisce la matrice somma di m1 ed m2
