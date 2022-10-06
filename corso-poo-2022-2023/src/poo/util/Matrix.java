@@ -117,7 +117,7 @@ public final class Matrix {
 	public static void print( double[][] m ) {
 		for( int i=0; i<m.length; ++i ) {
 			for(int j=0; j<m[0].length; ++j )
-				System.out.printf( "%7.2d", m[i][j] );
+				System.out.printf( "%7.2f", m[i][j] );
 			System.out.println();
 		}		
 	}//print
