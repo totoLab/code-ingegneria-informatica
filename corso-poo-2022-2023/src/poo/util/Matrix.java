@@ -137,11 +137,11 @@ public final class Matrix {
 		};
 		System.out.println();
 		System.out.println("Seconda matrice m2:");
+		Matrix.print(m2);
 		int[][] m3={//2*4
 				{2,5,1,7},
 				{3,8,4,6}
 		};
-		Matrix.print(m2);
 		System.out.println();
 		System.out.println("Terza matrice m3:");
 		Matrix.print(m3);
