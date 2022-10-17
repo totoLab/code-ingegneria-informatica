@@ -7,29 +7,40 @@ public class Anagrafe {
 	private Persona[] elenco;
 	private int numeroPersone = 0;
 	
-	public Anagrafe() {
+	private final boolean dimDinamica;
+	
+		public Anagrafe() {
 		this(100);
 	}
 	
 	public Anagrafe(int dim) {
+		this(dim, false);
+	}
+	
+	public Anagrafe(int dim, boolean dimDinamica) {
 		if (dim <= 0) throw new IllegalArgumentException();
 		elenco = new Persona[dim];
 		numeroPersone = 0;
+		this.dimDinamica = dimDinamica;
 	}
 	
 	public Anagrafe(Persona[] elenco, int dim) {
+		this(elenco, dim, false);
+	}
+	
+	public Anagrafe(Persona[] elenco, int dim, boolean dimDinamica) {
 		if (dim >= elenco.length) throw new IllegalArgumentException();
 		this.elenco = new Persona[dim];
 		
 		for (int i = 0; i < elenco.length; i++) {
 			this.elenco[i] = elenco[i];
-			
-		numeroPersone = elenco.length;
 		}
+		numeroPersone = elenco.length;
+		this.dimDinamica = dimDinamica;
 	}
 	
 	public Anagrafe(Anagrafe a) {
-		this(a.elenco, a.numeroPersone);
+		this(a.elenco, a.numeroPersone, false);
 	}
 	
 	public boolean aggiungi(Persona p) {

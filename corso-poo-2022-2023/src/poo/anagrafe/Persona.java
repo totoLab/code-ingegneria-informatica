@@ -1,4 +1,6 @@
 package poo.anagrafe;
+import java.util.Objects;
+
 import poo.util.Data;
 import poo.util.Data.Tipologia;
 
@@ -134,4 +136,23 @@ public class Persona {
 			
 		return sb.toString();
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Persona other = (Persona) obj;
+		return Objects.equals(cognome, other.cognome) && Objects.equals(dataDiNascita, other.dataDiNascita)
+				&& maggiorenne == other.maggiorenne && Objects.equals(nome, other.nome)
+				&& Objects.equals(numTel, other.numTel) && s == other.s && Objects.equals(sposatoCon, other.sposatoCon);
+	}
+
+	
+
+	
+	
 }
