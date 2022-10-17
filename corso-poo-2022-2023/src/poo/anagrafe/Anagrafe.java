@@ -44,7 +44,14 @@ public class Anagrafe {
 	}
 	
 	public boolean aggiungi(Persona p) {
-		if (numeroPersone >= elenco.length) return false;
+		if (numeroPersone >= elenco.length) {
+			if (dimDinamica) {
+				resize(); // piena ed espandibile
+			} else {
+				return false; // piena e BASTA
+			}
+		}
+			
 		for (int i = 0; i < numeroPersone; i++) {
 			if (p.getNome().equals(elenco[i].getNome())
 					&& p.getCognome().equals(elenco[i].getCognome())) {
@@ -61,7 +68,14 @@ public class Anagrafe {
 	}
 	
 	public boolean anagrafePiena() {
+		if (dimDinamica) return false;
 		return elenco.length == numeroPersone;
+	}
+	
+	private void resize() {
+		Persona[] nuovoElenco = new Persona[elenco.length * 2];
+		System.arraycopy(elenco, 0, nuovoElenco, 0, numeroPersone);
+		this.elenco = nuovoElenco;
 	}
 	
 	public int trovaIndice(Persona p) {
