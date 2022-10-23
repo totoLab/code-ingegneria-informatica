@@ -1,13 +1,12 @@
 package poo.anagrafe;
-import java.util.Objects;
 
 import poo.util.Data;
-import poo.util.Data.Tipologia;
 
 public class Persona {
-
+	
 	public enum Sesso {Maschile, Femminile}
-	public enum StatoCivile {Celibe, Nubile, Coniugato, Coniugata}
+	
+	public enum StatoCivile{Celibe, Nubile, Coniugato, Coniugata}
 	
 	private String nome;
 	private String cognome;
@@ -19,123 +18,97 @@ public class Persona {
 	private boolean maggiorenne;
 	
 	public Persona(String nome, String cognome, Data dataDiNascita, Sesso s) {
-		this.nome = nome;
-		this.cognome = cognome;
-		this.dataDiNascita = dataDiNascita;
-		this.s = s;
-		this.maggiorenne = isMaggiorenne();
+		this.nome=nome;
+		this.cognome=cognome;
+		this.dataDiNascita=dataDiNascita;
+		this.s=s;
+		this.maggiorenne=isMaggiorenne();
 	}
 	
 	public Persona(Persona p) {
-		if (p == null) throw new IllegalArgumentException();
-		this.nome = p.nome;
-		this.cognome = p.cognome;
-		this.dataDiNascita = p.dataDiNascita;
-		this.s = p.s;
-		this.numTel = p.numTel;
-		this.sposatoCon = p.sposatoCon; // aliasing ok 
-		this.maggiorenne = p.maggiorenne;
+		if (p==null)
+			throw new IllegalArgumentException();
+		this.cognome=p.cognome;
+		this.nome=p.nome;
+		this.s=p.s;
+		this.dataDiNascita=p.dataDiNascita;
+		this.numTel=p.numTel;
+		this.maggiorenne=p.maggiorenne;
+		this.sposatoCon=p.sposatoCon;
 	}
-
-	public String getNome() {
-		return nome;
-	}
-
+	
 	public String getCognome() {
 		return cognome;
 	}
-
-	public Sesso getS() {
-		return s;
+	
+	public String getNome() {
+		return nome;
 	}
-
+	
 	public Data getDataDiNascita() {
 		return dataDiNascita;
 	}
-
-	public String getNumTel() {
+	
+	public String getNumTel(){
 		return numTel;
 	}
 	
 	public void setNumTel(String n) {
-		if (n == null) throw new IllegalArgumentException();
-		this.numTel = n;
-	}
-
-	public Persona getSposatoCon() {
-		return sposatoCon;
+		if (n==null)
+			throw new IllegalArgumentException();
+		this.numTel=n;
 	}
 	
 	private boolean isMaggiorenne() {
+		boolean maggiorenne;
 		Data dataOdierna = new Data();
-		int condizioneAnno = dataOdierna.get(Tipologia.ANNO) - dataDiNascita.get(Tipologia.ANNO);
-		int condizioneMese = dataOdierna.get(Tipologia.MESE) - dataDiNascita.get(Tipologia.MESE);
-		int condizioneGiorno = dataOdierna.get(Tipologia.GIORNO) - dataDiNascita.get(Tipologia.GIORNO);
-		
-		if (condizioneAnno > 18) {
-			return true;
-		} else if (condizioneAnno < 18) {
-			return false;
-		} else {
-			
-			if (condizioneMese > 0) {
-				return true;
-			} else if (condizioneMese < 0) {
-				return false;
-			} else {
-				
-				if (condizioneGiorno >= 0) {
-					return true;
-				} else {
-					return false;
-				}
-			}
-		}
-	}
-
-	public boolean maggiorenne() {
-		if (maggiorenne) return true;
-		
-		this.maggiorenne = isMaggiorenne();
+		if (dataOdierna.get(Data.Tipologia.Anno)-dataDiNascita.get(Data.Tipologia.Anno)>18)
+			maggiorenne=true;
+		else if (dataOdierna.get(Data.Tipologia.Anno)-dataDiNascita.get(Data.Tipologia.Anno)<18)
+			maggiorenne=false;
+		else if (dataOdierna.get(Data.Tipologia.Mese)>dataDiNascita.get(Data.Tipologia.Mese))
+			maggiorenne=true;
+		else if (dataOdierna.get(Data.Tipologia.Mese)<dataDiNascita.get(Data.Tipologia.Mese))
+			maggiorenne=false;
+		else maggiorenne=(dataOdierna.get(Data.Tipologia.Giorno)>=dataDiNascita.get(Data.Tipologia.Giorno));
 		return maggiorenne;
 	}
 	
-	public StatoCivile getStatoCivile() {
-		
-		return null;
-	}
-
-	public boolean sposaCon(Persona p) {
-		if (p == null) throw new IllegalArgumentException();
-		if (this == p) return false;
-		if (!this.maggiorenne() || !p.maggiorenne()) return false;
-		if (this.sposatoCon != null || p.sposatoCon != null) return false;
-		
-		this.sposatoCon = p;
-		p.sposatoCon = this;
-		return true;
+	
+	public boolean maggiorenne() {
+		if (maggiorenne==true)
+			return maggiorenne;
+		maggiorenne = isMaggiorenne();
+		return maggiorenne;
 	}
 	
-	public String toStringRidotto() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("Cognome: ").append(this.cognome).append("\n");
-		sb.append("Nome: ").append(this.nome).append("\n");
-		
-		return sb.toString();
+	
+	
+	public boolean sposaCon(Persona p) {
+		if (p==null)
+			throw new IllegalArgumentException();
+		if (this==p)
+			return false;
+		if(!this.maggiorenne()||!p.maggiorenne())
+			return false;
+		if(this.sposatoCon!=null||p.sposatoCon!=null)
+			return false;
+		this.sposatoCon=p;
+		p.sposatoCon=this;
+		return true;
 	}
 	
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Cognome: ").append(this.cognome).append("\n");
-		sb.append("Nome: ").append(this.nome).append("\n");
-		sb.append("Sesso: ").append(this.s).append("\n");
-		sb.append("Data di nascita: ").append(this.dataDiNascita).append("\n");
-		sb.append("Maggiorenne: ").append(this.maggiorenne).append("\n");
-		sb.append("Numero di telefono: ").append(this.numTel).append("\n");
-		sb.append("Cognome: ").append(this.sposatoCon.toStringRidotto()).append("\n");
-			
+		
+		sb.append("Cognome:").append(this.cognome).append('\n');
+		sb.append("Nome:").append(this.nome).append('\n');
+		sb.append(this.sposatoCon.cognome);
+		
 		return sb.toString();
+		
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -146,13 +119,30 @@ public class Persona {
 		if (getClass() != obj.getClass())
 			return false;
 		Persona other = (Persona) obj;
-		return Objects.equals(cognome, other.cognome) && Objects.equals(dataDiNascita, other.dataDiNascita)
-				&& maggiorenne == other.maggiorenne && Objects.equals(nome, other.nome)
-				&& Objects.equals(numTel, other.numTel) && s == other.s && Objects.equals(sposatoCon, other.sposatoCon);
+		if (cognome == null) {
+			if (other.cognome != null)
+				return false;
+		} else if (!cognome.equals(other.cognome))
+			return false;
+		if (dataDiNascita == null) {
+			if (other.dataDiNascita != null)
+				return false;
+		} else if (!dataDiNascita.equals(other.dataDiNascita))
+			return false;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		if (s != other.s)
+			return false;
+		return true;
 	}
-
+	
+	
+	
+	
+	
 	
 
-	
-	
 }

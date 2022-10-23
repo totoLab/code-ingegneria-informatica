@@ -1,35 +1,37 @@
 package poo.util;
 
-public final class Mat{
-	private Mat(){}
-
-	private static double EPSILON=1.0E-10;
-
-	public static int mcd( int x, int y ){
-		if( x<=0 || y<=0 ) throw new IllegalArgumentException();
-		return mcd_euclide(x,y);
-	}//mcd
-
-	private static int mcd_euclide( int x, int y ){
-		if( y==0 ) return x;
-		return mcd_euclide(y,x%y);
-	}//mcd_euclide
-
-	public static int mcm( int x, int y ){
-		if( x<=0 || y<=0  ) throw new IllegalArgumentException();
-		return (x*y)/mcd_euclide(x,y);
-	}//mcm
-
-	public static void setEpsilon( final double EPS ){
-		if( EPS<=0 ) throw new IllegalArgumentException();
-		EPSILON=EPS;
-	}//setEpsilon
-
-	public static double getEpsilon(){ return EPSILON; }
-
-	public static boolean sufficientementeProssimi( double x, double y ){
-		if( Math.abs(x-y)<=EPSILON ) return true;
+public class Mat {
+	
+	
+	private Mat() {}
+	
+	public static int mcd(int n, int m) {
+		if (n<0 || m<0)
+			throw new IllegalArgumentException("Parametri errati");
+		if (m==0) return n;
+		return mcd(m, n%m);
+	}
+	
+	public static int mcm(int n, int m) {
+		if (n<0 || m<0)
+			throw new IllegalArgumentException("Parametri errati");
+		return (n*m)/mcd(n,m);
+	}
+	
+	public static boolean sufficientementeProssimi(double x1, double x2) {
+		if ( Math.abs(x1-x2)<=EPSILON )
+			return true;
 		return false;
-	}//sufficientementeProssimi
+	}
+	
+	private static double EPSILON=0.000000001; 
+	
+	public static void setEpsilon(double eps) {
+		EPSILON=eps;
+	}
+	
+	public static double getEpsolon() {
+		return EPSILON;
+	}
 
-}//Mat
+}

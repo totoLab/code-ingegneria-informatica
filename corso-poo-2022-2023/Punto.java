@@ -1,7 +1,5 @@
-package poo.geometria;
+public class Punto{
 
-public class Punto {
-	
 	private double x,y;
 
 	public Punto(double xx, double yy){
@@ -40,7 +38,5 @@ public class Punto {
 	public String toString(){
 		return "<"+x+","+y+">";
 	}
-	
-	
 
 }

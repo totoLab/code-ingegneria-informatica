@@ -1,59 +1,83 @@
 package poo.geometria;
 
-public class Triangolo{
-	private Punto p1,p2,p3; //variabili di istanza o campi 2- stato di un punto
-	private double a, b, c;
-	public enum Tipo{ ISOSCELE, EQUILATERO, SCALENO }
-
-	public Triangolo( Punto p1, Punto p2, Punto p3){ //costruttore normale
-		a=p1.distanza(p2);
-		b=p2.distanza(p3);
-		c=p3.distanza(p1);
-		if( a>=b+c || b>=a+c || c>=a+b )
-			throw new IllegalArgumentException("Triangolo insistente.");
-		this.p1=new Punto(p1); this.p2=new Punto(p2); this.p3=new Punto(p3); // NO aliasing
+public class Triangolo {
+	
+	private Punto p1,p2,p3;
+	
+	private double a,b,c;
+	
+	
+	public Triangolo(Punto p1, Punto p2, Punto p3) {
+		if (p1==null || p2==null || p3==null){
+			System.out.println("Parametri errati");
+			System.exit(-1);
+		}
+		this.p1=new Punto(p1);
+		this.p2=new Punto(p2);
+		this.p3=new Punto(p3);
+		a = p1.distanza(p2);
+		b = p2.distanza(p3);
+		c = p3.distanza(p1);
+		if (a>=b+c || b>=a+c || c>=a+b) {
+			System.out.println("Trinagolo inesistente");
+			System.exit(-1);
+		}
 	}
-	public Triangolo( Triangolo t ){ //costruttore di copia
-		p1=new Punto(t.p1); p2=new Punto(t.p2); p3=new Punto(t.p3);
-		a=t.a; b=t.b; c=t.c;
+	
+	/*
+	public Triangolo(Triangolo t) {
+		if (t==null) {
+			System.out.println("Trinagolo inesistente");
+			System.exit(-1);
+		}
+		p1=new Punto(t.p1);
+		p2=new Punto(t.p2);
+		p3=new Punto(t.p3);
+		a=t.a;
+		b=t.b;
+		b=t.c;
+	}*/
+	public Triangolo(Triangolo t) {
+		this(t.p1,t.p2,t.p3);
 	}
-	//metodi accessori getter
-	public Punto[] getVertici(){
-		Punto[] v=new Punto[3]; /*un array di 3 punti*/
-		v[0]=new Punto(p1); v[1]=new Punto(p2); v[2]=new Punto(p3);
-		return v;
-	}//getVertici
-
-    public Tipo tipo(){
-		if( a==b && b==c && a==c ) return Tipo.EQUILATERO;
-		if( a==b || b==c || a==c ) return Tipo.ISOSCELE;
-		return Tipo.SCALENO;
-	}//tipo
-
-	public double perimetro(){
+	
+	
+	public double getA() {return a;}
+	public double getB() {return b;}
+	public double getC() {return c;}
+	
+	public double perimetro() {
 		return a+b+c;
-	}//perimetro
-
-	public double area(){
-		double s=perimetro()/2;
-		return Math.sqrt( s*(s-a)*(s-b)*(s-c) );
-	}//area
-
-	public String toString(){
-		return "Triangolo("+p1+","+p2+","+p3+")"; //return "x="+x+" y="+y;
-    }//toString
-
-	public static void main( String[] args ){
-		Punto p=new Punto();
-		Punto q=new Punto(7,-4);
-		Punto r=new Punto(12,10);
-		Triangolo t=new Triangolo(p,q,r);
+	}
+	
+	
+	private double area=-1;
+	public double area() {
+		if (area>=0)
+			return area;
+		double s=this.perimetro()/2;
+		area = Math.sqrt(  s*(s-a)*(s-b)*(s-c) );
+		return area;
+		
+	}
+	
+	public String toString() {
+		return "Triangolo con vertici "+p1+" "+p2+" "+p3;
+	}
+	
+	public static void main(String arg[]) {
+		
+		Punto primo = new Punto(1,1);
+		Punto secondo= new Punto(10,15);
+		Punto terzo= new Punto(20,20);
+		
+		Triangolo t = new Triangolo(primo, secondo, terzo);
+		
 		System.out.println(t);
-		p.muovi( -3, 5 );
-		System.out.println(t);
-		System.out.println("area="+t.area()+" perimetro="+t.perimetro());
-		Triangolo.Tipo tipo=t.tipo();
-		System.out.println("Tipo triangolo="+tipo);
-	}//main
+		System.out.println("Area: "+t.area()+" - Perimetro:"+t.perimetro());
+		
+		System.out.printf("Area=%1.2f - Perimetro=%1.2f",t.area(),t.perimetro());
+	}
+	
 
-}//Triangolo
+}
