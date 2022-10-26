@@ -6,12 +6,20 @@ public class Stanza {
 	private double prezzo;
 	private String nome;
 	
-	
 	public Stanza(int numPosti, double prezzo, String nome) {
-		this.numPosti=numPosti;
-		this.libera=true;
-		this.prezzo=prezzo;
-		this.nome=nome;
+		this.numPosti = numPosti;
+		this.libera = true;
+		this.prezzo = prezzo;
+		this.nome = nome;
+	}
+	
+	public int getNumPosti() {
+		return numPosti;
+	}
+	
+	private void setNumPosti(int numPosti) {
+		if (!(numPosti > 0)) throw new IllegalArgumentException();
+		this.numPosti = numPosti;
 	}
 	
 	public boolean getLibera() {
@@ -27,9 +35,20 @@ public class Stanza {
 	}
 	
 	public void liberaStanza() {
-		this.libera=true;
+		this.libera = true;
 	}
 	
-	// TODO getters and setters
+	public double getPrezzo() {
+		return prezzo;
+	}
+	
+	private void setPrezzo(double prezzo) {
+		if (prezzo < 0) throw new IllegalArgumentException();
+		this.prezzo = prezzo;
+	}
+	
+	public String getNome() {
+		return nome;
+	}
 
 }
