@@ -101,6 +101,25 @@ public class Anagrafe {
 	}
 	
 	
-	public Persona[] ricerca(String cognome) {return null;}
+	public Persona[] ricerca(String cognome) {
+		int index = 0;
+		for (int i = 0; i < numeroPersone; i++) {
+		Persona p = elenco[i];
+			if (p.getCognome().equals(cognome)) {
+				index++;
+			}
+		}
+		 		
+		Persona[] ret = new Persona[index];
+		index = 0;
+		for (int i = 0; i < numeroPersone || index < ret.length; i++) {
+			Persona p = elenco[i];
+			if (p.getCognome().equals(cognome)) {
+				ret[index] = elenco[i];
+				index++;
+			}
+		}
+		return ret;
+	}
 
 }
