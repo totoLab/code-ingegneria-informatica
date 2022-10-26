@@ -1,0 +1,7 @@
+# stanze e prenotazioni
+handling nuove prenotazioni:
+- decentralizzato:
+ogni stanza dovrebbe avere un dizionario (HashMap) con i giorni in cui è stata prenotata a cui poter accedere per definire lo stato di "libera". la prenotazione dovrebbe controllare lo stato tramite una funzione offerta da stanza e modificarlo se la stanza è libera per renderla occupata (come ultima cosa nel costruttore)
+
+- centralizzato:
+nuovo oggetto CalendarioPrenotazioni che mette in relazione ogni stanza con una data in cui essa è stata prenotata
