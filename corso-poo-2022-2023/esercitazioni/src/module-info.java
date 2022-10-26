@@ -1,9 +1,0 @@
-/**
- * 
- */
-/**
- * @author toto
- *
- */
-module esercitazioni {
-}
