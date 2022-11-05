@@ -25,7 +25,7 @@ public abstract class MatriceQuadrataAbstract implements MatriceQuadrata {
 	}
 	
 	public boolean validBounds(int row, int col) {
-		return row <= ordine && col <= ordine;
+		return row < ordine && col < ordine;
 	}
 	
 	public abstract int getEl(int row, int col);
