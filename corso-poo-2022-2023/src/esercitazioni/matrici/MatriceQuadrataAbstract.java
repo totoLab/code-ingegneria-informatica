@@ -9,17 +9,6 @@ public abstract class MatriceQuadrataAbstract implements MatriceQuadrata {
 		this.ordine = ordine;
 	}
 	
-	public MatriceQuadrataAbstract(MatriceQuadrata m) {
-		this(m.getOrdine());
-		int ordine = m.getOrdine();
-		for (int i = 0; i < ordine; i++) {
-			for (int j = 0; j < ordine; j++) {
-				this.setEl(
-						m.getEl(i, j), i, j);
-			}
-		}
-	}
-	
 	public int getOrdine() {
 		return this.ordine;
 	}
