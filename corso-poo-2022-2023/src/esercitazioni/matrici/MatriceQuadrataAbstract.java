@@ -75,7 +75,11 @@ public abstract class MatriceQuadrataAbstract implements MatriceQuadrata {
 					sb.append(", ");
 				}
 			}
-			sb.append("],\n");
+			if (i != ordine - 1) {
+				sb.append("],\n");
+			} else {
+				sb.append("]\n");
+			}
 		}
 		sb.append("]\n");
 		
