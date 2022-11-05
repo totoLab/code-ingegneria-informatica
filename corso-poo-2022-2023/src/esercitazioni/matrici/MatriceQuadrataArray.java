@@ -35,16 +35,16 @@ public class MatriceQuadrataArray extends MatriceQuadrataAbstract {
 		if (!validBounds(row, col)) throw new IndexOutOfBoundsException();
 		// TODO: catch exception to test correct behavior
 
-		return array[row * ordine + col];
+		return array[row * this.ordine + col];
 	}
 
 	@Override
 	public void setEl(int newEl, int row, int col) {
 		if (!validBounds(row, col)) throw new IndexOutOfBoundsException();
-		array[row * ordine + col] = newEl;
+		array[row * this.ordine + col] = newEl;
 	}
 	
-	/* below methots are made with the assumption of a null-matrix constructor
+	/* below methods are made with the assumption of a null-matrix constructor
 	@Override
 	public MatriceQuadrata add(MatriceQuadrata m) {
 		MatriceQuadrata result = new MatriceQuadrataArray(ordine);
