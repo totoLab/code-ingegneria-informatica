@@ -61,4 +61,25 @@ public abstract class MatriceQuadrataAbstract implements MatriceQuadrata {
     }
     
     public abstract MatriceQuadrata mul(MatriceQuadrata m);
+    
+    @Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder(100);
+		int ordine = this.getOrdine();
+		sb.append("[\n");
+		for (int i = 0; i < ordine; i++) {
+			sb.append("    [");
+			for (int j = 0; j < ordine; j++) {
+				sb.append(this.getEl(i, j));
+				if (j != ordine - 1) {
+					sb.append(", ");
+				}
+			}
+			sb.append("],\n");
+		}
+		sb.append("]\n");
+		
+		return sb.toString();
+	}
+
 }
