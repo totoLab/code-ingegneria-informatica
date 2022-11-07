@@ -10,11 +10,15 @@ public class ArrayVector extends AbstractVector {
 	}
 	
 	private void espandi() { // raddoppia array
-		
+		Object[] arrayDoppio = new Object[array.length * 2];
+		System.arraycopy(array, 0, arrayDoppio, 0, size());
+		array = arrayDoppio;
 	}
 	
 	private void contrai() { // dimezza array
-		
+		Object[] arrayMezzo = new Object[array.length / 2];
+		System.arraycopy(array, 0, arrayMezzo, 0, size() / 2);
+		array = arrayMezzo;
 	}
 	
 	@Override
