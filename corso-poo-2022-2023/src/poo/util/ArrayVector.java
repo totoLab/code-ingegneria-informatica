@@ -32,13 +32,28 @@ public class ArrayVector extends AbstractVector {
 
 	@Override
 	public Object set(int index, Object el) {
-		// TODO Auto-generated method stub
-		return null;
+		if (index < 0 || index >= size()) {
+			throw new IndexOutOfBoundsException();
+		}
+		if (el == null) {
+			throw new IllegalArgumentException();
+		}
+			
+		Object old = array[index];
+		array[index] = el;
+		return old;
 	}
 
 	@Override
-	public void add(int index, Object elem) {
-		// TODO Auto-generated method stub
+	public void add(int index, Object el) {
+		//checks
+		
+		if (size() == array.length) espandi();
+		for (int i = size() - 1; i >= index; i--) {
+			array[i + 1] = array[i];
+		}
+		array[index] = el;
+		size++;
 
 	}
 
