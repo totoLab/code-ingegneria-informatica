@@ -48,7 +48,20 @@ public abstract class AbstractVector implements Vector {
 		return size() == 0;
 	}
 	
-	abstract public Vector subVector(int da, int a);
+	abstract protected Vector newInstanceVector();
+	
+	@Override
+	public Vector subVector(int da, int a) {
+		if (!(da >= 0 && a < this.size() && da <= a)) {
+			throw new IndexOutOfBoundsException();
+		}
+		
+		Vector v = newInstanceVector(); // factoring
+		for (int i = da; i < a; i++) {
+			v.add(this.get(i));
+		}
+		return v;
+	}
 	
 	@Override
 	public String toString() {

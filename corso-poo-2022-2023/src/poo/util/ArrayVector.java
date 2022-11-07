@@ -62,18 +62,10 @@ public class ArrayVector extends AbstractVector {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 	@Override
-	public Vector subVector(int da, int a) {
-		if (!(da >= 0 && a < this.size() && da <= a)) {
-			throw new IndexOutOfBoundsException();
-		}
-		
-		Vector v = new ArrayVector(a - da);
-		for (int i = da; i < a; i++) {
-			v.add(this.get(i));
-		}
-		return v;
+	protected Vector newInstanceVector() {
+		return new ArrayVector(100);
 	}
 
 }
