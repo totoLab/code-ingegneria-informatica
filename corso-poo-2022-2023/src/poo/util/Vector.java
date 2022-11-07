@@ -1,6 +1,6 @@
 package poo.util;
 
-public interface Vector { // non ordinata, ammette duplicati
+public interface Vector extends Iterable { // non ordinata, ammette duplicati
 	
 	/**
 	 * restituisce il numero di elementi presente nella struttura dati

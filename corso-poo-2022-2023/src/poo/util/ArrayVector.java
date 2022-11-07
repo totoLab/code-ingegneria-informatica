@@ -1,5 +1,7 @@
 package poo.util;
 
+import java.util.*;
+
 public class ArrayVector extends AbstractVector {
 	
 	private Object[] array;
@@ -70,6 +72,46 @@ public class ArrayVector extends AbstractVector {
 	@Override
 	protected Vector newInstanceVector(int size) {
 		return new ArrayVector(size);
+	}
+	
+	@Override
+	public Iterator iterator() {
+		return new MioIteratore();
+	}
+	
+	private class MioIteratore implements Iterator { // ogni istanza di MioIteratore è legata a una e una sola instanza di ArrayVector
+		
+		private int index = 0;
+		private boolean removable = false;
+		
+		@Override
+		public boolean hasNext() {
+			if (index < size()) {
+				return true;
+			}
+			return false;
+		}
+		
+		@Override
+		public Object next() {
+			if (!hasNext()) throw new NoSuchElementException();
+			Object toReturn = array[index];
+			index++;
+			removable = true;
+			return toReturn;
+		}
+		
+		@Override
+		public void remove() {
+			if (!removable)
+				throw new IllegalStateException();
+			removable = false;
+			for (int i = index; i < size(); i++) {
+				array[i - 1] = array[i];
+			}
+			size--;
+		}
+		
 	}
 
 }
