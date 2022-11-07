@@ -64,8 +64,8 @@ public class ArrayVector extends AbstractVector {
 	}
 	
 	@Override
-	protected Vector newInstanceVector() {
-		return new ArrayVector(100);
+	protected Vector newInstanceVector(int size) {
+		return new ArrayVector(size);
 	}
 
 }
