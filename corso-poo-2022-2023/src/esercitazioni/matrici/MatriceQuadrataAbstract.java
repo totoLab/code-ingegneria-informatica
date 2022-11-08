@@ -21,9 +21,9 @@ public abstract class MatriceQuadrataAbstract implements MatriceQuadrata {
 		return m1.getOrdine() == m2.getOrdine();
 	}
 
-	public abstract int getEl(int row, int col);
+	public abstract int getEl(int row, int col) throws IndexOutOfBoundsException;
 	
-	public abstract void setEl(int newEl, int row, int col);
+	public abstract void setEl(int newEl, int row, int col) throws IndexOutOfBoundsException;
 	
 	public void addWithThis(MatriceQuadrata m) {
 		if (!compatibili(this, m)) throw new IllegalArgumentException();
