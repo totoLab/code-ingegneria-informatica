@@ -62,8 +62,33 @@ public abstract class MatriceQuadrataAbstract implements MatriceQuadrata {
 			}	
 		}
     }
+        
+	abstract public MatriceQuadrata newInstanceMatriceQuadrata(MatriceQuadrata m);
     
-    public abstract MatriceQuadrata mul(MatriceQuadrata m);
+    @Override
+	public MatriceQuadrata add(MatriceQuadrata m) {
+		MatriceQuadrata result = newInstanceMatriceQuadrata(this);
+		
+		result.addWithThis(m);
+		return result;
+	}
+
+	@Override
+	public MatriceQuadrata mul(int num) {
+		MatriceQuadrata result = newInstanceMatriceQuadrata(this);
+		
+		result.mulNumWithThis(num);
+		return result;
+	}
+
+	
+	@Override
+	public MatriceQuadrata mul(MatriceQuadrata m) {
+		MatriceQuadrata result = newInstanceMatriceQuadrata(this);
+		
+		result.mulWithThis(m);;
+		return result;
+	}
     
     @Override
 	public String toString() {

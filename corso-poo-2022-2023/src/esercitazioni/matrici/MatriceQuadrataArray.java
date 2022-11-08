@@ -69,27 +69,8 @@ public class MatriceQuadrataArray extends MatriceQuadrataAbstract {
 	*/
 	
 	@Override
-	public MatriceQuadrata add(MatriceQuadrata m) {
-		MatriceQuadrata result = new MatriceQuadrataArray(this);
-		
-		result.addWithThis(m);
-		return result;
+	public MatriceQuadrata newInstanceMatriceQuadrata(MatriceQuadrata m) {
+		return new MatriceQuadrataArray(m);
 	}
-
-	@Override
-	public MatriceQuadrata mul(int num) {
-		MatriceQuadrata result = new MatriceQuadrataArray(this);
-		
-		result.mulNumWithThis(num);
-		return result;
-	}
-
-	@Override
-	public MatriceQuadrata mul(MatriceQuadrata m) {
-		MatriceQuadrata result = new MatriceQuadrataArray(this);
-		
-		result.mulWithThis(m);;
-		return result;
-	}
-
+	
 }
