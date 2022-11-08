@@ -16,5 +16,5 @@ public interface MatriceQuadrata {
     MatriceQuadrata mul(MatriceQuadrata m);
 
     boolean puntoDiSella();
-    MatriceQuadrata newInsMatriceQuadrata(MatriceQuadrata m);
+    MatriceQuadrata newInstanceMatriceQuadrata(MatriceQuadrata m);
 }
