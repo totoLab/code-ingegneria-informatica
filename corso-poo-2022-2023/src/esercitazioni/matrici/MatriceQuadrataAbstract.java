@@ -88,6 +88,10 @@ public abstract class MatriceQuadrataAbstract implements MatriceQuadrata {
 		result.mulWithThis(m);;
 		return result;
 	}
+
+	public boolean puntoDiSella() {
+		// TODO
+	}
     
     @Override
 	public String toString() {

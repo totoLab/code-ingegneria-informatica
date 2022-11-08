@@ -15,6 +15,6 @@ public interface MatriceQuadrata {
     void mulWithThis(MatriceQuadrata m);
     MatriceQuadrata mul(MatriceQuadrata m);
 
-    boolean puntoDiSella(int i, int j);
+    boolean puntoDiSella();
     MatriceQuadrata newInsMatriceQuadrata(MatriceQuadrata m);
 }
