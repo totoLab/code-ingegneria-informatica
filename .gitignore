@@ -27,3 +27,6 @@ hs_err_pid*
 
 # metadata files
 .metadata/
+
+# personal files
+self/
