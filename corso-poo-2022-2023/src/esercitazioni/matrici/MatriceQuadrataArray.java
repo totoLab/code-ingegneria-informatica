@@ -33,8 +33,6 @@ public class MatriceQuadrataArray extends MatriceQuadrataAbstract {
 	@Override
 	public int getEl(int row, int col) {
 		if (!validBounds(row, col)) throw new IndexOutOfBoundsException();
-		// TODO: catch exception to test correct behavior
-
 		return array[row * this.ordine + col];
 	}
 
@@ -43,12 +41,11 @@ public class MatriceQuadrataArray extends MatriceQuadrataAbstract {
 		if (!validBounds(row, col)) throw new IndexOutOfBoundsException();
 		array[row * this.ordine + col] = newEl;
 	}
-	
-	/* below methods are made with the assumption of a null-matrix constructor
+
+	/* below methods were made in absence of more general methods from the abstract class
 	@Override
 	public MatriceQuadrata add(MatriceQuadrata m) {
-		MatriceQuadrata result = new MatriceQuadrataArray(ordine);
-		result.addWithThis(this);
+		MatriceQuadrata result = new MatriceQuadrataArray(this);
 		
 		result.addWithThis(m);
 		return result;
@@ -56,8 +53,7 @@ public class MatriceQuadrataArray extends MatriceQuadrataAbstract {
 
 	@Override
 	public MatriceQuadrata mul(int num) {
-		MatriceQuadrata result = new MatriceQuadrataArray(ordine);
-		result.addWithThis(this);
+		MatriceQuadrata result = new MatriceQuadrataArray(this);
 		
 		result.mulNumWithThis(num);
 		return result;
@@ -65,8 +61,7 @@ public class MatriceQuadrataArray extends MatriceQuadrataAbstract {
 
 	@Override
 	public MatriceQuadrata mul(MatriceQuadrata m) {
-		MatriceQuadrata result = new MatriceQuadrataArray(ordine);
-		result.addWithThis(this);
+		MatriceQuadrata result = new MatriceQuadrataArray(this);
 		
 		result.mulWithThis(m);;
 		return result;
