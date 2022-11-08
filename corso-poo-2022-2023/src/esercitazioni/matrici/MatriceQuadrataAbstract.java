@@ -38,7 +38,6 @@ public abstract class MatriceQuadrataAbstract implements MatriceQuadrata {
 	}
 	
     public void mulNumWithThis(int num) {
-		if (!compatibili(this, m)) throw new IllegalArgumentException();
     	int ordine = this.getOrdine();
     	for (int i = 0; i < ordine; i++) {
 			for (int j = 0; j < ordine; j++) {
