@@ -52,6 +52,10 @@ public class Persona {
 	public String getNumTel(){
 		return numTel;
 	}
+
+	public String getSesso() {
+		return this.s.toString();
+	}
 	
 	public void setNumTel(String n) {
 		if (n==null)
