@@ -7,7 +7,21 @@ import poo.util.Array;
 public class Test {
 
 	public static void main(String[] args) {
-	
+		Razionale r1 = new Razionale(2, 1);
+		Razionale r2 = new Razionale(3, 2);
+		Razionale r;
+		
+		int res = r1.compareTo(r2);
+		if (res > 0)
+			r = r1;
+		else if (res < 0)
+			r = r2;
+		else
+			r = r1;
+		System.out.println(r + "maggiore");
+	}
+		
+	public static void fun() {
 		/*Scanner sc = new Scanner(System.in);
 		Razionale[] v = new Razionale[10];
 		int i=0, n=0, d=0;

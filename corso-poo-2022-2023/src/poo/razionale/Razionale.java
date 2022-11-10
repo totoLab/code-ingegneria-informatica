@@ -1,13 +1,14 @@
 package poo.razionale;
 
-public class Razionale {
+import poo.util.Mat;
 
-	
+public class Razionale implements Comparable<Razionale> {
+
 	private static int mcd(int x, int y) {
 		do {
 			int r=x%y;
 			x=y; y=r;
-		}while(y!=0);
+		} while(y!=0);
 		return x;
 	}
 	
@@ -96,6 +97,42 @@ public class Razionale {
 	
 	protected void finalize() {
 		contatore--;
+	}
+	
+	@Override
+	public int compareTo(Razionale o) {
+		Razionale r = (Razionale)o;
+		int mcm = Mat.mcm(this.DEN, r.DEN);
+		int n1=(mcm/this.DEN)*this.NUM;
+		int n2=(mcm/r.DEN)*r.NUM;
+		if (n1<n2) return -1;
+		if (n1>n2) return 1;
+		return 0;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + DEN;
+		result = prime * result + NUM;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Razionale other = (Razionale) obj;
+		if (DEN != other.DEN)
+			return false;
+		if (NUM != other.NUM)
+			return false;
+		return true;
 	}
 	
 	
