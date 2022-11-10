@@ -1,6 +1,6 @@
 package poo.util;
 
-public interface Vector extends Iterable { // non ordinata, ammette duplicati
+public interface Vector<T> extends Iterable<T> { // non ordinata, ammette duplicati
 	
 	/**
 	 * restituisce il numero di elementi presente nella struttura dati
@@ -13,9 +13,9 @@ public interface Vector extends Iterable { // non ordinata, ammette duplicati
 	 * @param el l'elemento di cui si vuole conoscere la posizione
 	 * @return posizione della prima occorrenza di el, -1 se l'elemento non esiste
 	 */
-	int indexOf(Object el);
+	int indexOf(T el);
 
-	boolean contains(Object el);
+	boolean contains(T el);
 	
 	/**
 	 * restituisce l'oggetto presente nella struttura dati all'indice index
@@ -23,7 +23,7 @@ public interface Vector extends Iterable { // non ordinata, ammette duplicati
 	 * @return l'oggetto all'indice index
 	 * @throws IndexOutOfBoundsException nel caso in cui index non sia valido
 	 */
-	Object get(int index) throws IndexOutOfBoundsException;
+	T get(int index) throws IndexOutOfBoundsException;
 	
 	/**
 	 * sostituisce el in posizione index
@@ -32,19 +32,19 @@ public interface Vector extends Iterable { // non ordinata, ammette duplicati
 	 * @return oggetto precedentemenete presente in posizione index
 	 * @throws IndexOutOfBoundsException nel caso in cui index non sia valido
 	 */
-	Object set(int index, Object el) throws IndexOutOfBoundsException;
+	T set(int index, T el) throws IndexOutOfBoundsException;
 	
-	void add(Object el);  // add last
+	void add(T el);  // add last
 	
-	void add(int index, Object el) throws IndexOutOfBoundsException;
+	void add(int index, T el) throws IndexOutOfBoundsException;
 	
-	void remove(Object el); // first occurrence
+	void remove(T el); // first occurrence
 	
-	Object remove(int index);
+	T remove(int index);
 	
 	void clear();
 	
 	boolean isEmpty();
 	
-	Vector subVector(int from, int to);
+	Vector<T> subVector(int from, int to);
 }

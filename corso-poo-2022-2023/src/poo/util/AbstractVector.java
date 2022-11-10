@@ -1,6 +1,6 @@
 package poo.util;
 
-public abstract class AbstractVector implements Vector {
+public abstract class AbstractVector<T> implements Vector<T> {
 	
 	protected int size;
 	
@@ -13,28 +13,28 @@ public abstract class AbstractVector implements Vector {
 	}
 	
 	@Override
-	public boolean contains(Object el) {
+	public boolean contains(T el) {
 		return indexOf(el) != -1;
 	}
 	
-	abstract public Object get(int index);
+	abstract public T get(int index);
 	
-	abstract public Object set(int index, Object el);
+	abstract public T set(int index, T el);
 	
 	@Override
-	public void add(Object el) {
+	public void add(T el) {
 		add(size(), el);
 	}
 	
-	abstract public void add(int index, Object elem);
+	abstract public void add(int index, T elem);
 
 	@Override
-	public void remove(Object el) {
+	public void remove(T el) {
 		int i = indexOf(el);
 		if (i != -1) remove(i);
 	}
 	
-	abstract public Object remove(int index);
+	abstract public T remove(int index);
 	
 	@Override
 	public void clear() {
@@ -48,15 +48,15 @@ public abstract class AbstractVector implements Vector {
 		return size() == 0;
 	}
 	
-	abstract protected Vector newInstanceVector(int size);
+	abstract protected Vector<T> newInstanceVector(int size); // factory
 	
 	@Override
-	public Vector subVector(int da, int a) {
+	public Vector<T> subVector(int da, int a) {
 		if (!(da >= 0 && a < this.size() && da <= a)) {
 			throw new IndexOutOfBoundsException();
 		}
 		
-		Vector v = newInstanceVector(size); // factoring
+		Vector<T> v = newInstanceVector(a - da); 
 		for (int i = da; i < a; i++) {
 			v.add(this.get(i));
 		}
@@ -65,7 +65,7 @@ public abstract class AbstractVector implements Vector {
 	
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder(200);
+		StringBuilder sb = new StringBuilder(size * 3);
 		sb.append("[");
 		for (int i = 0; i < this.size(); i++) {
 			sb.append(this.get(i));
@@ -89,7 +89,7 @@ public abstract class AbstractVector implements Vector {
 	public boolean equals(Object o) {
 		if (!(o instanceof Vector)) return false;
 		
-		Vector v = (Vector) o;
+		Vector<T> v = (Vector<T>) o;
 		if (this.size() == v.size()) return false;
 		for (int i = 0; i < this.size(); i++) {
 			if (!this.get(i).equals(v.get(i))) return false;

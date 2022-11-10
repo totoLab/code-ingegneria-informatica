@@ -2,23 +2,32 @@ package poo.util;
 
 import java.util.*;
 
-public class ArrayVector extends AbstractVector {
+public class ArrayVector<T> extends AbstractVector<T> {
 	
-	private Object[] array;
+	private T[] array;
+	public int contatoreDelleModifiche = 0;
 	
 	public ArrayVector(int capacita) {
 		super();
-		array = new Object[capacita];
+		if (capacita < 0) throw new IllegalArgumentException();
+		array = (T[]) new Object[capacita];
+	}
+	
+	public ArrayVector(Vector<T> v) {
+		array = (T[]) new Object[v.size()];
+		for (int i = 0; i < this.size(); i++) {
+			this.add( v.get(i));
+		}
 	}
 	
 	private void espandi() { // raddoppia array
-		Object[] arrayDoppio = new Object[array.length * 2];
+		T[] arrayDoppio = (T[]) new Object[array.length * 2];
 		System.arraycopy(array, 0, arrayDoppio, 0, size());
 		array = arrayDoppio;
 	}
 	
 	private void contrai() { // dimezza array
-		Object[] arrayMezzo = new Object[array.length / 2];
+		T[] arrayMezzo = (T[]) new Object[array.length / 2];
 		System.arraycopy(array, 0, arrayMezzo, 0, size() / 2);
 		array = arrayMezzo;
 	}
@@ -32,12 +41,12 @@ public class ArrayVector extends AbstractVector {
 	}
 
 	@Override
-	public Object get(int index) {
+	public T get(int index) {
 		return array[index];
 	}
 
 	@Override
-	public Object set(int index, Object el) {
+	public T set(int index, Object el) {
 		if (index < 0 || index >= size()) {
 			throw new IndexOutOfBoundsException();
 		}
@@ -45,8 +54,8 @@ public class ArrayVector extends AbstractVector {
 			throw new IllegalArgumentException();
 		}
 			
-		Object old = array[index];
-		array[index] = el;
+		T old = array[index];
+		array[index] = (T) el;
 		return old;
 	}
 
@@ -58,31 +67,38 @@ public class ArrayVector extends AbstractVector {
 		for (int i = size() - 1; i >= index; i--) {
 			array[i + 1] = array[i];
 		}
-		array[index] = el;
+		array[index] = (T) el;
 		size++;
 
 	}
 
 	@Override
-	public Object remove(int index) {
+	public T remove(int index) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
 	@Override
-	protected Vector newInstanceVector(int size) {
-		return new ArrayVector(size);
+	public void clear() {
+		array = (T[]) new Object[array.length];
+		size = 0;
 	}
 	
 	@Override
-	public Iterator iterator() {
+	protected Vector<T> newInstanceVector(int size) {
+		return new ArrayVector<T>(size);
+	}
+	
+	@Override
+	public Iterator<T> iterator() {
 		return new MioIteratore();
 	}
 	
-	private class MioIteratore implements Iterator { // ogni istanza di MioIteratore è legata a una e una sola instanza di ArrayVector
+	private class MioIteratore implements Iterator<T> { // ogni istanza di MioIteratore è legata a una e una sola instanza di ArrayVector
 		
 		private int index = 0;
 		private boolean removable = false;
+		private final int mioContatore = ArrayVector.this.contatoreDelleModifiche ;
 		
 		@Override
 		public boolean hasNext() {
@@ -93,9 +109,9 @@ public class ArrayVector extends AbstractVector {
 		}
 		
 		@Override
-		public Object next() {
+		public T next() {
 			if (!hasNext()) throw new NoSuchElementException();
-			Object toReturn = array[index];
+			T toReturn = array[index];
 			index++;
 			removable = true;
 			return toReturn;
