@@ -1,8 +1,6 @@
 package poo;
 
-import poo.figure.Cerchio;
-import poo.figure.Figura;
-import poo.figure.Rettangolo;
+import poo.figure.*;
 
 public class Test {
 
