@@ -4,7 +4,7 @@ public interface MatriceQuadrata {
     
     int getOrdine();
     int getEl(int row, int col);
-    void setEl(int newEl, int row, int col);
+    void setEl(int row, int col, int newEl);
 
     void addWithThis(MatriceQuadrata m);
     MatriceQuadrata add(MatriceQuadrata m);
@@ -16,5 +16,5 @@ public interface MatriceQuadrata {
     MatriceQuadrata mul(MatriceQuadrata m);
 
     boolean puntoDiSella();
-    MatriceQuadrata newInstanceMatriceQuadrata(MatriceQuadrata m);
+    MatriceQuadrata newInstanceMatriceQuadrata(int ordine);
 }

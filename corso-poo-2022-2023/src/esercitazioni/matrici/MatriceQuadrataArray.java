@@ -37,40 +37,14 @@ public class MatriceQuadrataArray extends MatriceQuadrataAbstract {
 	}
 
 	@Override
-	public void setEl(int newEl, int row, int col) {
+	public void setEl(int row, int col, int newEl) {
 		if (!validBounds(row, col)) throw new IndexOutOfBoundsException();
 		array[row * this.ordine + col] = newEl;
 	}
-
-	/* below methods were made in absence of more general methods from the abstract class
-	@Override
-	public MatriceQuadrata add(MatriceQuadrata m) {
-		MatriceQuadrata result = new MatriceQuadrataArray(this);
-		
-		result.addWithThis(m);
-		return result;
-	}
-
-	@Override
-	public MatriceQuadrata mul(int num) {
-		MatriceQuadrata result = new MatriceQuadrataArray(this);
-		
-		result.mulNumWithThis(num);
-		return result;
-	}
-
-	@Override
-	public MatriceQuadrata mul(MatriceQuadrata m) {
-		MatriceQuadrata result = new MatriceQuadrataArray(this);
-		
-		result.mulWithThis(m);;
-		return result;
-	}
-	*/
 	
 	@Override
-	public MatriceQuadrata newInstanceMatriceQuadrata(MatriceQuadrata m) {
-		return new MatriceQuadrataArray(m);
+	public MatriceQuadrata newInstanceMatriceQuadrata(int ordine) {
+		return new MatriceQuadrataArray(ordine);
 	}
 	
 }

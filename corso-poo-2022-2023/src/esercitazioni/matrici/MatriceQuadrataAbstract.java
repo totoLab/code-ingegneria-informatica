@@ -23,7 +23,7 @@ public abstract class MatriceQuadrataAbstract implements MatriceQuadrata {
 
 	public abstract int getEl(int row, int col) throws IndexOutOfBoundsException;
 	
-	public abstract void setEl(int newEl, int row, int col) throws IndexOutOfBoundsException;
+	public abstract void setEl(int row, int col, int newEl) throws IndexOutOfBoundsException;
 	
 	public void addWithThis(MatriceQuadrata m) {
 		if (!compatibili(this, m)) throw new IllegalArgumentException();
@@ -31,7 +31,7 @@ public abstract class MatriceQuadrataAbstract implements MatriceQuadrata {
 		for (int i = 0; i < ordine; i++) {
 			for (int j = 0; j < ordine; j++) {
 				this.setEl(
-						this.getEl(i, j) + m.getEl(i, j), i, j
+						 i, j, this.getEl(i, j) + m.getEl(i, j)
 						);
 			}
 		}
@@ -42,7 +42,7 @@ public abstract class MatriceQuadrataAbstract implements MatriceQuadrata {
     	for (int i = 0; i < ordine; i++) {
 			for (int j = 0; j < ordine; j++) {
 				this.setEl(
-						this.getEl(i, j) * num, i, j
+						i, j, this.getEl(i, j) * num
 						);
 			}
     	}
@@ -57,12 +57,12 @@ public abstract class MatriceQuadrataAbstract implements MatriceQuadrata {
 				for (int k = 0; k < ordine; k++) {
 					ps += this.getEl(i, k) * m.getEl(k, j);
 				}
-				this.setEl(ps, i, j);
+				this.setEl(i, j, ps);
 			}	
 		}
     }
         
-	abstract public MatriceQuadrata newInstanceMatriceQuadrata(MatriceQuadrata m);
+	public abstract MatriceQuadrata newInstanceMatriceQuadrata(int ordine);
     
     @Override
 	public MatriceQuadrata add(MatriceQuadrata m) {
