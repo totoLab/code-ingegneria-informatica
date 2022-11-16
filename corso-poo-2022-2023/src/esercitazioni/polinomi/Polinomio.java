@@ -39,9 +39,44 @@ public interface Polinomio extends Iterable<Monomio> {
 			return prodotto;
 		}
 		
-		Polinomio mul(Monomio m);
-		Polinomio mul(int coeff);
-		Polinomio derivata();
+		default Polinomio mul(Monomio m) {
+			Polinomio prodotto = newInstancePolinomio();
+			
+			for (Monomio m1 : this) {
+				prodotto.add(m1.mul(m));
+			}
+			
+			return prodotto;
+		}
+		
+		default Polinomio mul(int coefficiente) {
+			Polinomio prodotto = newInstancePolinomio();
+			
+			for (Monomio m1 : this) {
+				prodotto.add(m1.mul(coefficiente));
+			}
+			
+			return prodotto;
+		}
+		
+		default Polinomio derivata() {
+			Polinomio derivata = newInstancePolinomio();
+			
+			for (Monomio m : this) {
+				derivata.add(m.derivata());
+			}
+			
+			return derivata;
+		}
+		
+		default int grado() {
+			int grado = 0;
+			for (Monomio m : this) {
+				grado = m.getGrado(); // ipotizzando polinomio ordinato per gradi decrescenti (il primo monomio è quello con il grado massimo)
+				break;
+			}
+			return grado;
+		}
 		int valore(int x);
 		int grado();
 		Polinomio newInstancePolinomio();
