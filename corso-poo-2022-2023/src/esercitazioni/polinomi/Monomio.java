@@ -25,7 +25,18 @@ public class Monomio { // immutabile
 		return GRADO;
 	}
 	
+	public Monomio add(Monomio m) {
+		if (m == null || this.GRADO != m.GRADO) throw new IllegalArgumentException();
+		return new Monomio(this.COEFFICIENTE * m.getCoefficiente(), this.GRADO);
+	}
 	
+	public Monomio mul(int coefficiente) {
+		return new Monomio(this.COEFFICIENTE * coefficiente, this.GRADO);
+	}
 	
+	public Monomio mul(Monomio m) {
+		if (m == null) throw new IllegalArgumentException();
+		return new Monomio(this.COEFFICIENTE * m.getCoefficiente(), this.GRADO + m-getGrado());
+	}
 	
 }
