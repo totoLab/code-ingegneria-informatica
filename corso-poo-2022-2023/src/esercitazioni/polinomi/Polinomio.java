@@ -6,7 +6,7 @@ public interface Polinomio extends Iterable<Monomio> {
 
 		default int size() {
 			int size = 0;
-			for (Iterator it = this.iterator(); it.hasNext(); it.next();) {
+			for (Iterator<Monomio> it = this.iterator(); it.hasNext(); it.next()) {
 				size++;
 			}
 			return size;
