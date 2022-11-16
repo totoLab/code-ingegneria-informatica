@@ -36,7 +36,7 @@ public class Monomio implements Comparable<Monomio> { // immutabile
 	
 	public Monomio mul(Monomio m) {
 		if (m == null) throw new IllegalArgumentException();
-		return new Monomio(this.COEFFICIENTE * m.getCoefficiente(), this.GRADO + m-getGrado());
+		return new Monomio(this.COEFFICIENTE * m.getCoefficiente(), this.GRADO + m.getGrado());
 	}
 	
 	public boolean equals(Object o) {
@@ -47,7 +47,7 @@ public class Monomio implements Comparable<Monomio> { // immutabile
 	}
 	
 	public int compareTo(Monomio o) {
-		if (o == null) throw new IllegalArgumentException();d
+		if (o == null) throw new IllegalArgumentException();
 		if (this.GRADO < o.getGrado()) return -1;
 		if (this.GRADO > o.getGrado()) return 1;
 		if (this.COEFFICIENTE < o.getCoefficiente()) return -1;
