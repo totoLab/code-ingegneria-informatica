@@ -25,8 +25,6 @@ public interface Polinomio extends Iterable<Monomio> {
 			return somma;
 		}
 		
-		void add(Monomio m);
-		
 		default Polinomio mul(Polinomio p) {
 			Polinomio prodotto = newInstancePolinomio();
 			
@@ -77,7 +75,8 @@ public interface Polinomio extends Iterable<Monomio> {
 			}
 			return grado;
 		}
+		
+		Polinomio add(Monomio m);
 		int valore(int x);
-		int grado();
 		Polinomio newInstancePolinomio();
 }
