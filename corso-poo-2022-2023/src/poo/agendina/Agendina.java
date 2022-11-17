@@ -1,7 +1,9 @@
 package poo.agendina;
 
-import java.io.IOException;
-import java.util.Iterator;
+import java.io.*;
+import java.util.*;
+import poo.util.Vector;
+import poo.util.ArrayVector;
 
 public interface Agendina extends Iterable<Nominativo> {
 
