@@ -58,7 +58,54 @@ public interface Agendina extends Iterable<Nominativo> {
 		return null;
 	}
 	
-	public void salva(String nomeFile) throws IOException;
-	public void ripristina(String nomeFile) throws IOException;
+	default public void salva(String nomeFile) throws IOException {
+		PrintWriter pw = null;
+		try {
+			pw = new PrintWriter(new FileWriter(nomeFile));
+			Iterator<Nominativo> it = this.iterator();
+			while (it.hasNext()) {
+				pw.println(it.next());
+			}
+		} finally {
+			if (pw != null) pw.close();
+		}
+	}
+	
+	default public void ripristina(String nomeFile) throws IOException {
+		svuota();
+		BufferedReader br = null; 
+		Vector<Nominativo> v = new ArrayVector<Nominativo>(100);
+		boolean finito = false;
+		try {
+			br = new BufferedReader(new FileReader(nomeFile));
+			StringTokenizer st = null;
+			String linea = null;
+			String cognome, nome, prefisso, telefono;
+			for ( ; ; ) {
+				linea = br.readLine();
+				if (linea == null) {
+					break;
+				}
+				st = new StringTokenizer(linea, " -");
+				cognome = st.nextToken();
+				nome = st.nextToken();
+				prefisso = st.nextToken();
+				telefono = st.nextToken();
+				Nominativo n = new Nominativo(cognome, nome, prefisso, telefono);
+				v.add(n);
+			}
+			finito = true;
+		} finally {
+			if (br != null) {
+				br.close();
+			}
+		}
+		if (finito) {
+			svuota();
+			for (Nominativo n : v) {
+				aggiungi(n);
+			}
+		}
+	}
 	
 }
