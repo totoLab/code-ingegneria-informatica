@@ -3,80 +3,85 @@ package esercitazioni.polinomi;
 import java.util.*;
 
 public interface Polinomio extends Iterable<Monomio> {
+	
+	final int c = 0;
+	
+	default int size() {
+		int size = 0;
+		for (Iterator<Monomio> it = this.iterator(); it.hasNext(); it.next()) {
+			size++;
+		}
+		return size;
+	}
+	
+	default Polinomio add(Polinomio p) {
+		Polinomio somma = newInstancePolinomio();
+		
+		for (Monomio m: this) {
+			somma.add(m);
+		}
+		
+		for (Monomio m: p) {
+			somma.add(m);
+		}
+		return somma;
+	}
+	
+	default Polinomio mul( Polinomio p ) {
+		Polinomio prodotto = newInstancePolinomio();
+		for (Monomio m: this) {
+			prodotto = prodotto.add(p.mul(m));
+		}
+		return prodotto;
+	}
 
-		default int size() {
-			int size = 0;
-			for (Iterator<Monomio> it = this.iterator(); it.hasNext(); it.next()) {
-				size++;
-			}
-			return size;
+	default Polinomio mul(Monomio m) {
+		Polinomio prodotto = newInstancePolinomio();
+		
+		for (Monomio m1 : this) {
+			prodotto.add(m1.mul(m));
 		}
 		
-		default Polinomio add(Polinomio p) {
-			Polinomio somma = newInstancePolinomio();
-			
-			for (Monomio m: this) {
-				somma.add(m);
-			}
-			
-			for (Monomio m: p) {
-				somma.add(m);
-			}
-			return somma;
+		return prodotto;
+	}
+	
+	default Polinomio mul(int coefficiente) {
+		Polinomio prodotto = newInstancePolinomio();
+		
+		for (Monomio m1 : this) {
+			prodotto.add(m1.mul(coefficiente));
 		}
 		
-		default Polinomio mul(Polinomio p) {
-			Polinomio prodotto = newInstancePolinomio();
-			
-			for (Monomio m1: this) {
-				for (Monomio m2: p) {
-					prodotto.add(m1.mul(m2));
-				}
+		return prodotto;
+	}
+
+	default Polinomio derivata() {
+		Polinomio d = newInstancePolinomio();
+		for( Monomio m: this ) {
+			if(m.getGrado() > 0) {
+				d.add( new Monomio( m.getCoefficiente()*m.getGrado(), m.getGrado()-1 ) );
 			}
-			
-			return prodotto;
 		}
-		
-		default Polinomio mul(Monomio m) {
-			Polinomio prodotto = newInstancePolinomio();
-			
-			for (Monomio m1 : this) {
-				prodotto.add(m1.mul(m));
-			}
-			
-			return prodotto;
+		return d;
+	}
+
+	default double valore( double x ) {
+		double v=0.0D;
+		for( Monomio m: this )
+			v=v+m.getCoefficiente()*Math.pow(x, m.getGrado());
+		return v;
+	}
+	
+	default void clear() {
+		Iterator<Monomio> it=iterator(); 
+		while(it.hasNext()) {
+			it.next();
+			it.remove();
 		}
-		
-		default Polinomio mul(int coefficiente) {
-			Polinomio prodotto = newInstancePolinomio();
-			
-			for (Monomio m1 : this) {
-				prodotto.add(m1.mul(coefficiente));
-			}
-			
-			return prodotto;
-		}
-		
-		default Polinomio derivata() {
-			Polinomio derivata = newInstancePolinomio();
-			
-			for (Monomio m : this) {
-				derivata.add(m.derivata());
-			}
-			
-			return derivata;
-		}
-		
-		default int grado() {
-			int grado = 0;
-			for (Monomio m : this) {
-				grado = m.getGrado(); // ipotizzando polinomio ordinato per gradi decrescenti (il primo monomio è quello con il grado massimo)
-				break;
-			}
-			return grado;
-		}
-		
-		Polinomio add(Monomio m);
-		int valore(int x);
-		Polinomio newInstancePolinomio();
+	}
+
+	void add( Monomio m );
+	Polinomio newInstancePolinomio();	
+	void save(String path);
+	void restore(String path);
 }
