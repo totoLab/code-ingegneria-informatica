@@ -10,7 +10,7 @@ public class PolinomioLL extends PolinomioAbstract{
 	public int size() { return lista.size(); } //ridefinito per ragioni di efficienza
 	
 	@Override
-	public PolinomioLL create() { return new PolinomioLL(); } //covarianza del tipo di ritorno
+	public PolinomioLL newInstancePolinomio() { return new PolinomioLL(); } //covarianza del tipo di ritorno
 	
 	@Override
 	public Iterator<Monomio> iterator(){ return lista.iterator(); }

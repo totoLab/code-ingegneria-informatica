@@ -7,7 +7,7 @@ public class PolinomioSet extends PolinomioAbstract{
 	
 	public int size() { return monomi.size(); }
 	public Iterator<Monomio> iterator(){ return monomi.iterator(); }
-	public PolinomioSet create() { return new PolinomioSet(); }
+	public PolinomioSet newInstancePolinomio() { return new PolinomioSet(); }
 	
 	public void add( Monomio m ) {
 		if( m.getCoefficiente()==0 ) return;
