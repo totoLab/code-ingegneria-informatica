@@ -1,6 +1,9 @@
 package poo;
 
+import java.io.*;
 import java.util.*;
+
+import javax.sound.midi.SysexMessage;
 
 class MioComparator implements Comparator<String> {
 	public int compare(String s1, String s2) {
@@ -59,13 +62,93 @@ class InterfacceFunzionali {
 		Funzioni ff = new Funzioni();
 		
 	}
-	
-public class Test {
-	
-	public static void main(String[] args) {
-		
-	}
-	
 }
 
+public class Test {
+	
+	public static void inputOutput() throws IOException {
+		InputStream source = new FileInputStream("../../src/poo/f1.dat");
+		OutputStream dest = new FileOutputStream("f2.dat");
+		
+		int dato;
+		for (;;) {
+			if (source.available() == 0) break;
+			dato = source.read();
+			dest.write(dato);
+		}
+		source.close();
+		dest.close();
+	}
+	
+	public static void main(String[] args) throws IOException {
+		if (args.length == 0) {
+			System.out.println("Manca chiave");
+			System.exit(-1);
+		}
+		int chiave = Integer.parseInt(args[0]);
+		InputStream source = new BufferedInputStream(new FileInputStream("source.dat"));
+		OutputStream dest = new BufferedOutputStream(new FileOutputStream("dest.dat"));
+		
+		int dato;
+		for (;;) {
+			if (source.available() == 0) break;
+			dato = source.read();
+			
+			dest.write(crittografa(dato, chiave));
+		}
+		source.close();
+		dest.close();
+	}
+
+	private static byte crittografa(int dato, int chiave) {
+		return (byte) (dato + chiave);
+	}
+	
+	private void writeStringsToFile() throws IOException {
+		DataOutputStream dos = new DataOutputStream(new FileOutputStream("file.dat"));
+		System.out.print("Inserisci ");
+		Scanner sc = new Scanner(System.in);
+		
+		int x;
+		for (;;) {
+			x = sc.nextInt();
+			if (x == 0) break;
+			dos.writeInt(x);
+		}
+		dos.close();
+		DataInputStream dis = new DataInputStream(new FileInputStream("file.dat"));
+		for (;;) {
+			try {
+				x = dis.readInt();
+			} catch (EOFException e) {
+				break;
+			}
+		}
+		dis.close();
+
+	}
+	
+	static boolean esiste(String nome, int x) throws IOException {
+		RandomAccessFile f = new RandomAccessFile(nome, "r");
+		int inf = 0; int sup = (int)(f.length()/4) - 1;
+		boolean result = false;
+		for (;;) {
+			if (inf > sup) break;
+			int med = (inf + sup) / 2;
+			f.seek(med * 4);
+			int elem = f.readInt();
+			if (elem == x) {
+				result = true;
+				break;
+			}
+			if (elem > x) {
+				sup = med - 1;
+			} else {
+				inf = med + 1;
+			}
+		}
+		f.close();
+		return result;
+	}
+	
 }
