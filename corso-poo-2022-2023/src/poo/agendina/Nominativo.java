@@ -1,6 +1,8 @@
 package poo.agendina;
 
-public final class Nominativo implements Comparable<Nominativo> {
+import java.io.Serializable;
+
+public final class Nominativo implements Serializable, Comparable<Nominativo> {
 
 	private String cognome, nome;
 	private String prefisso, numero;
