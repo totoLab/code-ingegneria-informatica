@@ -3,6 +3,7 @@ package poo;
 import java.io.*;
 import java.util.*;
 
+import javax.imageio.stream.FileImageOutputStream;
 import javax.sound.midi.SysexMessage;
 
 class MioComparator implements Comparator<String> {
@@ -80,7 +81,7 @@ public class Test {
 		dest.close();
 	}
 	
-	public static void main(String[] args) throws IOException {
+	public static void esempioConFile(String[] args) throws IOException {
 		if (args.length == 0) {
 			System.out.println("Manca chiave");
 			System.exit(-1);
@@ -149,6 +150,62 @@ public class Test {
 		}
 		f.close();
 		return result;
+	}
+	
+	static void mostraContenutoFile(String nome) throws IOException {
+		InputStream in = new BufferedInputStream(new FileInputStream(nome));
+		DataInputStream dis = new DataInputStream(in);
+		for (;;) {
+			try {
+				int x = dis.readInt();
+				System.out.println(x);
+			} catch (Exception e) {
+				break;
+			}
+		}
+		dis.close();
+	}
+	
+	static void inserisci(String nome, int x) throws IOException {
+		mostraContenutoFile(nome);
+		RandomAccessFile raf = new RandomAccessFile(nome, "r");
+		DataOutputStream tmp = new DataOutputStream(new FileOutputStream("tmp"));
+		long pos = 0;
+		int y = 0;
+		boolean flag = false;
+		while (pos < raf.length() && !flag) {
+			y = raf.readInt();
+			if (y > x) {
+				flag = true;
+			} else {
+				tmp.write(y);
+			}
+			pos = raf.getFilePointer();
+		} 
+		tmp.writeInt(x);
+		if (flag) {
+			for (;;) {
+				tmp.writeInt(y);
+				pos = raf.getFilePointer();
+				if (pos == raf.length()) {
+					break;
+				} else {
+					y = raf.readInt();
+				}
+			}
+		}
+		tmp.close();
+		raf.close();
+		
+		mostraContenutoFile("tmp");
+		File f = new File(nome);
+		f.delete();
+		File ff = new File("tmp");
+		ff.renameTo(f);
+	}
+	
+	public static void main(String[] args) {
+		
 	}
 	
 }
