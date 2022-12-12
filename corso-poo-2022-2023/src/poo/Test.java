@@ -3,9 +3,6 @@ package poo;
 import java.io.*;
 import java.util.*;
 
-import javax.imageio.stream.FileImageOutputStream;
-import javax.sound.midi.SysexMessage;
-
 class MioComparator implements Comparator<String> {
 	public int compare(String s1, String s2) {
 		if (s1.length() < s2.length()) return -1;
