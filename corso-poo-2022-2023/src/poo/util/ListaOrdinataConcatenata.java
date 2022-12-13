@@ -120,5 +120,17 @@ public class ListaOrdinataConcatenata<T extends Comparable<? super T>> extends C
 			return corr.info;
 		}
 		
+		@Override
+		public void remove() {
+			if (pre == corr) throw new IllegalStateException();
+			if (corr == testa) {
+				testa = testa.next;
+			} else {
+				pre.next = corr.next;
+			}
+			size--;
+			corr = pre;
+		}
+		
 	}
 }
