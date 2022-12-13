@@ -1,6 +1,6 @@
 package poo.ricorsione;
 
-import java.util.NoSuchElementException;
+import java.util.*;
 
 public class Test {
     
@@ -58,5 +58,19 @@ public class Test {
         int m2 = massimo(v, med, sup);
         return (m1 >= m2) ? m1 : m2;
     }
+
+    public static void permuta(int[] a, int i) {//i rappresenta l'indice da cui iniziano gli n-1 elementi da permutare
+		if (i == a.length - 1) {
+			System.out.println(Arrays.toString(a));
+        } else {
+			for (int j = i; j < a.length; j++) {
+				int park = a[i];
+				a[i] = a[j];
+				a[j] = park;
+				permuta(a, i + 1);
+				park = a[i]; a[i] = a[j]; a[j] = park;
+			}
+		}
+	}
 
 }
