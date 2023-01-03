@@ -1,4 +1,4 @@
-package map;
+package esercitazioni.map;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

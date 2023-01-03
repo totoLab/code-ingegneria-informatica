@@ -1,4 +1,4 @@
-package map;
+package esercitazioni.map;
 
 public class Prova {
 

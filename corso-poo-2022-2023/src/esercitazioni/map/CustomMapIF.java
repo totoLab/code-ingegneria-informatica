@@ -1,4 +1,4 @@
-package map;
+package esercitazioni.map;
 
 import java.io.Serializable;
 import java.util.Iterator;
