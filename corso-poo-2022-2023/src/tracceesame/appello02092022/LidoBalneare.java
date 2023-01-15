@@ -1,6 +1,7 @@
 package tracceesame.appello02092022;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 class Posizione {
 	
@@ -27,10 +28,32 @@ public interface LidoBalneare extends Serializable {
 		boolean eLibero(Posizione p);
 		
 		/*Restituisce le posizioni degli ombrelloni occupati*/
-		Posizione[] ombrelloniOccupati();
+		default Posizione[] ombrelloniOccupati() {
+			ArrayList<Posizione> occupati = new ArrayList<>();
+			for (int i = 0; i < numeroFileOmbrelloni(); i++) {
+				for (int j = 0; j < numeroOmbrelloniPerFila(); j++) {
+					Posizione corrente = new Posizione(i, j);
+					if (!eLibero(corrente)) {
+						occupati.add(corrente);
+					}
+				}
+			}
+			return (Posizione[]) occupati.toArray();
+		}
 		
 		/*Restituisce le posizioni degli ombrelloni liberi*/
-		Posizione[] ombrelloniLiberi();
+		default Posizione[] ombrelloniLiberi() {
+			ArrayList<Posizione> liberi = new ArrayList<>();
+			for (int i = 0; i < numeroFileOmbrelloni(); i++) {
+				for (int j = 0; j < numeroOmbrelloniPerFila(); j++) {
+					Posizione corrente = new Posizione(i, j);
+					if (!eLibero(corrente)) {
+						liberi.add(corrente);
+					}
+				}
+			}
+			return (Posizione[]) liberi.toArray();
+		}
 		
 		/*Restituisce il numero di file di ombrelloni nello stabilimento*/
 		int numeroFileOmbrelloni();

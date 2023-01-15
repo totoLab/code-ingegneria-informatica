@@ -21,7 +21,7 @@ public class LidoBalneareConcreto extends AbstractLidoBalneare {
 	}
 
 	@Override
-	public Posizione[] ombrelloniOccupati() {
+	public Posizione[] ombrelloniOccupati() { // override superfluo e non molto più efficiente della controparte dell'interface
 		Posizione[] occupati = new Posizione[file * ombrelloniPerFila];
 		int cont = 0;
 		for (int i = 0; i < file; i++) {
@@ -37,7 +37,7 @@ public class LidoBalneareConcreto extends AbstractLidoBalneare {
 	}
 
 	@Override
-	public Posizione[] ombrelloniLiberi() {
+	public Posizione[] ombrelloniLiberi() { // override superfluo e non molto più efficiente della controparte dell'interface
 		Posizione[] liberi = new Posizione[file * ombrelloniPerFila];
 		int cont = 0;
 		for (int i = 0; i < file; i++) {
