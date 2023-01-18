@@ -33,7 +33,7 @@ public class LidoBalneareConcreto extends AbstractLidoBalneare {
 				}
 			}
 		}
-		return riduciArray(occupati, cont);
+		return riduciArray(occupati);
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class LidoBalneareConcreto extends AbstractLidoBalneare {
 				}
 			}
 		}
-		return riduciArray(liberi, cont);
+		return riduciArray(liberi);
 	}
 
 	@Override
@@ -68,7 +68,7 @@ public class LidoBalneareConcreto extends AbstractLidoBalneare {
 	}
 	
 	private Posizione[] riduciArray(Posizione[] array, int ultimoIndice) {
-		Posizione[] ret = new Posizione[ultimoIndice + 1];
+		Posizione[] ret = new Posizione[ultimoIndice];
 		for (int i = 0; i < ret.length; i++) {
 			ret[i] = array[i];
 		}
