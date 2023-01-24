@@ -1,12 +1,12 @@
 package poo.agendina;
 
+import poo.util.*;
 import java.util.*;
-import poo.util.Array;
-import poo.util.ArrayVector;
+import poo.util.Vector;
 
 public class AgendinaVector extends AgendinaAbstract {
     
-    private Vector<Nominativo> v = new ArrayVector<Nominativo>(100);
+    private Vector<Nominativo> v = new ArrayVector<>(100);
 
     @Override
     public int size() {
