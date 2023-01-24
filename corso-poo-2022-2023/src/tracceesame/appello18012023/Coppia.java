@@ -2,8 +2,7 @@ package tracceesame.appello18012023;
 
 public class Coppia {
 	
-	int scaffale;
-	int slot;
+	int scaffale, slot;
 	
 	public Coppia(int scaffale, int slot) {
 		this.scaffale = scaffale;

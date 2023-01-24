@@ -5,11 +5,11 @@ import poo.ricorsione.Backtracking;
 
 public class GestoreScaffali extends Backtracking<Coppia, Integer> {
 
-	int maxPortata, numeroSoluzioni, maxSoluzioni = 1;
-	Integer[][] scaffalatura;
-	List<Integer> pacchiDaSistemare;
+	private int maxPortata, numeroSoluzioni, maxSoluzioni = 1;
+	private Integer[][] scaffalatura;
+	private List<Integer> pacchiDaSistemare;
 	
-	public GestoreScaffali(int scaffali, int slot, List<Integer> pacchiDaSistemare, int maxPortata) {
+	public GestoreScaffali(int scaffali, int slot, ArrayList<Integer> pacchiDaSistemare, int maxPortata) {
 		scaffalatura = new Integer[scaffali][slot];
 		
 		// Slot vuoti sono interi = 0
@@ -63,15 +63,7 @@ public class GestoreScaffali extends Backtracking<Coppia, Integer> {
 	protected void assegna(Coppia c, Integer peso) {
 		// assegna allo slot
 		scaffalatura[c.scaffale][c.slot] = peso;
-		
-		// e rimuove dalle scelte l'intero appena assegnato
-		Iterator<Integer> it = pacchiDaSistemare.iterator();
-		while (it.hasNext()) {
-			Integer corrente = it.next(); 
-			if (corrente.equals(peso))
-				it.remove(); 
-				break;
-		}
+		this.pacchiDaSistemare.remove(peso);
 	}
 
 	@Override
@@ -114,7 +106,7 @@ public class GestoreScaffali extends Backtracking<Coppia, Integer> {
 
 	@Override
 	protected Collection<Integer> scelte(Coppia c) {
-		return this.pacchiDaSistemare;
+		return new ArrayList<>(this.pacchiDaSistemare);
 	}
 
 	@Override
@@ -135,8 +127,11 @@ public class GestoreScaffali extends Backtracking<Coppia, Integer> {
 	}
 	
 	public static void main(String[] args) {
-		Integer[] arrayPacchi = {2, 1, 3, 1, 2, 1, 3, 2, 1, 2, 3, 1, 2, 3, 1};
-		List<Integer> pacchiDaSistemare = Arrays.asList(arrayPacchi);
+		Integer[] arrayPacchi = {3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 1, 3};
+		ArrayList<Integer> pacchiDaSistemare = new ArrayList<>();
+		for (int i = 0; i < arrayPacchi.length; i++) {
+			pacchiDaSistemare.add(arrayPacchi[i]);
+		}
 		int maxPortata = 8;
 		GestoreScaffali gs = new GestoreScaffali(5, 3, pacchiDaSistemare, maxPortata);
 		gs.risolvi();
