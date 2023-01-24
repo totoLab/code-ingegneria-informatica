@@ -11,6 +11,14 @@ abstract class AereoAbstract implements Aereo {
 		this.sedili = sedili;
 	}
 	
+	public int getFile() {
+		return file;
+	}
+	
+	public int getSedili() {
+		return sedili;
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -20,24 +28,27 @@ abstract class AereoAbstract implements Aereo {
 		sb.append(sedili);
 		return sb.toString();
 	}
-	
+
 	@Override
 	public int hashCode() {
-		int h = 0;
-		int prime = 31;
-		h = h + prime * file;
-		h = h + prime * sedili;
-		return h;
+		return toString().hashCode();
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) return true;
 		if (obj == null) return false;
-		if (!(obj instanceof Posto)) return false;
+		if (!(obj instanceof Aereo)) return false;
 		
-		Posto other = (Posto) obj;
-		return file == other.fila && sedili == other.sedile;
+		Aereo other = (Aereo) obj;
+		if (!(this.postiAereo().equals(other.postiAereo()))) return false;
+		for (Posto p : postiAereo()) {
+			String p1 = this.passeggeroDelPosto(p), p2 = other.passeggeroDelPosto(p);
+			if (!(p1.equals(p2))) return false;
+			if (!(this.bagaglioDelPasseggero(p1)
+					.equals(other.bagaglioDelPasseggero(p1)))) return false;
+		}
+		return true;
 	}
 
 	@Override

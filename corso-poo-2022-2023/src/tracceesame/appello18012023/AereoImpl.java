@@ -4,8 +4,8 @@ import java.util.*;
 
 public class AereoImpl extends AereoAbstract {
 
-	HashMap<Posto, String> postiPasseggeri = new HashMap<>();
-	HashMap<String, String> passeggeriBagagli = new HashMap<>();
+	private HashMap<Posto, String> postiPasseggeri = new HashMap<>();
+	private HashMap<String, String> passeggeriBagagli = new HashMap<>();
 	
 	public AereoImpl(int file, int sedili) {
 		super(file, sedili);
@@ -80,6 +80,9 @@ public class AereoImpl extends AereoAbstract {
 		a.prenotaPosto("Antonio", "valigia");
 		a.prenotaPosto("Giuseppe", "zaino");
 		a.prenotaPosto("Mario", null);
+		System.out.println(a);
+		
+		a.cancellaPrenotazione(new Posto(0, 0));
 		System.out.println(a);
 	}
 
