@@ -2,6 +2,8 @@ package poo.util;
 
 import java.util.Scanner;
 
+import poo.agendina.Nominativo;
+
 public final class Array{
 	//classe di utilit� sugli array numerici monodimensionali
 	private Array(){}
@@ -198,4 +200,9 @@ public final class Array{
 		System.out.println("Array finale: "+java.util.Arrays.toString(v));
 
 	}//main
+
+	public static int ricercaBinaria(Vector<Nominativo> v, Nominativo n) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }//Array
