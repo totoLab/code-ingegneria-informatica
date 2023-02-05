@@ -1,0 +1,8 @@
+doposcuola/
+*plagio*
+*.pdf
+__pycache__/
+gauss_elimination/
+*.jpg
+*.png
+tracce/
