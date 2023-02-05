@@ -3,6 +3,6 @@ doposcuola/
 *.pdf
 __pycache__/
 gauss_elimination/
-*.jpg
+*.jp*g
 *.png
 tracce/
