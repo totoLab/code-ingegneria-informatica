@@ -1,0 +1,7 @@
+import matplotlib.pyplot as plt
+
+x = ['a', 'b', 'c']
+y = [2, 4, 3]
+
+plt.plot(x,y,label='Linea 1')
+
