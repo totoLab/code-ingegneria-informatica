@@ -13,18 +13,42 @@ public class Sistema {
 		this.listaMessaggi.addAll(listaMessaggi);
 	}
 	
+//	public ArrayList<String> nessunaLettura(String destinatario) {
+//		ArrayList<String> mittentiIgnorati = new ArrayList<>();
+//		for (Messaggio m : listaMessaggi) {
+//			if (m.getNomeDestinatario().equals(destinatario) &&
+//					!mittentiIgnorati.contains(m.getNomeMittente())
+//					&& !m.letto()) {
+//				mittentiIgnorati.add(m.getNomeMittente());
+//			}
+//		}
+//		return mittentiIgnorati;
+//	}
+	
 	public ArrayList<String> nessunaLettura(String destinatario) {
-		ArrayList<String> mittentiIgnorati = new ArrayList<>();
-		for (Messaggio m : listaMessaggi) {
-			if (m.getNomeDestinatario().equals(destinatario) &&
-					!mittentiIgnorati.contains(m.getNomeMittente())
-					&& !m.letto()) {
-				mittentiIgnorati.add(m.getNomeMittente());
+		ArrayList<String> ret = new ArrayList<>();
+		for (Utente u : listaUtenti) {
+			if (nessunaLetturaUtente(u, destinatario)) {
+				ret.add(u.getNome());
 			}
 		}
-		return mittentiIgnorati;
+		return ret;
 	}
 	
+	public boolean nessunaLetturaUtente(Utente u, String destinatario) {
+		for (Messaggio m : listaMessaggi) {
+			String nomeUtente = u.getNome();
+			if (nomeUtente.equals(m.getNomeMittente()) &&
+					destinatario.equals(m.getNomeDestinatario())) {
+				if (m.letto()) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	
+
 	public ArrayList<String> cittaUnica(int dataInizio, int dataFine) {
 		ArrayList<String> mittentiBravi = new ArrayList<>();
 		ArrayList<Integer> numeroMessaggi = new ArrayList<>();

@@ -18,7 +18,7 @@ public class Test {
 
 	public static void main(String[] args) {
 		// testTraccia18022019();
-		// testTraccia16092020();
+		testTraccia16092020();
 		// testTraccia20072021();
 		// testTraccia23072020();
 		// testTraccia03072020();
@@ -57,7 +57,7 @@ public class Test {
 		Terminale.stampa(s.acquirentiUnici(2,3));
 		Terminale.stampa(s.acquirentiComuni(c3, c6));
 	}
-	
+	*/
 	public static void testTraccia16092020() {
 		Utente u1 = new Utente("Utente A", "Roma");
 		Utente u2 = new Utente("Utente B", "Roma");
@@ -88,7 +88,7 @@ public class Test {
 		// Terminale.stampa(lista.toString());
 		Terminale.stampa(lista.stesseSottoSequenze());
 	}
-	
+	/*
 	public static void testTraccia20072021() {
 		Contratto c1 = new Contratto("Juventus", "Bianchi", 10000, new LinkedList<Integer>(Arrays.asList(300,200,300)));
 		Contratto c2 = new Contratto("Inter", "Neri", 5000, new LinkedList<Integer>(Arrays.asList(100,50,100)));
