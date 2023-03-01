@@ -1,3 +1,8 @@
+# Only files with extensions
+*
+!/**/
+!*.*
+
 # Compiled class file
 *.class
 
@@ -30,3 +35,7 @@ hs_err_pid*
 
 # personal files
 self/
+
+# assembly
+reti-logiche-assembly/lezioni/
+*.o
