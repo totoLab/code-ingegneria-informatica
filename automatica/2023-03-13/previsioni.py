@@ -18,19 +18,19 @@ x0 = [1, 0, 0] # evento certo soleggiato
 # modello a tempo discreto
 previsioni = signal.dlti(A, B, C, D)
 
-# tempi
+# tempi
 t0 = 0
 tf = 31
 incr = 1 # anno
 t = np.arange(t0, tf, incr, dtype=int)
 
-# ingressi
+# ingressi
 u = np.zeros((len(t), 1)) # il sistema resta isolato anche con u != 0
 
 # simulazione
-_, y_, x = singal.dlsim(previsioni, u, t, x0)
+_, y, x = signal.dlsim(previsioni, u, t, x0)
   
-# graphs
+# graphs
 ## soleggiato
 plt.subplot(3, 1, 1)
 plt.stem(t, y[:,0])
@@ -39,12 +39,12 @@ plt.title('Soleggiato')
 
 ## nuvoloso
 plt.subplot(3, 1, 2)
-plt.stem(t, y[:,1])
+plt.stem(t, x[:,1])
 plt.grid(True)
 plt.title('Nuvoloso')
 
 ## piovoso
 plt.subplot(3, 1, 3)
-plt.stem(t, y[:,2])
+plt.stem(t, x[:,2])
 plt.grid(True)
 plt.title('Piovoso')
