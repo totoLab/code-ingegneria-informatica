@@ -39,3 +39,6 @@ self/
 # assembly
 reti-logiche-assembly/lezioni/
 *.o
+
+# python
+__pycache__
