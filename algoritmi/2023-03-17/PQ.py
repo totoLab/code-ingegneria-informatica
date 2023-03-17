@@ -1,6 +1,12 @@
 def create():
     return []
 
+def create_from_list(V):
+    queue = create()
+    for x in V:
+        insert(queue, x)
+    return queue
+
 def min(Q):
     if len(Q) == 0:
         print("Priority queue empty")
@@ -19,7 +25,8 @@ def delete_min(Q):
         print("Priority queue empty")
         return None
     min = Q[0]
-    Q[0] = Q.pop()
+    if len(Q) != 1:
+        Q[0] = Q.pop()
 
     i = 0
     while ( (2 * i + 1) <= len(Q) - 1 and Q[i] > Q[2 * i + 1] ) or \
@@ -31,3 +38,7 @@ def delete_min(Q):
         else:
             Q[2*i+1], Q[i] = Q[i], Q[2*i+1]
             i = 2 * i + 1
+    return min
+
+def printPQ(Q):
+    print(Q)
