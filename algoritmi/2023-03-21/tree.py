@@ -59,7 +59,7 @@ def insert(A, x):
         insert(left(A), x)
     else:
         insert(right(A), x)
-    return A
+    return rotate(A)
 
 def delete(A, x):
     if empty(A):
@@ -79,7 +79,7 @@ def delete(A, x):
         delete(left(A), x)
     else:
         delete(right(A), x)
-    return A
+    return rotate(A)
 
 def prefix(A, B):
     return # todo
@@ -92,3 +92,38 @@ def postfix(A, B):
 
 def breadthfirst(Q, B): # visita per livelli
     return # todo
+
+def depth(A):
+    if empty(A):
+        return 0
+    return max(depth(A), right(A)) + 1
+
+def bil(A):
+    return bil(left(A)) - bil(right(A))
+
+def rightRotate(A):
+    T = A
+    A = left(A)
+    setLeft(T, right(A))
+    setRight(A, T)
+    return A
+
+def leftRotate(A):
+    T = A
+    A = right(A)
+    setRight(T, left(A))
+    setLeft(A, T)
+    return A
+
+def rotate(A):
+    if bil(A) == 2 and bil(left(A)) >= 0:
+        A = rightRotate(A)
+    if bil(A) == -2 and bil(right(A)) <= 0:
+        A = leftRotate(A)
+    if bil(A) == 2 and bil(left(A)) < 0:
+        setLeft(A, leftRotate(left(A)))
+        A = rightRotate(A)(A)
+    if bil(A) == -2 and bil(right(A)) > 0:
+        setRight(A, rightRotate(rigth(A)))
+        A = leftRotate(A)
+    return A
