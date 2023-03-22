@@ -16,6 +16,12 @@ def right(A):
 def setValue(A, x):
     A[0] = x
 
+def setLeft(A, p):
+    A[1] = p
+
+def setRight(A, p):
+    A[2] = p
+
 def addNode(A, x):
     A.append(x)
     A.append([])
