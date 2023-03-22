@@ -59,6 +59,7 @@ def insert(A, x):
         insert(left(A), x)
     else:
         insert(right(A), x)
+    return A
 
 def delete(A, x):
     if empty(A):
@@ -78,6 +79,7 @@ def delete(A, x):
         delete(left(A), x)
     else:
         delete(right(A), x)
+    return A
 
 def prefix(A, B):
     return # todo
