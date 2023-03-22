@@ -79,4 +79,14 @@ def delete(A, x):
     else:
         delete(right(A), x)
 
-# TODO valutare la complessità
+def prefix(A, B):
+    return # todo
+
+def infix(A, B):
+    return # todo
+
+def postfix(A, B):
+    return # todo
+
+def breadthfirst(Q, B): # visita per livelli
+    return # todo
