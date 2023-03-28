@@ -25,7 +25,7 @@ def swapKeys(T1, T2):
     setKey(T1, key(T2))
     setKey(T2, k)
 
-def int2string(n): # notazione binaria senza l'ultima cifra
+def int2string(n): # notazione binaria senza l'ultima cifra theta(log_2(n))
     s = []
     while n > 0:
         s.append(n % 2)
@@ -53,18 +53,18 @@ def emptyHeap(H):
 def setSize(H, n):
     H[1] = n
 
-def min(H):
+def min(H):  # theta(1)
     if emptyHeap(H):
         print("Errore: heap vuoto")
         return None
     return key(tree(H))
 
-def insertHeap(H, x):
+def insertHeap(H, x): # theta(log_2(n))
     setSize(H, size(H) + 1)
     s = int2string(size(H))
     insertTree(tree(H), s, x)
 
-def insertTree(T, s, x):
+def insertTree(T, s, x): # theta(log_2(n))
     if s == []:
         addLeafNode(T, x)
     elif last(s) == 0:
@@ -77,3 +77,35 @@ def insertTree(T, s, x):
         insertTree(right(T), s, x)
         if key(T) > key(right(T)):
             swapKeys(T, right(T))
+
+def deleteMin():
+    if emptyHeap(H):
+        print("Errore: heap vuoto")
+        return None
+    A = tree(H)
+    n = size(H)
+    min = min(H)
+    if n == 1:
+        deleteLeafNode(A)
+        setSize(H, 0)
+    else:
+        s = int2string(n)
+        while len(s) > 0:
+            if last(s) == 0:
+                A = left(A)
+            else:
+                A = right(A)
+            s.pop()
+        deleteLeafNode(A)
+        setKey(tree(H), key(A))
+        A = tree(H)
+        while ( not emptyTree(left(A)) and key(A) > key(left(A)) ) or \
+            ( not emptyTree(right(A)) and key(A) > key(right(A)) ):
+
+            if emptyTree(left(A)) and key(A) < key(left(A)):
+                swapKeys(A, left(A))
+                A = left(A)
+            else:
+                swapKeys(A, right(A))
+                A = right(A)
+    return min
