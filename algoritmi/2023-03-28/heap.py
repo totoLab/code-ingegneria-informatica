@@ -109,3 +109,16 @@ def deleteMin():
                 swapKeys(A, right(A))
                 A = right(A)
     return min
+
+def insertPQ(H, i, Q):
+    if H != []:
+        Q[i] = H[0]
+        insertPQ(H[1], 2*i+1, Q)
+        insertPQ(H[2], 2*i+2, Q)
+
+def tree2list(H):
+    Q = []
+    for i in range(len(H[1]) + 1):
+        Q.append(0)
+    insertPQ(H[0], 0, Q)
+    return Q
