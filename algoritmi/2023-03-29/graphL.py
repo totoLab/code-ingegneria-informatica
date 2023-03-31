@@ -1,5 +1,7 @@
 # implementazione con lista di adiacenza
 
+import graphM
+
 def createGraph(n):  # Theta(n)
     return [[]] * n
 
@@ -31,3 +33,14 @@ def deleteEdge(G, i, j): # Theta(n)
 
 def neighbours(G, i): # O(n)
     return G[i][:] # entire list's copy
+
+def list2Matrix(G):
+    C = graphM.createGraph(size(G))
+    for i in range(len(G)):
+        for k in G[i]:
+            C.append(k)
+    return C
+
+def printGraph(G):
+    C = list2Matrix(G)
+    graphM.printGraph(C)
