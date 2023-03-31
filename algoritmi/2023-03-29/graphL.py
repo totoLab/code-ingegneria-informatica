@@ -11,7 +11,7 @@ def addEdge(G, i, j): # Theta(1)
         G[i].append(j)
 
 def deleteEdge(G, i, j): # O(n)
-    return
+    return G[i]
 
 def neighbours(G, i): # O(n)
     return G[i][:]
