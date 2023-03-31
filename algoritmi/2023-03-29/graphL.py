@@ -29,7 +29,8 @@ def insertEdge(G, i, j): # Theta(1)
         G[i].append(j)
 
 def deleteEdge(G, i, j): # Theta(n)
-    G[i].remove(j)
+    if isEdge(G, i, j):
+        G[i].remove(j)
 
 def neighbours(G, i): # O(n)
     return G[i][:] # entire list's copy
