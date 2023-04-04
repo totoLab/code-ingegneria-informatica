@@ -1,4 +1,5 @@
 import WGraphL as g
+import algoritmi as a
 
 G = g.createGraph(6)
 L = [
@@ -11,6 +12,10 @@ for [i, j, w] in L:
 print("Initial graph:")
 g.printGraph(G)
 
+T = a.closure(G)
+g.printGraph(T)
+
 g.deleteEdge(G, 4, 2)
 print("Modified graph:")
 g.printGraph(G)
+
