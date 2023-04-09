@@ -12,8 +12,8 @@ public class Finder extends Thread {
 	static final int maxLenght = 6;
 
 	
-	public Finder(ThreadGroup group, String name, String letterToFix) {
-		super(group, name);
+	public Finder(String name, String letterToFix) {
+		super(name);
 		this.letterToFix = letterToFix;
 	}
 	

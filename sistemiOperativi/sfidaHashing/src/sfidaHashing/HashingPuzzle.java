@@ -36,11 +36,10 @@ public class HashingPuzzle {
 	
 	private static void initMultiThreading(int n) {
 		Finder[] finders = new Finder[n];
-		ThreadGroup group = new ThreadGroup("finders");
 		
 		for (int i = 0; i < finders.length; i++) {
 			String letterToFix = String.valueOf(alphabet.charAt(i));
-			finders[i] = new Finder(group, "t" + String.valueOf(i + 1), letterToFix);
+			finders[i] = new Finder("t" + String.valueOf(i + 1), letterToFix);
 			finders[i].start();
 		}
 		
