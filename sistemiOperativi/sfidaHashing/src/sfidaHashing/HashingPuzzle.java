@@ -7,6 +7,8 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 public class HashingPuzzle {
 	
+	static AtomicBoolean canReturn = new AtomicBoolean(false);
+	
 	static String alphabet = ":;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]";
 	static int D = 7;
 	static String S = "SisOp-CorsoB-Hashing-Puzzle-";

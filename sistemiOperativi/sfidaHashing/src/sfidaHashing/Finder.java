@@ -30,20 +30,24 @@ public class Finder extends Thread {
 	public void run() {
 		System.out.println("Thread " + this.getId() + " started");
 		for (int j = 1; j <= maxLenght; j++) {
+			if (found || HashingPuzzle.canReturn.get()) break;
+
 			System.out.println("Thread " + this.getId() + ", checking max lenght " + j);
 			generatePermutations(letterToFix, new HashSet<>(), j);
 		}
 	}
 	
 	private void generatePermutations(String currentPermutation, Set<Integer> usedIndices, int maxLenght) {
-        // base case: we've generated a full permutation
+		if (HashingPuzzle.canReturn.get()) return;
+		
+        // base case: generated a permutation
         if (currentPermutation.length() == maxLenght) {
             // test the permutation using hashAndTest function
-            System.out.println(currentPermutation);
+            // System.out.println(currentPermutation); //! uncomment only during testing, slows down the program significantly
             if (HashingPuzzle.hashAndTest(currentPermutation)) {
             	this.found = true;
             	this.result = currentPermutation;
-                Thread.currentThread().getThreadGroup().interrupt();
+                HashingPuzzle.canReturn.compareAndSet(false, true);
             }
             return;
         }
