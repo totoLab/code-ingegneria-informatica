@@ -7,6 +7,8 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 public class HashingPuzzle {
 	
+	static final boolean testing = false;
+	
 	static AtomicBoolean canReturn = new AtomicBoolean(false);
 	
 	static String alphabet = ":;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]";

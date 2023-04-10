@@ -43,7 +43,9 @@ public class Finder extends Thread {
         // base case: generated a permutation
         if (currentPermutation.length() == maxLenght) {
             // test the permutation using hashAndTest function
-            // System.out.println(currentPermutation); //! uncomment only during testing, slows down the program significantly
+        	if (HashingPuzzle.testing) {
+        		System.out.println(currentPermutation); //! uncomment only during testing, slows down the program significantly
+        	}
             if (HashingPuzzle.hashAndTest(currentPermutation)) {
             	this.found = true;
             	this.result = currentPermutation;
