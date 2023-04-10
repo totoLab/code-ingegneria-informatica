@@ -8,8 +8,7 @@ public class Finder extends Thread {
 	private String result;
 	private String letterToFix;
 	
-	static final String alphabet = HashingPuzzle.alphabet;
-	static final int maxLenght = 6;
+	static final int minLenght = 1, maxLenght = 6;
 
 	
 	public Finder(String name, String letterToFix) {
@@ -29,7 +28,7 @@ public class Finder extends Thread {
 	@Override
 	public void run() {
 		System.out.println("Thread " + this.getId() + " started");
-		for (int j = 1; j <= maxLenght; j++) {
+		for (int j = minLenght; j <= maxLenght; j++) {
 			if (found || HashingPuzzle.canReturn.get()) break;
 
 			System.out.println("Thread " + this.getId() + ", checking max lenght " + j);
