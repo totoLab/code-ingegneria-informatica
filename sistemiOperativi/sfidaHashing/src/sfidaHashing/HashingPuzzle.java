@@ -10,11 +10,8 @@ public class HashingPuzzle {
 	static final boolean testing = false;
 	
 	static AtomicBoolean canReturn = new AtomicBoolean(false);
-	
-	static String alphabet = ":;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]";
-	static int D = 7;
-	static String S = "SisOp-CorsoB-Hashing-Puzzle-";
-
+	static final String alphabet = ":;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]", S = "SisOp-CorsoB-Hashing-Puzzle-";
+	static final int D = 7;
 	
 	public static void main(String[] args) {
 		
