@@ -27,11 +27,11 @@ public class Finder extends Thread {
 
 	@Override
 	public void run() {
-		System.out.println("Thread " + this.getId() + " started");
+		System.out.println("Thread " + this.getName() + " started");
 		for (int j = minLenght; j <= maxLenght; j++) {
 			if (found || HashingPuzzle.canReturn.get()) return;
 
-			System.out.println("Thread " + this.getId() + ", checking max lenght " + j);
+			System.out.println("Thread " + this.getName() + ", checking max lenght " + j);
 			generatePermutations(letterToFix, new HashSet<>(), j);
 		}
 	}
