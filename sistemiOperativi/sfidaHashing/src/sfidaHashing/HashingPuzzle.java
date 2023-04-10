@@ -51,7 +51,7 @@ public class HashingPuzzle {
 				found = current.getFound();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-				System.out.println("Thread " + current.getId() + " was interrupted");
+				System.out.println("Thread " + current.getName() + " was interrupted");
 			}
 			i++;
 		} while (i < n && !found);
@@ -68,6 +68,6 @@ public class HashingPuzzle {
 	
 	private static String generateDString(int d) {
 		return "0".repeat(d);
-	}	 
+	}
 	
 }
