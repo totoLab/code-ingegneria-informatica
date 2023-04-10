@@ -54,10 +54,10 @@ public class Finder extends Thread {
         }
         
         // generate permutations by adding unused characters
-        for (int i = 0; i < alphabet.length(); i++) {
+        for (int i = 0; i < HashingPuzzle.alphabet.length(); i++) {
             if (!usedIndices.contains(i)) {
                 // add the character at index i to the current permutation
-                String newPermutation = currentPermutation + alphabet.charAt(i);
+                String newPermutation = currentPermutation + HashingPuzzle.alphabet.charAt(i);
                 Set<Integer> newIndices = new HashSet<>(usedIndices);
                 newIndices.add(i);
                 // recurse to generate the rest of the permutation
