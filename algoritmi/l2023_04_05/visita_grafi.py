@@ -30,3 +30,16 @@ def depthVisit(G, s):
                 Queue.append(y)
                 Pred[y] = next
     return edges(Pred)
+
+def depthVisitRecursiveBootstrap(G, s):
+    Edges = []
+    depthVisitRecursive(G, s, Edges)
+    return Edges
+
+def depthVisitRecursive(G, v, Pred):
+    Adj = g.neighbours(G, s)
+    for [y, w] in Adj:
+        if (Pred[y] == -1):
+            Queue.append(y)
+            Pred[y] = v
+            depthVisitRecursive(G, y, Pred)
