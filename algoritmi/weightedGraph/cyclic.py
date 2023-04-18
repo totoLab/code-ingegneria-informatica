@@ -7,7 +7,7 @@ def cyclicPath(G, x, CPath, Reached):
         if not Reached[y]:
             if (CPath[y]):
                 return True
-            elif cyclicPath(G, x, CPath, Reached):
+            elif cyclicPath(G, y, CPath, Reached):
                 return True
     CPath[x] = False
     Reached[x] = True
