@@ -1,4 +1,4 @@
-from l2023_04_04 import WGraphL as g
+import WGraphL as g
 import math
 
 C = [ 
@@ -30,8 +30,8 @@ def Dijkstra(G, s):
                 if d < dist[y]:
                     dist[y] = d
                     pred[y] = next
-        Edges.pop(0)
-        return Edges
+    Edges.pop(0)
+    return Edges
 
 def minVertex(dist, visited):
     minVertexindex = -1
@@ -41,3 +41,5 @@ def minVertex(dist, visited):
             minDist = dist[i]
             minVertexindex = i
     return minVertexindex
+
+print(Dijkstra(G, 0))
