@@ -80,10 +80,10 @@ class Graph: # non orientato -> simmetrico (non c'è differenza tra archi entran
         else:
             return False
         if self.degree(x) >= self.degree(y):
-            neighbours = yn.get_neighbours():
+            neighbours = yn.get_neighbours()
             target = x
         else:
-            neighbours = xn.get_neighbours():
+            neighbours = xn.get_neighbours()
             target = y
         for neighbour in neighbours:
             if neighbour[0] == target:
