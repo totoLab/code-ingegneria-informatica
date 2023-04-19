@@ -1,4 +1,7 @@
+import math
+
 class Graph: # non orientato -> simmetrico (non c'è differenza tra archi entranti e uscenti) e pesato
+    # spazio usato: O(n + 2m) per la lista di adiacenza
 
     class Node:
         
@@ -44,6 +47,9 @@ class Graph: # non orientato -> simmetrico (non c'è differenza tra archi entran
                     break
                 i += 1
             return mod
+
+        def set_value(self, new_value):
+            self._value = new_value
 
     def __init__(self):
         self._nodes = {}
@@ -104,3 +110,39 @@ class Graph: # non orientato -> simmetrico (non c'è differenza tra archi entran
             node2.add_neighbours((node1, w))
             return True
         return False
+
+    #TODO: remove_edge, remove_node
+
+    def set_value(self, x, new_value):
+        if x in self._nodes and new_value not in self._nodes:
+            xn = self._nodes[x]
+            xn.set_value(new_value)
+            node = self._nodes.pop(x)
+            self._nodes[new_value] = node
+            return x
+        return None
+
+    def to_adjecency_matrix(self): # mapping lessicografico dei nodi sugli indici della matrice
+        n = self.number_of_nodes()
+        adj = [ [math.inf for _ in range(n)] for _ in range(n) ]
+        mapping = {key: idx for idx, keey in enumerate(sorted(self._nodes.keys()))}
+        for node in self.get_nodes():
+            neighbours = self.neighbours(node)
+            for k, w in neighbours:
+                adj[mapping[node]][mapping[k]] = w
+        return adj, mapping
+
+    def to_adjecency_list(self):
+        adj_i = []
+        nodes = self.get_nodes()
+        mapping = {key: idx for idx, keey in enumerate(sorted(self._nodes.keys()))}
+        for node in nodes:
+            adj_i.append([])
+            neighbours = self.neighbours(node)
+            for k, w in neighbours:
+                adj_i[mapping[node]].append((mapping[k], w))
+        return adj_i, mapping
+
+if __name__ == "__main__":
+        
+    G = Graph()
