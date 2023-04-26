@@ -11,7 +11,7 @@ def left(A):
     return A[1]
 
 def right(A):
-    return A[0]
+    return A[2]
 
 def setValue(A, x):
     A[0] = x
