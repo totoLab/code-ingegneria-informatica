@@ -47,7 +47,7 @@ print(Dijkstra(G, 0))
 
 # reimplementation using heap
 
-def Dijkstra_heap(G, s):
+def Dijkstra_heap(G, s):  # O(m log2 m) = O(m log2 n^2) = O(m 2 log2 n) = O(m log2 n)
     n = g.size(G)
     pred    = [ -1 for i in range(n) ]
     visited = [ False for i in range(n) ] 
@@ -58,18 +58,22 @@ def Dijkstra_heap(G, s):
     Q = h.createHeap()
     h.insertHeap(Q, [s, 0])
 
-    while not h.empty(Q):
-        [next, _] = h.deleteMin(Q)
-        if not visited[next]:
-            visited[next] = True
+    while not h.empty(Q): # O(m), ogni nodo aggiunto una volta per ogni suo arco entrante 
+        [next, _] = h.deleteMin(Q) # O(m * log2 m)
+        if not visited[next]:        # O(m)
+            visited[next] = True     # O(m)
             Edges.append([pred[next], next, dist[next]])
-            Adj = g.neighbours(G, i)
-            for [y, w] in Adj:
-                if not visited[y]:
+            Adj = g.neighbours(G, i) # O(n * m) -> O(m) 
+            for [y, w] in Adj:       # O(m)
+                if not visited[y]:   # O(m)
                     d = dist[next] + g.weight(G, next, y)
                     if d < dist[y]:
                         dist[y] = d
                         pred[y] = next
-                        h.insertHeap(Q, [y, d])
+                        h.insertHeap(Q, [y, d])  # O(m log2 m)
     Edges.pop(0)
     return Edges
+
+# l'implementazione migliore dipende dal grafo:
+#    - per grafi sparsi è meglio la versione con heap (spesso è così nei casi reali)
+#    - per grafi densi l'originale
