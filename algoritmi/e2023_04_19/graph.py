@@ -111,7 +111,30 @@ class Graph: # non orientato -> simmetrico (non c'è differenza tra archi entran
             return True
         return False
 
-    #TODO: remove_edge, remove_node
+    def remove_edge(self, x, y):
+        removed = False
+        if x in self._nodes:
+            removed = self._nodes[x].remove_neighbor(y)
+
+        if not removed:
+            return removed
+
+        if y in self._nodes:
+            self._nodes[y].remove_neighbor(x)
+
+        self._number_of_edges -= 1
+
+        return removed
+
+    def remove_node(self, x):
+        if x in self._nodes:
+            xn = self._nodes.pop(x)
+            for node in self._nodes:
+                removed = self._nodes[node].remove_neighbor(xn.get_value())
+                if removed:
+                    self._number_of_edges -= 1
+            return xn.get_value()
+        return None
 
     def set_value(self, x, new_value):
         if x in self._nodes and new_value not in self._nodes:
