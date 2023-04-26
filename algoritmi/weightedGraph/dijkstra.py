@@ -59,7 +59,7 @@ def Dijkstra_heap(G, s):
     h.insertHeap(Q, [s, 0])
 
     while not h.empty(Q):
-        next = h.deleteMin(Q)
+        [next, _] = h.deleteMin(Q)
         if not visited[next]:
             visited[next] = True
             Edges.append([pred[next], next, dist[next]])
