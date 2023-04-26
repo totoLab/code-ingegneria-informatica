@@ -27,7 +27,7 @@ def Dijkstra(G, s):
         Adj = g.neighbours(G, i)
         for [y, w] in Adj:
             if not visited[y]:
-                d = dist[next] + g.weight(G, next, y)
+                d = dist[next] + w
                 if d < dist[y]:
                     dist[y] = d
                     pred[y] = next
@@ -66,7 +66,7 @@ def Dijkstra_heap(G, s):  # O(m log2 m) = O(m log2 n^2) = O(m 2 log2 n) = O(m lo
             Adj = g.neighbours(G, i) # O(n * m) -> O(m) 
             for [y, w] in Adj:       # O(m)
                 if not visited[y]:   # O(m)
-                    d = dist[next] + g.weight(G, next, y)
+                    d = dist[next] + w
                     if d < dist[y]:
                         dist[y] = d
                         pred[y] = next
