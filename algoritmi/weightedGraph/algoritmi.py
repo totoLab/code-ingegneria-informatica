@@ -41,3 +41,16 @@ def Kruskal(G):
                     C[i].append(k)
                     C[j] = C[i]
                     
+
+def Floyd(G): # O(n^3)
+    C = g.copyGraph(G)
+    for i in g.nodes(G):
+        addEdge(C, i, i, 0) # distanza zero da se stesso
+    
+    for k in g.nodes(C):
+        for i in g.nodes(C):
+            for j in g.nodes(C):
+                composedWeight = g.weight(G, i, k) + g.weight(G, k, j)
+                if composedWeight < g.weight(G, i, j):
+                    g.insertEdge(C, i, j, composedWeight)
+    return C
