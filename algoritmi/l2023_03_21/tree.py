@@ -85,19 +85,19 @@ def prefix(A, B):
     if not empty(A):
         B.append(value(A))
         prefix(left(A), B)
-        prefix(A, left(B))
+        prefix(right(A), B)
 
 def infix(A, B):
     if not empty(A):
         infix(left(A), B)
         B.append(value(A))
-        infix(A, left(B))
+        infix(right(A), B)
 
 def postfix(A, B):
     if not empty(A):
         B.append(value(A))
         postfix(left(A), B)
-        postfix(A, left(B))
+        postfix(right(A), B)
 
 def breadthfirst(Q, B): # visita per livelli
     while Q != []:
