@@ -82,16 +82,32 @@ def delete(A, x):
     return rotate(A)
 
 def prefix(A, B):
-    return # todo
+    if not empty(A):
+        B.append(value(A))
+        prefix(left(A), B)
+        prefix(A, left(B))
 
 def infix(A, B):
-    return # todo
+    if not empty(A):
+        infix(left(A), B)
+        B.append(value(A))
+        infix(A, left(B))
 
 def postfix(A, B):
-    return # todo
+    if not empty(A):
+        B.append(value(A))
+        postfix(left(A), B)
+        postfix(A, left(B))
 
 def breadthfirst(Q, B): # visita per livelli
-    return # todo
+    while Q != []:
+        A = Q[0]
+        B.append(value(A))
+        if not empty(left(A)):
+            Q.append(left(A))
+        if not empty(right(A)):
+            Q.append(right(A))
+        Q.pop(0)
 
 def depth(A):
     if empty(A):
