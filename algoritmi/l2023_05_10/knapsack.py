@@ -28,6 +28,17 @@ def KnapsackRec(b, Ws, Vs, n):
             KnapsackRec(b, Ws, Vs, n - 1),
             KnapsackRec(b - Ws[n], Ws, Vs, n - 1) + Vs[n]
         )
+     
+def Selected01(b, Ws, Vs, Val):
+    S = [ 0 for i in range(len(Ws)) ]
+    j = b
+    i = len(Ws) - 1
+    while i >= 0: 
+        if j >= Ws[i] and Val[j] - Val[j - Ws[i]] == Vs[i]:
+            S[i] = 1
+            j -= Ws[i]
+        i -= 1
+    return S
 
 def Knapsack01it1(b, Ws, Vs):
     n = len(Ws) + 1
@@ -41,8 +52,7 @@ def Knapsack01it1(b, Ws, Vs):
                 M[i - 1][j],
                 M[i - 1][j - Ws[i - 1]] + Vs[i - 1]
             )
-    return M[n - 1][b]
-        
+    return [ M[n - 1][b], Selected01(b, Ws, Vs, M[n - 1]) ]
 
 def main(v):
     if v == 0:
@@ -63,8 +73,8 @@ def main(v):
             print(f"{value=}")
         elif v == 2:
             print(f"Knapsack 01 iterativa: {Ws=}, {Vs=}, {b=}")
-            value = Knapsack01it1(b, Ws, Vs)
-            print(f"{value=}")
+            [value, sack] = Knapsack01it1(b, Ws, Vs)
+            print(f"{value=}, {sack=}")
 
 
 if __name__ == "__main__":
