@@ -1,16 +1,34 @@
-import analisi as an
+import math
 import sys
 
-# dati
-i1, i2 = 2, -1
-v1, v2 = 3, -2
-r1, r2, r3, r4 = 1, 2, 3, 1
+# ---------- support methods ----------
+mode = "default"
 
+def pr(v, r):
+    global mode
+    if mode == "n":
+        return math.pow(v, 2) / r
+    elif mode == "a":
+        return math.pow(v, 2) * r
+    else:
+        print("Parameter not found. Enter a or n as parameter.")
+        sys.exit()
+
+def pg(I, V):
+    return V * I
+
+# ---------- dati del problema ----------
+Ig = 7
+Vg = 10
+r1, r2, r3, r4 = 4, 6, 4, 2
+
+# ---------- metodi ----------
 def nodi():
     print("Metodo dei nodi:")
 
     # config
-    an.mode = "n"
+    global mode
+    mode = "n"
 
     # potenziali noti
     ec = Vg
@@ -19,10 +37,10 @@ def nodi():
     # potenziali rimanenti
     ea = Ig * r1 + ec
     eb = (ec/r3)/(1/r3 + 1/r4) 
-    Pr1 = an.pr(ea - ec, r1)
-    Pr2 = an.pr(ec, r2)
-    Pr3 = an.pr(eb - ec, r3)
-    Pr4 = an.pr(eb, r4)
+    Pr1 = pr(ea - ec, r1)
+    Pr2 = pr(ec, r2)
+    Pr3 = pr(eb - ec, r3)
+    Pr4 = pr(eb, r4)
     Pr = Pr1 + Pr2 + Pr3 + Pr4
     print(f"{Pr1=} + {Pr2=} + {Pr3=} + {Pr4=} = {Pr=}")
 
@@ -30,8 +48,8 @@ def nodi():
     print(f"{Ivg=}")
 
     Vig = ea
-    Pvg = an.pg(Ivg, Vg)
-    Pig = an.pg(Ig, Vig)
+    Pvg = pg(Ivg, Vg)
+    Pig = pg(Ig, Vig)
     Pg = Pvg + Pig
     print(f"{Pig=} + {Pvg=} = {Pg=}")
 
@@ -41,7 +59,8 @@ def anelli():
     print("Metodo degli anelli:")
 
     # config
-    an.mode = "a"
+    global mode
+    mode = "a"
 
     # correnti note
     i1 = -Ig
@@ -51,10 +70,10 @@ def anelli():
     i2 = (Vg + i1 * r2) / r2
 
     print(f"{i2=}, {i3=}")
-    Pr1 = an.pr(i1, r1)
-    Pr2 = an.pr(i1 - i2, r2)
-    Pr3 = an.pr(i3, r3)
-    Pr4 = an.pr(i3, r4)
+    Pr1 = pr(i1, r1)
+    Pr2 = pr(i1 - i2, r2)
+    Pr3 = pr(i3, r3)
+    Pr4 = pr(i3, r4)
     Pr = Pr1 + Pr2 + Pr3 + Pr4
     print(f"{Pr1=} + {Pr2=} + {Pr3=} + {Pr4=} = {Pr=}")
 
@@ -62,8 +81,8 @@ def anelli():
     print(f"{Vig=}")
 
     Ivg = i2 - i3
-    Pvg = an.pg(Ivg, Vg)
-    Pig = an.pg(Ig, Vig)
+    Pvg = pg(Ivg, Vg)
+    Pig = pg(Ig, Vig)
     Pg = Pvg + Pig
     print(f"{Pig=} + {Pvg=} = {Pg=}")
 
@@ -101,6 +120,7 @@ def millman():
     VM = totale_correnti / totale_conduttanze
     print(f"{VM=}")
 
+# ---------- entrypoint ----------
 if __name__ == "__main__":
     args = sys.argv
     assert(len(args) > 1)
