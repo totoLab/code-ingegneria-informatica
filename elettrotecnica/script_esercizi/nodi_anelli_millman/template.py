@@ -27,6 +27,7 @@ def nodi():
     print("Metodo dei nodi:")
 
     # config
+    global mode
     mode = "n"
 
     # potenziali noti
@@ -58,6 +59,7 @@ def anelli():
     print("Metodo degli anelli:")
 
     # config
+    global mode
     mode = "a"
 
     # correnti note
