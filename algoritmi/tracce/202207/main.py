@@ -1,6 +1,6 @@
 '''
 traccia: verifica se esiste almeno un nodo al livello l in T
-        e la somma dei valori dei al livello s è maggiore di s 
+        e la somma dei valori dei nodi al livello s è maggiore di s 
 return boolean
 '''
 import tree as t
