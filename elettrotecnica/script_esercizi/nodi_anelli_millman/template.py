@@ -1,5 +1,7 @@
 import math
 import sys
+import numpy as np
+
 
 # ---------- support methods ----------
 mode = "default"
@@ -16,6 +18,43 @@ def pr(v, r):
 
 def pg(I, V):
     return V * I
+
+def solve(M, N):
+    global mode
+
+    for i in range(len(M)):
+        for j in range(len(M[0])):
+            resistenze = M[i][j]
+            if mode == "n": # usa conduttanze
+                M[i][j] = sum([1/R if R != 0 else 0 for R in resistenze])
+            elif mode == "a": # usa resistenze
+                M[i][j] = sum(resistenze)
+            else:
+                print("Parameter not found. Enter a or n as parameter.")
+                sys.exit()
+
+    print(M)
+    level = det(M)
+    result = []
+    for j in range(len(M[0])):
+        result.append(
+            cramer(M, N, j) / level
+        )
+    return result
+
+def det(M):
+    array = np.array(M)
+    return np.linalg.det(array)
+
+
+def cramer(M, N, j):
+    T = [row[:] for row in M]
+
+    for i in range(len(T)):
+        T[i][j] = N[i][0]
+
+    return det(T)
+
 
 # ---------- dati del problema ----------
 i1, i2 = 2, -1
