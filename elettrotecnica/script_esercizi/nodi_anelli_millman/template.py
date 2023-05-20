@@ -36,7 +36,6 @@ def solve(M, N):
                 print("Parameter not found. Enter a or n as parameter.")
                 sys.exit()
 
-    print(M)
     level = det(M)
     result = []
     for j in range(len(M[0])):
