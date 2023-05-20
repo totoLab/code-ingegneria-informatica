@@ -60,9 +60,9 @@ def cramer(M, N, j):
 
 
 # ---------- dati del problema ----------
-i1, i2 = 2, -1
-v1, v2 = 3, -2
-r1, r2, r3, r4 = 1, 2, 3, 1
+Vg = 10
+Ig = 7
+r1, r2, r3, r4 = 4, 6, 4, 2
 
 # ---------- metodi ----------
 def nodi():
@@ -76,9 +76,23 @@ def nodi():
     ec = Vg
     ed = 0
 
+    # matrice di incidenza
+    R = [
+        [[r1], [0]],
+        [[0], [r3,r4]]
+    ]
+
+    # vettore colonna termini noti
+    N = [
+        [Ig + ec / r1],
+        [ec / r3]
+    ]
+
     # potenziali rimanenti
-    ea = Ig * r1 + ec
-    eb = (ec/r3)/(1/r3 + 1/r4) 
+    ea, eb = solve(R, N)
+    print(f"{ea=} {eb=}")
+
+    # potenze
     Pr1 = pr(ea - ec, r1)
     Pr2 = pr(ec, r2)
     Pr3 = pr(eb - ec, r3)
@@ -95,7 +109,7 @@ def nodi():
     Pg = Pvg + Pig
     print(f"{Pig=} + {Pvg=} = {Pg=}")
 
-    print(f"Error: {abs(Pr - Pg) / Pr}%")
+    print(f"Error: {abs(Pr - Pg) / Pr :.2f}%")
 
 def anelli():
     print("Metodo degli anelli:")
@@ -107,9 +121,19 @@ def anelli():
     # correnti note
     i1 = -Ig
 
+    # matrice di incidenza
+    M = [
+        [ [r2], [0] ],
+        [ [0], [r3, r4] ]
+    ]
+    # vettore colonna termini noti
+    N = [
+        [Vg + i1 * r2],
+        [-Vg]
+    ]
+
     # correnti rimanenti
-    i3 = -Vg / (r3 + r4)
-    i2 = (Vg + i1 * r2) / r2
+    i2, i3 = solve(M, N)
 
     print(f"{i2=}, {i3=}")
     Pr1 = pr(i1, r1)
@@ -128,7 +152,7 @@ def anelli():
     Pg = Pvg + Pig
     print(f"{Pig=} + {Pvg=} = {Pg=}")
 
-    print(f"Error: {abs(Pr - Pg) / Pr}%")
+    print(f"Error: {abs(Pr - Pg) / Pr :.2f}%")
 
 def millman():
     print("Millman:")
