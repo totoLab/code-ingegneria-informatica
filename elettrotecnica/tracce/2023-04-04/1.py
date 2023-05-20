@@ -156,6 +156,7 @@ def anelli():
 
 def millman():
     print("Millman:")
+    todo()
     # config
     # R in serie con Vg
     Rs = [r3, r4]
