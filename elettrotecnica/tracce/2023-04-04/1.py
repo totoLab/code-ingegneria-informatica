@@ -1,5 +1,10 @@
 import math
 import sys
+import numpy as np
+
+def todo():
+    print("Not yet implemented")
+    sys.exit()
 
 # ---------- support methods ----------
 mode = "default"
@@ -17,9 +22,46 @@ def pr(v, r):
 def pg(I, V):
     return V * I
 
+def solve(M, N):
+    global mode
+
+    for i in range(len(M)):
+        for j in range(len(M[0])):
+            resistenze = M[i][j]
+            if mode == "n": # usa conduttanze
+                M[i][j] = sum([1/R if R != 0 else 0 for R in resistenze])
+            elif mode == "a": # usa resistenze
+                M[i][j] = sum(resistenze)
+            else:
+                print("Parameter not found. Enter a or n as parameter.")
+                sys.exit()
+
+    print(M)
+    level = det(M)
+    result = []
+    for j in range(len(M[0])):
+        result.append(
+            cramer(M, N, j) / level
+        )
+    return result
+
+def det(M):
+    array = np.array(M)
+    return np.linalg.det(array)
+
+
+def cramer(M, N, j):
+    T = [row[:] for row in M]
+
+    for i in range(len(T)):
+        T[i][j] = N[i][0]
+
+    return det(T)
+
+
 # ---------- dati del problema ----------
-Ig = 7
 Vg = 10
+Ig = 7
 r1, r2, r3, r4 = 4, 6, 4, 2
 
 # ---------- metodi ----------
@@ -34,9 +76,23 @@ def nodi():
     ec = Vg
     ed = 0
 
+    # matrice di incidenza
+    R = [
+        [[r1], [0]],
+        [[0], [r3,r4]]
+    ]
+
+    # vettore colonna termini noti
+    N = [
+        [Ig + ec / r1],
+        [ec / r3]
+    ]
+
     # potenziali rimanenti
-    ea = Ig * r1 + ec
-    eb = (ec/r3)/(1/r3 + 1/r4) 
+    ea, eb = solve(R, N)
+    print(f"{ea=} {eb=}")
+
+    # potenze
     Pr1 = pr(ea - ec, r1)
     Pr2 = pr(ec, r2)
     Pr3 = pr(eb - ec, r3)
@@ -53,7 +109,7 @@ def nodi():
     Pg = Pvg + Pig
     print(f"{Pig=} + {Pvg=} = {Pg=}")
 
-    print(f"Error: {abs(Pr - Pg) / Pr}%")
+    print(f"Error: {abs(Pr - Pg) / Pr :.2f}%")
 
 def anelli():
     print("Metodo degli anelli:")
@@ -65,9 +121,19 @@ def anelli():
     # correnti note
     i1 = -Ig
 
+    # matrice di incidenza
+    M = [
+        [ [r2], [0] ],
+        [ [0], [r3, r4] ]
+    ]
+    # vettore colonna termini noti
+    N = [
+        [Vg + i1 * r2],
+        [-Vg]
+    ]
+
     # correnti rimanenti
-    i3 = -Vg / (r3 + r4)
-    i2 = (Vg + i1 * r2) / r2
+    i2, i3 = solve(M, N)
 
     print(f"{i2=}, {i3=}")
     Pr1 = pr(i1, r1)
@@ -86,7 +152,7 @@ def anelli():
     Pg = Pvg + Pig
     print(f"{Pig=} + {Pvg=} = {Pg=}")
 
-    print(f"Error: {abs(Pr - Pg) / Pr}%")
+    print(f"Error: {abs(Pr - Pg) / Pr :.2f}%")
 
 def millman():
     print("Millman:")
