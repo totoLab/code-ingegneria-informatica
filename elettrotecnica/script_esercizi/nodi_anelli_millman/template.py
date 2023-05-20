@@ -2,6 +2,9 @@ import math
 import sys
 import numpy as np
 
+def todo():
+    print("Not yet implemented")
+    sys.exit()
 
 # ---------- support methods ----------
 mode = "default"
