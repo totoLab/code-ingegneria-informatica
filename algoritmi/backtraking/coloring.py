@@ -2,6 +2,9 @@
 import graphM as g
 
 def mapColoring(G, node, colors, coloring):
+    if node not in g.nodes(G):
+        return True
+
     for c in colors:
         if check(G, node, c, coloring):
             coloring[node] = c
