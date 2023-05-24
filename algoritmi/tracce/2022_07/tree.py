@@ -112,7 +112,7 @@ def breadthfirst(Q, B): # visita per livelli
 def depth(A):
     if empty(A):
         return 0
-    return max(depth(A), right(A)) + 1
+    return max(depth(left(A)), depth(right(A))) + 1
 
 def bil(A):
     if empty(A):
@@ -140,9 +140,9 @@ def rotate(A):
         A = leftRotate(A)
     if bil(A) == 2 and bil(left(A)) < 0:
         setLeft(A, leftRotate(left(A)))
-        A = rightRotate(A)(A)
+        A = rightRotate(A)
     if bil(A) == -2 and bil(right(A)) > 0:
-        setRight(A, rightRotate(rigth(A)))
+        setRight(A, rightRotate(right(A)))
         A = leftRotate(A)
     return A
 
