@@ -1,6 +1,6 @@
 ## Verifica esericizi resistenze equivalenti
 
-Semplice script per la verifica dei calcoli degli esercizi sulla resistenza equivalente.
+🚧 work in progress: Semplice script per la verifica dei calcoli degli esercizi sulla resistenza equivalente.
 
 ### Usage
 
