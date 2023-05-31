@@ -45,3 +45,6 @@ __pycache__
 
 # elettrotecnica
 test.om
+
+# general ignoring
+*nopush*
