@@ -26,3 +26,7 @@ def nodo1figlioR(T, dispari):
 # complessità temporale nel caso peggiore: visita di tutti i nodi -> \theta(n)
 # complessità spaziale nel caso peggiore: O(h) nel caso degenere nodi a livelli dispari con 2 figli e nodi pari con 1 figlio
 #                                      -> n = 1 + h/2 + h -> h = \theta(n)
+
+# esercizio 2:
+
+# T(n) = n^3 + 4T( n/2 ) = O(n^3)
