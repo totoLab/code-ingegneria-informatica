@@ -1,0 +1,1 @@
+python3 lib.py $1 | xclip -selection clipboard
