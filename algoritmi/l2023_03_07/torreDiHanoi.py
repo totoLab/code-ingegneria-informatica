@@ -20,7 +20,7 @@ def permute(V, n):
   if n == 1:
     print(V)
   else:
-    for i in range(len(V)):
+    for i in range(n):
       V[i], V[n - 1] = V[n - 1], V[i]
       permute(V, n - 1)
       V[i], V[n - 1] = V[n - 1], V[i]

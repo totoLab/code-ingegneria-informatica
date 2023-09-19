@@ -18,7 +18,7 @@ def KnapsackF(b, Ws, Vs, Cs): # costo algoritmo = costo del sorting
         i += 1
     return [weight, value, sack]
 
-def KnapsackRec(b, Ws, Vs, n):
+def Knapsack01Rec(b, Ws, Vs, n):
     if b == 0 or n < 0:
         return 0
     elif Ws[n] > b:
@@ -74,6 +74,10 @@ def main(v):
         elif v == 2:
             print(f"Knapsack 01 iterativa: {Ws=}, {Vs=}, {b=}")
             [value, sack] = Knapsack01it1(b, Ws, Vs)
+            print(f"{value=}, {sack=}")
+        elif v == 3:
+            print(f"Knapsack 0n iterativa: {Ws=}, {Vs=}, {b=}")
+            [value, sack] = Knapsack0n(b, Ws, Vs)
             print(f"{value=}, {sack=}")
 
 
