@@ -6,12 +6,9 @@ Rappresentazione dei circuiti portable, che unifica la sintesi di più tool graf
 Non è un linguaggio di programmazione, ma descrittivo, con corrispondenza a livello fisico delle componenti del circuito.
 
 ### Caratteristiche
-- Case-insensitive.
-- Priorità standard degli operatori.
-- Concorrente, non sequenziale.
-
-#### Vantaggi di VHDL
-#### Flusso di progetto e sintesi
+- Case-insensitive
+- Priorità standard degli operatori
+- Concorrente, non sequenziale
 
 ### Elementi Strutturali - esempio di sintesi del circuito
 - #### Entity (interfaccia): definizione di numoro e nomi di ingressi e uscite
@@ -52,16 +49,4 @@ begin
 end Es1
 ```
 Essendo concorrenziale, l'ordine di queste operazioni è irrelevante.
-
-- #### Process:
-- #### Package:
-- #### Library:
-- #### Component:
-
-
-### Tipi in VHDL
-- Standard
-- Array
-- Aggregati
-
 
