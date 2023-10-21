@@ -102,11 +102,12 @@ end mySim1;
 - `A <= (others => "0")` per porre tutti i bit di A uguali a 0;
 - i casi di test da considerare sono quelli che mettono in funzione la totalità del circuito, nel caso del Ripple-Carry abbiamo bisogno di testare generazione e propagazione (sarebbe meglio testare tutte le combinazioni degli ingressi ma per quantità di bit troppo elevate è infattibile in tempi limitati). <br>
 
-Per semplificare il processo di testing, usiamo una temporizzazione a intervalli costanti, per la generazione degli ingressi usiamo un for-loop (sequenziale): <br> 
-       0     1     ...  15
-- A = {0000, 0001, ..., 1111}
-- B = {0000, 0001, ..., 1111}
-Sfruttiamo una libreria per convertire il valore dell'intero con segno contenuto nelle variabili dei loop.
+Per semplificare il processo di testing, usiamo una temporizzazione a intervalli costanti di `2ns`, per la generazione degli ingressi usiamo un for-loop (sequenziale):
+|   | 0    | 1    | ...  | 15   |
+|---|------|------|------|------|
+| A | 0000 | 0001 | ...  | 1111 |
+| B | 0000 | 0001 | ...  | 1111 |
+
 ``` vhdl
 library IEEE;
 use ieee.numeric_bit.all;
@@ -139,4 +140,4 @@ begin
     end process;
 end mySim2;
 ```
-<b>NB</b>: to_unsigned prende come parametro il numero da convertire e il numero di bit del risultato.
+<b>NB</b>: Sfruttiamo la funzione `to_unsigned` della libreria `IEEE` per convertire il valore dell'intero con segno contenuto nelle variabili dei loop. La funzione prende come parametro il numero da convertire e il numero di bit <b>del risultato</b>.
