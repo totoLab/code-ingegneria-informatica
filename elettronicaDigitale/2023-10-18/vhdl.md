@@ -82,7 +82,7 @@ architecture mySim1 of TB1 is
 begin
     CUT : RCAU_V2 port map ( A, B, Cin, Cout, S ); 
     -- descrizione delle forme d'onda
-    process begin __t=0
+    process begin -- t=0
         A <= "0000"; B <= "0000"; Cin <= "0";
         wait for 2ns; -- 2ns
         A <= "0100";
