@@ -11,9 +11,9 @@ architecture Behavioural of FF is
 begin
 	process (clk, clr, pr)
 	begin
-		if		clr = '0' 		  then Q <= '0'; -- attivo basso
-		else if pr = '0'  		  then Q <= '1';
-		else if falling_edge(clk) then Q <= D;
+		if		clr = '0' 		then Q <= '0'; -- attivo basso
+		elsif pr = '0'  		then Q <= '1';
+		elsif falling_edge(clk) then Q <= D;
 		end if;
 	end process;
 end Behavioural;

@@ -12,9 +12,9 @@ begin
 	process (D, clk, reset, set)
 	begin
 		if clk = '1' then
-			if 		reset = '0' then Q <= '0';
-			else if set = '0'   then Q <= '1';
-			else					 Q <= D;
+			if    reset = '0' then Q <= '0';
+			elsif set = '0'   then Q <= '1';
+			else				   Q <= D;
 			end if;
 		end if;
 	end process;

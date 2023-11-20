@@ -12,7 +12,7 @@ begin
 	process (clk, D, clr)
 	begin
 		if 		clr = '1' then Q <= '0'; -- prioritario sul clock
-		else if clk = '1' then Q <= D;
+		elsif clk = '1'	  then Q <= D;
 		end if;
 	end process;
 end Behavioural;
