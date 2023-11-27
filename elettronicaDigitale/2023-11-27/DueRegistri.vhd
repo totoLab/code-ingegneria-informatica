@@ -1,5 +1,8 @@
+library IEEE;
+use IEEE.std_logic_1164.all;
+
 entity DueRegistri is
-    generic(n1:integer:=11
+    generic(n1:integer:=11;
             n2:integer:=32 )
     port(
         clk, clear: in std_logic;
