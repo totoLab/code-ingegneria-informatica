@@ -21,4 +21,4 @@ NB: "Set As Top" per testare una parte del progetto più in basso nella gerarchi
 ## Progetto 2
 Descrizione circuito che riceve in ingresso 3 input a n bit (parametrico) in complemento a 2: A, B, C, per calcolarne la somma A + B + C.
 Il circuito dev'essere dotato di registri in ingresso e uscita, come intermediari tra i segnali A, B, C e il sommatore (analogamente per l'uscita).
-I segnali in ingresso saranno campionati dai rising edge del clock tramite tali registri, per l'uscita verrà usati i falling_edge???.
+I segnali in ingresso e in uscita saranno campionati dai rising edge del clock tramite tali registri.
