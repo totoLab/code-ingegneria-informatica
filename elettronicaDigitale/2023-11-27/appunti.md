@@ -1,4 +1,4 @@
-Steps di progettazione:
+## Steps di progettazione
 ``` python 
 while not ok4:
     while not ok3:
@@ -15,3 +15,10 @@ while not ok4:
 
     ok4 = lab_simulation() # circuito reale in laboratorio
 ```
+
+NB: "Set As Top" per testare una parte del progetto più in basso nella gerarchia 
+
+## Progetto 2
+Descrizione circuito che riceve in ingresso 3 input a n bit (parametrico) in complemento a 2: A, B, C, per calcolarne la somma A + B + C.
+Il circuito dev'essere dotato di registri in ingresso e uscita, come intermediari tra i segnali A, B, C e il sommatore (analogamente per l'uscita).
+I segnali in ingresso saranno campionati dai rising edge del clock tramite tali registri, per l'uscita verrà usati i falling_edge???.
