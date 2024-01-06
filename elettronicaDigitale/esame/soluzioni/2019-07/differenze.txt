@@ -1,0 +1,1 @@
+La differenza tra i due è che l'aggiornamento avviene in un solo punto per Registro 1, e viene mantenuto il valore di Q fino al fronte di salita successivo, mentre per Registro2 il segnale può cambiare più volte durante il periodo di clock alto, se varia D.
