@@ -6,8 +6,9 @@ import java.util.Scanner;
 
 public class EchoServer {
     public static void main(String[] args ) {
+        ServerSocket s = null;
         try {
-            ServerSocket s = new ServerSocket(8189);
+            s = new ServerSocket(8189);
             while (true) {
                 System.out.println("Waiting for a connection...");
                 Socket incoming = s.accept(); // stop in attesa di una connessione
@@ -33,6 +34,8 @@ public class EchoServer {
                 incoming.close();
             }
         } catch (Exception e) { System.err.println(e); }
-        finally { s.close(); }
+        try {
+            if (s != null && !s.isClosed()) s.close();
+        } catch (IOException e) { System.err.println(e); }
     }
 }
