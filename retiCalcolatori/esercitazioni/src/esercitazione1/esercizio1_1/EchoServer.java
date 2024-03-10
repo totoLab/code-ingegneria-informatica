@@ -1,4 +1,4 @@
-package esercitazione1;
+package esercitazione1.esercizio1_1;
 
 import java.io.*;
 import java.net.*;

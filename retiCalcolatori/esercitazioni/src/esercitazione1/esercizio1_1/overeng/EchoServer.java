@@ -1,8 +1,7 @@
-package esercitazione1.overeng;
+package esercitazione1.esercizio1_1.overeng;
 
 import java.io.*;
 import java.net.*;
-import java.util.Scanner;
 
 public class EchoServer {
     public static void main(String[] args ) {
