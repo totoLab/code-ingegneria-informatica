@@ -1,55 +1,40 @@
 package esercitazione1;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.InetAddress;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 
 public class EchoServerClient {
-    public static void main(String[] args) {
-        Scanner s = new Scanner(System.in);
-        Socket socket = null;
-        int port = 8189;
-        try {
-            InetAddress server = InetAddress.getLocalHost();
-            socket = new Socket(server, port);
 
-            boolean done = false;
-            while (!done) {
-                BufferedReader in = new BufferedReader(
-                        new InputStreamReader(
-                                socket.getInputStream()
-                        )
-                );
-                String response = in.readLine();
+    public static void main(String[] args) {
+        Scanner user = new Scanner(System.in);
+        Socket s = null;
+        try {
+            s = new Socket(InetAddress.getLocalHost(), 8189);
+            BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
+            PrintWriter pw = new PrintWriter(s.getOutputStream(), true);
+            String response = in.readLine();
+            while (response != null) {
                 System.out.println(response);
 
-                String userInput = s.next();
-                String message = userInput;
-                if (userInput.equals("BYE")) {
-                    done = true;
-                } else if (userInput.equals("EXIT")) {
-                    if (!socket.isClosed()) {
-                        message = "BYE";
-                    }
-                    done = true;
+                String userMessage = user.next();
+                if (userMessage.trim().equals("EXIT")) {
+                    pw.println("BYE");
+                    break;
                 }
-                sendToSocket(socket, message);
+                pw.println(userMessage);
 
-                if (done) {
-                    socket.close();
-                    return;
-                }
+                response = in.readLine();
             }
-        } catch (Exception e) {
+            s.close();
+        } catch (IOException e) {
             System.out.println(e);
         }
     }
 
-    private static void sendToSocket(Socket socket, String message) throws IOException {
-        PrintWriter pw = new PrintWriter(
-                socket.getOutputStream(), true
-        );
-        pw.println(message);
-    }
 }
