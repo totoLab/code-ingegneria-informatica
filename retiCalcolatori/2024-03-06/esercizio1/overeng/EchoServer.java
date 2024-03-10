@@ -33,5 +33,6 @@ public class EchoServer {
                 incoming.close();
             }
         } catch (Exception e) { System.err.println(e); }
+        finally { s.close(); }
     }
 }
