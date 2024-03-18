@@ -1,3 +1,5 @@
+import java.util.*;
+
 class Automobile {
 
     private Persona proprietario;
