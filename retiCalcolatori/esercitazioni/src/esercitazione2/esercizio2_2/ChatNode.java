@@ -119,5 +119,9 @@ public class ChatNode {
         }).start();
     }
 
+    public static void main(String[] args) {
+        new ChatNode(2222);
+    }
+
 }
 
