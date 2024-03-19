@@ -6,10 +6,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class ChatNode {
 
@@ -51,6 +49,30 @@ public class ChatNode {
                 } catch (IOException e) {
                     System.err.println("Couldn't gracefully shut down server.");
                 }
+            }
+        }).start();
+
+        new Thread(() -> {
+            ArrayList<String> peers = new ArrayList<>();
+            peers.add("172.20.10.5");
+            peers.add("172.20.10.4");
+            peers.add("172.20.10.2");
+            try {
+                Iterator<String> it = peers.iterator();
+                while (!peers.isEmpty()) {
+                    TimeUnit.SECONDS.sleep(3);
+                    String host = it.next();
+                    Socket anotherServer = new Socket(host, 2222);
+                    for (Socket client : clients) {
+                        if (client.getInetAddress().equals(anotherServer.getInetAddress())) break;
+                    }
+                    it.remove();
+                    clients.add(anotherServer);
+                }
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                System.err.println(e);
             }
         }).start();
     }
