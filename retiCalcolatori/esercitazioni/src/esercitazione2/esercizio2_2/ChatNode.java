@@ -39,6 +39,19 @@ public class ChatNode {
         return false;
     }
 
+    private List<String> getIpsFromFile(String path) {
+        List<String> ret = null;
+        File f = null;
+        try {
+            f = new File(path);
+            BufferedReader bf = new BufferedReader(new FileReader(f));
+            ret = bf.lines().toList();
+        } catch (Exception e) {
+            printError("Couldn't read file" + f, e);
+        }
+        return ret;
+    }
+
     private void loop() {
 
         new Thread(() -> {
@@ -65,10 +78,8 @@ public class ChatNode {
         }).start();
 
         new Thread(() -> {
-            ArrayList<String> peers = new ArrayList<>();
-            peers.add("172.20.10.5");
-            peers.add("172.20.10.4");
-            peers.add("172.20.10.2");
+            List<String> peers = getIpsFromFile("ip.txt");
+
             try {
                 Iterator<String> it = peers.iterator();
                 while (!it.hasNext()) {
