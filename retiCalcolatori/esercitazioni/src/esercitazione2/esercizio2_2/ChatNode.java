@@ -1,9 +1,6 @@
 package esercitazione2.esercizio2_2;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
@@ -26,6 +23,9 @@ public class ChatNode {
         loop();
     }
 
+    private void printInfo(String message) {
+        System.out.println("INFO: " + message);
+    }
     private void printError(String message, Exception e) {
         System.err.println(message + "\n JVM: " + e);
     }
@@ -55,11 +55,11 @@ public class ChatNode {
     private void loop() {
 
         new Thread(() -> {
-            System.out.println("INFO: Now accepting connections...");
+            printInfo("Now accepting connections...");
             try {
                 while (true) {
                     Socket client = server.accept();
-                    System.out.println("INFO: Connected to " + client.getInetAddress());
+                    printInfo("Connected to " + client.getInetAddress());
 
                     if (!checkIfConnected(client)) {
                         clients.add(client);
@@ -112,7 +112,7 @@ public class ChatNode {
                 if (now - last > interval) {
                     if (!clients.isEmpty()) {
                         currentSocket = clients.get(index % clients.size());
-                        System.out.println("INFO: switching to client " + currentSocket.getInetAddress());
+                        printInfo("Switching to client " + currentSocket.getInetAddress());
                         handleClient(currentSocket);
                         index++;
                     }
@@ -126,7 +126,7 @@ public class ChatNode {
 
         // in
         new Thread(() -> {
-            System.out.println("INFO: Spawning input Thread for socket " + socket.getInetAddress());
+            printInfo("Spawning input Thread for socket " + socket.getInetAddress());
             BufferedReader in = null;
             try {
                 in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -147,7 +147,7 @@ public class ChatNode {
 
         // out
         new Thread(() -> {
-            System.out.println("INFO: Spawning output Thread for socket " + socket);
+            printInfo("Spawning output Thread for socket " + socket);
             PrintWriter out = null;
             Scanner user = null;
             try {
