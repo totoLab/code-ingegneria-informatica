@@ -87,8 +87,9 @@ public class ChatNode {
                     String host = it.next();
                     Socket anotherServer = new Socket(host, 2222);
 
-                    if (!checkIfConnected(anotherServer)) {
+                    if (checkIfConnected(anotherServer)) {
                         it.remove();
+                    } else {
                         clients.add(anotherServer);
                     }
                     if (!peers.isEmpty() && !it.hasNext()) it = peers.iterator();
