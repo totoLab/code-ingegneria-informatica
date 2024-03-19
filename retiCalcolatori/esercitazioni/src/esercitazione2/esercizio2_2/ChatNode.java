@@ -21,9 +21,13 @@ public class ChatNode {
         try {
             server = new ServerSocket(this.port);
         } catch (IOException e) {
-            System.err.println(e);
+            printError("Couldn't create server on port " + port, e);
         }
         loop();
+    }
+
+    private void printError(String message, Exception e) {
+        System.err.println(message + "\n JVM: " + e);
     }
 
     private void loop() {
@@ -35,19 +39,25 @@ public class ChatNode {
                 while (true) {
                     Socket client = server.accept();
                     System.out.println("INFO: Connected to " + client.getInetAddress());
-                    clients.add(client);
+
+                    boolean addClient = true;
+                    for (Socket s : clients) {
+                        if (client.getInetAddress().equals(s.getInetAddress())) addClient = false;
+                    }
+                    if (addClient) clients.add(client);
+
                     if (!connected) {
                         connected = true;
                         switchClient();
                     }
                 }
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                printError("Couldn't accept client", e);
             } finally {
                 try {
                     server.close();
                 } catch (IOException e) {
-                    System.err.println("Couldn't gracefully shut down server.");
+                    printError("Couldn't gracefully shut down server.", e);
                 }
             }
         }).start();
@@ -68,11 +78,12 @@ public class ChatNode {
                     }
                     it.remove();
                     clients.add(anotherServer);
+                    if (!it.hasNext()) it = peers.iterator();
                 }
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                printError("Couldn't sleep", e);
             } catch (IOException e) {
-                System.err.println(e);
+                printError("Couldn't accept client", e);
             }
         }).start();
     }
@@ -110,11 +121,13 @@ public class ChatNode {
                     System.out.println(socket.getLocalAddress() + ": " + in.readLine());
                 }
             } catch (IOException e) {
-                System.err.println(e);
+                printError("Couldn't receive stream correctly", e);
             } finally {
                 if (in != null) {
                     try { in.close(); }
-                    catch (IOException e) { System.err.println(e); }
+                    catch (IOException e) {
+                        printError("Couldn't close BufferedReader for socket " + socket.getInetAddress(), e);
+                    }
                 }
             }
         }).start();
@@ -132,7 +145,7 @@ public class ChatNode {
                     out.println(message);
                 }
             } catch (IOException e) {
-                System.err.println(e);
+                printError("Couldn't send stream correctly", e);
             } finally {
                 if (out != null) {
                     out.close();
