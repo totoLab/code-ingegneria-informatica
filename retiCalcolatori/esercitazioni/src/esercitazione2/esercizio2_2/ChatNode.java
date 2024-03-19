@@ -30,24 +30,26 @@ public class ChatNode {
         System.err.println(message + "\n JVM: " + e);
     }
 
+    private synchronized boolean checkIfConnected(Socket s) {
+        for (Socket client : clients) {
+            if (s.getInetAddress().equals(client.getInetAddress())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void loop() {
 
         new Thread(() -> {
             System.out.println("INFO: Now accepting connections...");
-            boolean connected = false;
             try {
                 while (true) {
                     Socket client = server.accept();
                     System.out.println("INFO: Connected to " + client.getInetAddress());
 
-                    boolean addClient = true;
-                    for (Socket s : clients) {
-                        if (client.getInetAddress().equals(s.getInetAddress())) addClient = false;
-                    }
-                    if (addClient) clients.add(client);
-
-                    if (!connected) {
-                        connected = true;
+                    if (!checkIfConnected(client)) {
+                        clients.add(client);
                         switchClient();
                     }
                 }
@@ -69,16 +71,16 @@ public class ChatNode {
             peers.add("172.20.10.2");
             try {
                 Iterator<String> it = peers.iterator();
-                while (!peers.isEmpty()) {
+                while (!it.hasNext()) {
                     TimeUnit.SECONDS.sleep(3);
                     String host = it.next();
                     Socket anotherServer = new Socket(host, 2222);
-                    for (Socket client : clients) {
-                        if (client.getInetAddress().equals(anotherServer.getInetAddress())) break;
+
+                    if (!checkIfConnected(anotherServer)) {
+                        it.remove();
+                        clients.add(anotherServer);
                     }
-                    it.remove();
-                    clients.add(anotherServer);
-                    if (!it.hasNext()) it = peers.iterator();
+                    if (!peers.isEmpty() && !it.hasNext()) it = peers.iterator();
                 }
             } catch (InterruptedException e) {
                 printError("Couldn't sleep", e);
@@ -138,7 +140,7 @@ public class ChatNode {
             PrintWriter out = null;
             Scanner user = null;
             try {
-                out = new PrintWriter(socket.getOutputStream());
+                out = new PrintWriter(socket.getOutputStream(), true);
                 user = new Scanner(System.in);
                 while (true) {
                     String message = user.nextLine();
