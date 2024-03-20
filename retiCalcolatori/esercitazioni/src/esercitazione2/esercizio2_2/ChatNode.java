@@ -45,7 +45,7 @@ public class ChatNode {
         try {
             f = new File(path);
             BufferedReader bf = new BufferedReader(new FileReader(f));
-            ret = bf.lines().toList();
+            ret = bf.lines().filter(e -> !e.startsWith("#")).toList();
         } catch (Exception e) {
             printError("Couldn't read file" + f, e);
         }
