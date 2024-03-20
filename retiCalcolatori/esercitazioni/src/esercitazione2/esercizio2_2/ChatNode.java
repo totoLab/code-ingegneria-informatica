@@ -80,7 +80,7 @@ public class ChatNode {
 
         new Thread(() -> {
             List<String> peers = getIpsFromFile("ip.txt");
-
+            if (peers.isEmpty()) return; //! disabling connecting to peers if list is empty
             try {
                 Iterator<String> it = peers.iterator();
                 while (!it.hasNext()) {
