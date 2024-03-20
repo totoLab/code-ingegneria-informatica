@@ -10,6 +10,7 @@ public class ChatNode {
 
     private final List<Socket> clients = Collections.synchronizedList(new ArrayList<Socket>()); // TODO: removing clients only if get EXIT command
     private final int port;
+    public static final int DEFAULT_SERVER_PORT = 2222;
     private ServerSocket server;
 
     public ChatNode(int port) {
@@ -85,7 +86,7 @@ public class ChatNode {
                 while (!it.hasNext()) {
                     TimeUnit.SECONDS.sleep(3);
                     String host = it.next();
-                    Socket anotherServer = new Socket(host, 2222);
+                    Socket anotherServer = new Socket(host, DEFAULT_SERVER_PORT);
 
                     if (checkIfConnected(anotherServer)) {
                         it.remove();
@@ -169,7 +170,7 @@ public class ChatNode {
     }
 
     public static void main(String[] args) {
-        new ChatNode(2222);
+        new ChatNode(DEFAULT_SERVER_PORT);
     }
 
 }
