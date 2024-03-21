@@ -4,11 +4,13 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
+import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
 public class ChatNode {
 
-    private final List<Socket> clients = Collections.synchronizedList(new ArrayList<Socket>()); // TODO: removing clients only if get EXIT command
+    private final List<Socket> clients = new ArrayList<>(); // TODO: removing clients only if get EXIT command
+    private final Semaphore mutexClientsList = new Semaphore(1);
     private final int port;
     public static final int DEFAULT_SERVER_PORT = 2222;
     private ServerSocket server;
@@ -32,10 +34,16 @@ public class ChatNode {
     }
 
     private synchronized boolean checkIfConnected(Socket s) {
-        for (Socket client : clients) {
-            if (s.getInetAddress().equals(client.getInetAddress())) {
-                return true;
+        try {
+            mutexClientsList.acquire();
+            for (Socket client : clients) {
+                if (s.getInetAddress().equals(client.getInetAddress())) {
+                    return true;
+                }
             }
+            mutexClientsList.release();
+        } catch (InterruptedException e) {
+            printError("Couldn't read clients", e);
         }
         return false;
     }
@@ -63,11 +71,13 @@ public class ChatNode {
                     printInfo("Connected to " + client.getInetAddress());
 
                     if (!checkIfConnected(client)) {
+                        mutexClientsList.acquire();
                         clients.add(client);
+                        mutexClientsList.release();
                         switchClient();
                     }
                 }
-            } catch (IOException e) {
+            } catch (IOException | InterruptedException e) {
                 printError("Couldn't accept client", e);
             } finally {
                 try {
@@ -91,12 +101,14 @@ public class ChatNode {
                     if (checkIfConnected(anotherServer)) {
                         it.remove();
                     } else {
+                        mutexClientsList.acquire();
                         clients.add(anotherServer);
+                        mutexClientsList.release();
                     }
                     if (!peers.isEmpty() && !it.hasNext()) it = peers.iterator();
                 }
             } catch (InterruptedException e) {
-                printError("Couldn't sleep", e);
+                printError("Couldn't sleep or Couldn't wait to add client", e);
             } catch (IOException e) {
                 printError("Couldn't accept client", e);
             }
@@ -109,17 +121,23 @@ public class ChatNode {
             long last = System.currentTimeMillis();
             long interval = 1000 * 10; // 10 seconds
             int index = 0;
-            while (!clients.isEmpty()) {
-                long now = System.currentTimeMillis();
-                if (now - last > interval) {
-                    if (!clients.isEmpty()) {
-                        currentSocket = clients.get(index % clients.size());
-                        printInfo("Switching to client " + currentSocket.getInetAddress());
-                        handleClient(currentSocket);
-                        index++;
+            try {
+                mutexClientsList.acquire();
+                while (!clients.isEmpty()) {
+                    long now = System.currentTimeMillis();
+                    if (now - last > interval) {
+                        if (!clients.isEmpty()) {
+                            currentSocket = clients.get(index % clients.size());
+                            printInfo("Switching to client " + currentSocket.getInetAddress());
+                            handleClient(currentSocket);
+                            index++;
+                        }
                     }
+                    last = now;
                 }
-                last = now;
+                mutexClientsList.release();
+            } catch (InterruptedException e) {
+                printError("Couldn't switch client", e);
             }
         }).start();
     }
