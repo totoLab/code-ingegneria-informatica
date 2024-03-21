@@ -1,6 +1,7 @@
 package esercitazione2.esercizio2_2;
 
 import java.io.*;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
@@ -26,14 +27,14 @@ public class ChatNode {
         loop();
     }
 
-    private void printInfo(String message) {
+    synchronized static void printInfo(String message) {
         System.out.println("INFO: " + message);
     }
-    private void printError(String message, Exception e) {
+    synchronized static void printError(String message, Exception e) {
         System.err.println(message + "\n JVM: " + e);
     }
 
-    private synchronized boolean checkIfConnected(Socket s) {
+    private boolean checkIfConnected(Socket s) {
         try {
             mutexClientsList.acquire();
             for (Socket client : clients) {
@@ -62,14 +63,39 @@ public class ChatNode {
     }
 
     private void loop() {
+        ClientAcceptor ca = new ClientAcceptor();
+        ca.start();
+        PeerConnector pc = new PeerConnector();
+        pc.start();
+    }
 
-        new Thread(() -> {
+    private void switchClient() {
+        ClientSwitcher cs= new ClientSwitcher();
+        cs.start();
+    }
+
+    private void handleClient(Socket socket) {
+        Semaphore mutexSocket = new Semaphore(1);
+        // in
+        InputHandler ih = new InputHandler(socket, mutexSocket);
+        ih.start();
+
+        // out
+        OutputHandler oh = new OutputHandler(socket, mutexSocket);
+        oh.start();
+    }
+
+    public static void main(String[] args) {
+        new ChatNode(DEFAULT_SERVER_PORT);
+    }
+
+    class ClientAcceptor extends Thread {
+        public void run() {
             printInfo("Now accepting connections...");
             try {
                 while (true) {
                     Socket client = server.accept();
                     printInfo("Connected to " + client.getInetAddress());
-
                     if (!checkIfConnected(client)) {
                         mutexClientsList.acquire();
                         clients.add(client);
@@ -86,9 +112,11 @@ public class ChatNode {
                     printError("Couldn't gracefully shut down server.", e);
                 }
             }
-        }).start();
+        } // run
+    } // class
 
-        new Thread(() -> {
+    class PeerConnector extends Thread {
+        public void run() {
             List<String> peers = getIpsFromFile("ip.txt");
             if (peers.isEmpty()) return; //! disabling connecting to peers if list is empty
             try {
@@ -112,11 +140,11 @@ public class ChatNode {
             } catch (IOException e) {
                 printError("Couldn't accept client", e);
             }
-        }).start();
-    }
+        } // run
+    } // class
 
-    private void switchClient() {
-        new Thread(() -> {
+    class ClientSwitcher extends Thread {
+        public void run(){
             Socket currentSocket = null;
             long last = System.currentTimeMillis();
             long interval = 1000 * 10; // 10 seconds
@@ -139,39 +167,62 @@ public class ChatNode {
             } catch (InterruptedException e) {
                 printError("Couldn't switch client", e);
             }
-        }).start();
-    }
+        }
+    } // class
 
-    private void handleClient(Socket socket) {
-
-        // in
-        new Thread(() -> {
-            printInfo("Spawning input Thread for socket " + socket.getInetAddress());
+    class InputHandler extends Thread {
+        Socket socket;
+        Semaphore mutexSocket;
+        public InputHandler(Socket socket, Semaphore mutexSocket) {
+            this.socket=socket;
+            this.mutexSocket=mutexSocket;
+        }
+        public void run(){
             BufferedReader in = null;
+            InetAddress locAddr = null;
             try {
+                mutexSocket.acquire();
+                locAddr = socket.getLocalAddress();
+                printInfo("Spawning input Thread for socket " + locAddr);
                 in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                mutexSocket.release();
                 while (true) {
-                    System.out.println(socket.getLocalAddress() + ": " + in.readLine());
+                    String line = in.readLine();
+                    if(line!=null)
+                        System.out.println(locAddr + ": " + line);
                 }
+            } catch (InterruptedException e) {
+                printError("Thread killed", e);
             } catch (IOException e) {
                 printError("Couldn't receive stream correctly", e);
             } finally {
                 if (in != null) {
                     try { in.close(); }
                     catch (IOException e) {
-                        printError("Couldn't close BufferedReader for socket " + socket.getInetAddress(), e);
+                        printError("Couldn't close BufferedReader for socket " + locAddr, e);
                     }
                 }
             }
-        }).start();
+        }
+    }
 
-        // out
-        new Thread(() -> {
-            printInfo("Spawning output Thread for socket " + socket);
+    class OutputHandler extends Thread {
+        Socket socket;
+        Semaphore mutexSocket;
+        public OutputHandler(Socket socket, Semaphore mutexSocket) {
+            this.socket=socket;
+            this.mutexSocket=mutexSocket;
+        }
+        public void run(){
+            InetAddress locAddr = null;
             PrintWriter out = null;
             Scanner user = null;
             try {
+                mutexSocket.acquire();
+                locAddr = socket.getLocalAddress();
+                printInfo("Spawning output Thread for socket " + locAddr);
                 out = new PrintWriter(socket.getOutputStream(), true);
+                mutexSocket.release();
                 user = new Scanner(System.in);
                 while (true) {
                     String message = user.nextLine();
@@ -179,17 +230,13 @@ public class ChatNode {
                 }
             } catch (IOException e) {
                 printError("Couldn't send stream correctly", e);
+            } catch (InterruptedException e) {
+                printError("Thread killed", e);
             } finally {
                 if (out != null) {
                     out.close();
                 }
             }
-        }).start();
+        }
     }
-
-    public static void main(String[] args) {
-        new ChatNode(DEFAULT_SERVER_PORT);
-    }
-
 }
-
