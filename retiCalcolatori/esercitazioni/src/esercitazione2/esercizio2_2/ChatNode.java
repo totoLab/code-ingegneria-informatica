@@ -65,12 +65,12 @@ public class ChatNode {
                 while (true) {
                     Socket client = server.accept();
                     printInfo("Accepted client chatNode: " + client.getInetAddress());
-                    if (!checkIfConnected(client.getInetAddress().toString())) {
+                    //if (!checkIfConnected(client.getInetAddress().toString())) {
                         mutexClientsList.acquire();
                         clients.add(client);
                         mutexClientsList.release();
                         switchClient();
-                    }
+                    //}
                 }
             } catch (IOException | InterruptedException e) {
                 printError("Couldn't accept a client chatNode", e);
@@ -88,33 +88,51 @@ public class ChatNode {
         public void run() {
             List<String> peers = getIpsFromFile("ip.txt");
             if (peers.isEmpty()) return; //! disabling connecting to peers if list is empty
+            for (String address : peers) {
+                try {
+                    Socket serverNode = new Socket(address, DEFAULT_SERVER_PORT);
+                    mutexClientsList.acquire();
+                    clients.add(serverNode);
+                    mutexClientsList.release();
+                    printInfo("Connected to server chatNode: " + serverNode.getInetAddress());
+                } catch (IOException e) {
+                    printError("Couldn't connect to server chatNode: " + address, e);
+                } catch (InterruptedException e) {
+                    printError("Couldn't sleep", e);
+                }
+            }
+        }
+        public void oldRun () {
+            /*
             try {
-                boolean more=true;
-                while(more){
+                List<String> peers = getIpsFromFile("ip.txt");
+                if (peers.isEmpty()) return; //! disabling connecting to peers if list is empty
+                boolean more = true;
+                while (more) {
                     Iterator<String> it = peers.iterator();
                     while (it.hasNext()) {
-                        //TimeUnit.SECONDS.sleep(3); Perchè?
+                        TimeUnit.SECONDS.sleep(3); //Perchè?
                         String host = it.next();
                         if (checkIfConnected(host)) {
                             it.remove();
                         } else {
-                            try{
+                            try {
                                 Socket serverNode = new Socket(host, DEFAULT_SERVER_PORT);
                                 mutexClientsList.acquire();
                                 clients.add(serverNode);
                                 mutexClientsList.release();
                                 printInfo("Connected to server chatNode: " + serverNode.getInetAddress());
                             } catch (IOException e) {
-                                printError("Couldn't connect to server chatNode: "+host, e);
+                                printError("Couldn't connect to server chatNode: " + host, e);
                             }
                         }
                     }
-                    if (peers.isEmpty()) more=false;
+                    if (peers.isEmpty()) more = false;
                 }
             } catch (InterruptedException e) {
                 printError("Couldn't sleep", e);
-            }
-        } // run
+            }*/
+        }
     } // class
 
     private List<String> getIpsFromFile(String path) {
@@ -130,11 +148,11 @@ public class ChatNode {
         return ret;
     }
 
-    private boolean checkIfConnected(String host) {
+    private boolean checkIfConnected(String address) {
         try {
             mutexClientsList.acquire();
             for (Socket client : clients) {
-                if (client.getInetAddress().toString().equals(host)) {
+                if (client.getInetAddress().toString().equals(address)) {
                     mutexClientsList.release();
                     return true;
                 }
