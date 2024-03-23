@@ -64,7 +64,7 @@ public class ChatNode {
             try {
                 while (true) {
                     Socket client = server.accept();
-                    printInfo("Connected to " + client.getInetAddress());
+                    printInfo("Accepted client chatNode: " + client.getInetAddress());
                     if (!checkIfConnected(client.getInetAddress().toString())) {
                         mutexClientsList.acquire();
                         clients.add(client);
@@ -73,7 +73,7 @@ public class ChatNode {
                     }
                 }
             } catch (IOException | InterruptedException e) {
-                printError("Couldn't accept client", e);
+                printError("Couldn't accept a client chatNode", e);
             } finally {
                 try {
                     server.close();
@@ -99,12 +99,13 @@ public class ChatNode {
                             it.remove();
                         } else {
                             try{
-                                Socket anotherNode = new Socket(host, DEFAULT_SERVER_PORT);
+                                Socket serverNode = new Socket(host, DEFAULT_SERVER_PORT);
                                 mutexClientsList.acquire();
-                                clients.add(anotherNode);
+                                clients.add(serverNode);
                                 mutexClientsList.release();
+                                printInfo("Connected to server chatNode: " + serverNode.getInetAddress());
                             } catch (IOException e) {
-                                printError("Couldn't connect to host: "+host, e);
+                                printError("Couldn't connect to server chatNode: "+host, e);
                             }
                         }
                     }
