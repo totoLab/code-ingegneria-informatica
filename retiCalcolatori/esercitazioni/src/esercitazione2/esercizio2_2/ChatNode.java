@@ -25,11 +25,12 @@ public class ChatNode {
             printError("Couldn't create server on port " + port, e);
         }
         loop();
-    }
+    } // initialize server + execute loop
 
     synchronized static void printInfo(String message) {
         System.out.println("INFO: " + message);
     }
+
     synchronized static void printError(String message, Exception e) {
         System.err.println(message + "\n JVM: " + e);
     }
@@ -47,19 +48,6 @@ public class ChatNode {
             printError("Couldn't read clients", e);
         }
         return false;
-    }
-
-    private List<String> getIpsFromFile(String path) {
-        List<String> ret = null;
-        File f = null;
-        try {
-            f = new File(path);
-            BufferedReader bf = new BufferedReader(new FileReader(f));
-            ret = bf.lines().filter(e -> !e.startsWith("#")).toList();
-        } catch (Exception e) {
-            printError("Couldn't read file" + f, e);
-        }
-        return ret;
     }
 
     private void loop() {
@@ -85,9 +73,7 @@ public class ChatNode {
         oh.start();
     }
 
-    public static void main(String[] args) {
-        new ChatNode(DEFAULT_SERVER_PORT);
-    }
+    public static void main(String[] args) { new ChatNode(DEFAULT_SERVER_PORT); }
 
     class ClientAcceptor extends Thread {
         public void run() {
@@ -121,9 +107,10 @@ public class ChatNode {
             if (peers.isEmpty()) return; //! disabling connecting to peers if list is empty
             try {
                 Iterator<String> it = peers.iterator();
-                while (!it.hasNext()) {
+                while (it.hasNext()) {
                     TimeUnit.SECONDS.sleep(3);
                     String host = it.next();
+                    printInfo("Connecting to host: "+host); //DEBUG
                     Socket anotherServer = new Socket(host, DEFAULT_SERVER_PORT);
 
                     if (checkIfConnected(anotherServer)) {
@@ -142,6 +129,19 @@ public class ChatNode {
             }
         } // run
     } // class
+
+    private List<String> getIpsFromFile(String path) {
+        List<String> ret = null;
+        File f = null;
+        try {
+            f = new File(path);
+            BufferedReader bf = new BufferedReader(new FileReader(f));
+            ret = bf.lines().filter(e -> !e.startsWith("#")).toList();
+        } catch (Exception e) {
+            printError("Couldn't read file" + f, e);
+        }
+        return ret;
+    }
 
     class ClientSwitcher extends Thread {
         public void run(){
