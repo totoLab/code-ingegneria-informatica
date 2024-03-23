@@ -2,6 +2,7 @@ package esercitazione2.esercizio2_2;
 
 import java.io.*;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
@@ -32,34 +33,7 @@ public class ChatNode {
     }
 
     synchronized static void printError(String message, Exception e) {
-        System.err.println(message + "\n JVM: " + e);
-    }
-
-    private boolean checkIfConnected(Socket s) {
-        try {
-            mutexClientsList.acquire();
-            for (Socket client : clients) {
-                if (s.getInetAddress().equals(client.getInetAddress())) {
-                    return true;
-                }
-            }
-            mutexClientsList.release();
-        } catch (InterruptedException e) {
-            printError("Couldn't read clients", e);
-        }
-        return false;
-    }
-
-    private void loop() {
-        ClientAcceptor ca = new ClientAcceptor();
-        ca.start();
-        PeerConnector pc = new PeerConnector();
-        pc.start();
-    }
-
-    private void switchClient() {
-        ClientSwitcher cs= new ClientSwitcher();
-        cs.start();
+        System.err.println(message + "\nJVM: " + e);
     }
 
     private void handleClient(Socket socket) {
@@ -73,7 +47,16 @@ public class ChatNode {
         oh.start();
     }
 
-    public static void main(String[] args) { new ChatNode(DEFAULT_SERVER_PORT); }
+    public static void main(String[] args) throws IOException {
+        new ChatNode(DEFAULT_SERVER_PORT);
+    }
+
+    private void loop() {
+        ClientAcceptor ca = new ClientAcceptor();
+        ca.start();
+        PeerConnector pc = new PeerConnector();
+        pc.start();
+    }
 
     class ClientAcceptor extends Thread {
         public void run() {
@@ -82,7 +65,7 @@ public class ChatNode {
                 while (true) {
                     Socket client = server.accept();
                     printInfo("Connected to " + client.getInetAddress());
-                    if (!checkIfConnected(client)) {
+                    if (!checkIfConnected(client.getInetAddress().toString())) {
                         mutexClientsList.acquire();
                         clients.add(client);
                         mutexClientsList.release();
@@ -106,26 +89,29 @@ public class ChatNode {
             List<String> peers = getIpsFromFile("ip.txt");
             if (peers.isEmpty()) return; //! disabling connecting to peers if list is empty
             try {
-                Iterator<String> it = peers.iterator();
-                while (it.hasNext()) {
-                    TimeUnit.SECONDS.sleep(3);
-                    String host = it.next();
-                    printInfo("Connecting to host: "+host); //DEBUG
-                    Socket anotherServer = new Socket(host, DEFAULT_SERVER_PORT);
-
-                    if (checkIfConnected(anotherServer)) {
-                        it.remove();
-                    } else {
-                        mutexClientsList.acquire();
-                        clients.add(anotherServer);
-                        mutexClientsList.release();
+                boolean more=true;
+                while(more){
+                    Iterator<String> it = peers.iterator();
+                    while (it.hasNext()) {
+                        //TimeUnit.SECONDS.sleep(3); Perchè?
+                        String host = it.next();
+                        if (checkIfConnected(host)) {
+                            it.remove();
+                        } else {
+                            try{
+                                Socket anotherNode = new Socket(host, DEFAULT_SERVER_PORT);
+                                mutexClientsList.acquire();
+                                clients.add(anotherNode);
+                                mutexClientsList.release();
+                            } catch (IOException e) {
+                                printError("Couldn't connect to host: "+host, e);
+                            }
+                        }
                     }
-                    if (!peers.isEmpty() && !it.hasNext()) it = peers.iterator();
+                    if (peers.isEmpty()) more=false;
                 }
             } catch (InterruptedException e) {
-                printError("Couldn't sleep or Couldn't wait to add client", e);
-            } catch (IOException e) {
-                printError("Couldn't accept client", e);
+                printError("Couldn't sleep", e);
             }
         } // run
     } // class
@@ -141,6 +127,27 @@ public class ChatNode {
             printError("Couldn't read file" + f, e);
         }
         return ret;
+    }
+
+    private boolean checkIfConnected(String host) {
+        try {
+            mutexClientsList.acquire();
+            for (Socket client : clients) {
+                if (client.getInetAddress().toString().equals(host)) {
+                    mutexClientsList.release();
+                    return true;
+                }
+            }
+        } catch (InterruptedException e) {
+            printError("Couldn't read clients", e);
+        }
+        mutexClientsList.release();
+        return false;
+    }
+
+    private void switchClient() {
+        ClientSwitcher cs= new ClientSwitcher();
+        cs.start();
     }
 
     class ClientSwitcher extends Thread {
