@@ -6,6 +6,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ChatNode {
 
@@ -14,6 +15,8 @@ public class ChatNode {
     private final int port;
     public static final int DEFAULT_SERVER_PORT = 2222;
     private ServerSocket server;
+
+    private AtomicInteger idChatNode = new AtomicInteger(0);
 
     public ChatNode(int port) {
         if (1023 < port && port <= 65536) this.port = port;
@@ -133,30 +136,33 @@ public class ChatNode {
     } // class
 
     private void handleClient(Socket client) {
-        printInfo("Starting to serve client " + client.getInetAddress());
+        int id=idChatNode.addAndGet(1);
+        printInfo("Starting to serve ChatNode " + id + ": " + client.getInetAddress());
         Semaphore mutexClient = new Semaphore(1);
         // in
-        InputHandler ih = new InputHandler(client, mutexClient);
+        InputHandler ih = new InputHandler(client, mutexClient, id);
         ih.start();
         // out
-        OutputHandler oh = new OutputHandler(client, mutexClient);
+        OutputHandler oh = new OutputHandler(client, mutexClient, id);
         oh.start();
     }
 
     static class InputHandler extends Thread {
         Socket client;
         Semaphore mutexClient;
-        public InputHandler(Socket client, Semaphore mutexClient) {
+        int id;
+        public InputHandler(Socket client, Semaphore mutexClient, int id) {
             this.client= client;
             this.mutexClient =mutexClient;
+            this.id=id;
         }
         public void run(){
             BufferedReader in = null;
             InetAddress addr = null;
             try {
                 mutexClient.acquire();
-                addr = client.getLocalAddress();
-                printInfo("Spawning input Thread for socket " + addr);
+                addr = client.getInetAddress();
+                printInfo("Spawning input from chatNode: " + id + ": " + addr);
                 in = new BufferedReader(new InputStreamReader(client.getInputStream()));
                 mutexClient.release();
                 while(true) {
@@ -182,24 +188,26 @@ public class ChatNode {
     static class OutputHandler extends Thread {
         Socket socket;
         Semaphore mutexSocket;
-        public OutputHandler(Socket socket, Semaphore mutexSocket) {
+        int id;
+        public OutputHandler(Socket socket, Semaphore mutexSocket, int id) {
             this.socket=socket;
             this.mutexSocket=mutexSocket;
+            this.id=id;
         }
         public void run(){
-            InetAddress locAddr = null;
+            InetAddress addr = null;
             PrintWriter out = null;
             Scanner user = null;
             try {
                 mutexSocket.acquire();
-                locAddr = socket.getLocalAddress();
-                printInfo("Spawning output Thread for socket " + locAddr);
+                addr = socket.getInetAddress();
+                printInfo("Spawning output of chatNode: " + id + ": " + addr);
                 out = new PrintWriter(socket.getOutputStream(), true);
                 mutexSocket.release();
                 user = new Scanner(System.in);
                 while (true) {
                     String message = user.nextLine();
-                    printInfo(message);
+                    out.println(message);
                 }
             } catch (IOException e) {
                 printError("Couldn't send stream correctly", e);
