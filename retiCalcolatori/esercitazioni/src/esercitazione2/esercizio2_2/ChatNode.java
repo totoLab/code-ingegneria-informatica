@@ -37,6 +37,10 @@ public class ChatNode {
         System.err.println(message + "\nJVM: " + e);
     }
 
+    synchronized static void printMessage(String message) {
+        System.out.println("MESSAGE: " + message);
+    }
+
     public static void main(String[] args) throws IOException {
         new ChatNode(DEFAULT_SERVER_PORT);
     }
@@ -162,13 +166,16 @@ public class ChatNode {
             try {
                 mutexClient.acquire();
                 addr = client.getInetAddress();
-                printInfo("Spawning input from chatNode: " + id + ": " + addr);
+                printInfo("Spawning input handler of chatNode " + id + ": " + addr);
                 in = new BufferedReader(new InputStreamReader(client.getInputStream()));
                 mutexClient.release();
+                printMessage("First test message from chatNode "+id);
                 while(true) {
+                    printMessage("Another test message from chatNode "+id);
                     String line = in.readLine();
+                    printMessage("Another wewe test message from chatNode "+id);
                     if(line!=null)
-                        System.out.println(addr + ": " + line);
+                        printMessage("from chatNode "+id + ": " + line);
                 }
             } catch (InterruptedException e) {
                 printError("Thread killed", e);
@@ -201,7 +208,7 @@ public class ChatNode {
             try {
                 mutexSocket.acquire();
                 addr = socket.getInetAddress();
-                printInfo("Spawning output of chatNode: " + id + ": " + addr);
+                printInfo("Spawning output handler of chatNode " + id + ": " + addr);
                 out = new PrintWriter(socket.getOutputStream(), true);
                 mutexSocket.release();
                 user = new Scanner(System.in);
