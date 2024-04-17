@@ -79,11 +79,11 @@ public class ChatNode {
         }).start();
 
         new Thread(() -> {
-            List<String> peers = getIpsFromFile("ip.txt");
-            if (peers.isEmpty()) return; //! disabling connecting to peers if list is empty
+            List<String> peers = getIpsFromFile("ip.txt"); // file is in root of project
+            if (peers.isEmpty()) return; // disabling connecting to peers if list is empty
             try {
                 Iterator<String> it = peers.iterator();
-                while (!it.hasNext()) {
+                while (it.hasNext()) {
                     TimeUnit.SECONDS.sleep(3);
                     String host = it.next();
                     Socket anotherServer = new Socket(host, DEFAULT_SERVER_PORT);
