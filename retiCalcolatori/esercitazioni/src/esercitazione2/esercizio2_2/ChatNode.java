@@ -1,6 +1,8 @@
 package esercitazione2.esercizio2_2;
 
 import java.io.*;
+import java.net.Inet4Address;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
@@ -31,9 +33,9 @@ public class ChatNode {
         System.err.println(message + "\n JVM: " + e);
     }
 
-    private synchronized boolean checkIfConnected(Socket s) {
+    private synchronized boolean checkIfConnected(InetAddress addr) {
         for (Socket client : clients) {
-            if (s.getInetAddress().equals(client.getInetAddress())) {
+            if (addr.equals(client.getInetAddress())) {
                 return true;
             }
         }
@@ -46,7 +48,9 @@ public class ChatNode {
         try {
             f = new File(path);
             BufferedReader bf = new BufferedReader(new FileReader(f));
-            ret = bf.lines().filter(e -> !e.startsWith("#")).toList();
+            ret = new LinkedList<>(
+                    bf.lines().filter(e -> !e.startsWith("#")).toList()
+            );
         } catch (Exception e) {
             printError("Couldn't read file" + f, e);
         }
@@ -62,7 +66,7 @@ public class ChatNode {
                     Socket client = server.accept();
                     printInfo("Connected to " + client.getInetAddress());
 
-                    if (!checkIfConnected(client)) {
+                    if (!checkIfConnected(client.getInetAddress())) {
                         clients.add(client);
                         switchClient();
                     }
@@ -86,12 +90,14 @@ public class ChatNode {
                 while (it.hasNext()) {
                     TimeUnit.SECONDS.sleep(3);
                     String host = it.next();
-                    Socket anotherServer = new Socket(host, DEFAULT_SERVER_PORT);
+                    InetAddress addr = Inet4Address.getByName(host);
 
-                    if (checkIfConnected(anotherServer)) {
+                    if (checkIfConnected(addr)) {
                         it.remove();
                     } else {
+                        Socket anotherServer = new Socket(addr, DEFAULT_SERVER_PORT);
                         clients.add(anotherServer);
+                        handleClient(anotherServer);
                     }
                     if (!peers.isEmpty() && !it.hasNext()) it = peers.iterator();
                 }
