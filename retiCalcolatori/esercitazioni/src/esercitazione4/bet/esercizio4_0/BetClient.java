@@ -37,6 +37,7 @@ public class BetClient {
         BufferedReader in = null;
         PrintWriter pw = null;
         try {
+            printInfo("Trying to connect to server " + SERVER_IP);
             Socket server = new Socket(SERVER_IP, SERVER_TCP_PORT);
             in = new BufferedReader(new InputStreamReader(server.getInputStream()));
             String line = "";

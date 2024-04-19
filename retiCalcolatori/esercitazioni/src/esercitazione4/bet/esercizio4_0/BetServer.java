@@ -46,7 +46,7 @@ public class BetServer {
         public void run() {
             try {
                 ss = new ServerSocket(SERVER_TCP_PORT);
-                ss.setSoTimeout(ACCEPTING_LIMIT);
+                ss.setSoTimeout(ACCEPTING_LIMIT * 1000);
                 printInfo("Server started on port " + SERVER_TCP_PORT);
                 while (!done) {
                     Socket client = ss.accept();
@@ -144,11 +144,6 @@ public class BetServer {
 
             while (limite.getTime().after(today.getTime())) {
                 today = Calendar.getInstance();
-                try {
-                    TimeUnit.SECONDS.sleep(ACCEPTING_LIMIT * 2L / 3);
-                } catch (InterruptedException e) {
-                    printError("Thread can't dream", e);
-                }
             }
             done = true;
             try {
@@ -172,12 +167,8 @@ public class BetServer {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        BetServer bs = null;
-        while (bs == null || bs.done) {
-            bs = new BetServer(20, 2);
-            bs.startServer();
-            // TimeUnit.SECONDS.sleep(40);
-        }
+        BetServer bs = new BetServer(20, 3);
+        bs.startServer();
     }
 
 }
