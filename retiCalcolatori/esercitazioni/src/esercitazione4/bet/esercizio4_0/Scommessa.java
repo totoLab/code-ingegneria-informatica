@@ -5,7 +5,7 @@ public class Scommessa {
     private int cavallo;
     private double puntata;
 
-    Scommessa(int cavallo, double puntata) {
+    public Scommessa(int cavallo, double puntata) {
         if (cavallo > 0 && cavallo <= 12 && puntata > 0) {
             this.cavallo = cavallo;
             this.puntata = puntata;
