@@ -88,7 +88,10 @@ public class BetServer {
             try {
                 out = new PrintWriter(client.getOutputStream(), true);
                 String races = gameManager.getRacesAsString();
-                out.println(races); // TODO multi line print
+                String[] raceLines = races.split("\n");
+                for (String line : raceLines) {
+                    out.println(line);
+                }
                 in = new BufferedReader(new InputStreamReader(client.getInputStream()));
                 String response = in.readLine();
                 Bet bet = new Bet(client.getInetAddress(), response);
