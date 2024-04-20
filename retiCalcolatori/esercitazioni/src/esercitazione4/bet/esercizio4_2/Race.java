@@ -105,6 +105,7 @@ public class Race extends Thread {
 
         @Override
         public void run() {
+            printInfo(this + " started!");
             MulticastSocket ms = null;
             try {
                 ms = new MulticastSocket();
@@ -126,6 +127,15 @@ public class Race extends Thread {
             } finally {
                 if (ms != null) ms.close();
             }
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+            sb.append(getRaceId());
+            sb.append(": start time ");
+            sb.append(getStartTime().getTime());
+            return sb.toString();
         }
     }
 

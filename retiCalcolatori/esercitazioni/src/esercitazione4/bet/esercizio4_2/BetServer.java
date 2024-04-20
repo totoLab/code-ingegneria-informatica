@@ -60,12 +60,14 @@ public class BetServer {
         public void run() {
             try {
                 while (true) {
-                    while (managed > clients.size()) {
-                        Thread.sleep(1 * 1000);
+                    if (!clients.isEmpty()) {
+                        while (managed > clients.size()) {
+                            Thread.sleep(1 * 1000);
+                        }
+                        Socket client = clients.getLast();
+                        new ClientManager(client).start();
+                        managed++;
                     }
-                    Socket client = clients.getLast();
-                    new ClientManager(client).start();
-                    managed++;
                 }
             } catch(InterruptedException e){
                 printError("Thread couldn't sleep", e);
@@ -128,9 +130,7 @@ public class BetServer {
             for (Race race : races) {
                 if (race.isActive()) {
                     sb.append("- ");
-                    sb.append(race.getRaceId());
-                    sb.append(": start time ");
-                    sb.append(race.getStartTime().getTime());
+                    sb.append(race.toString());
                     sb.append("\n");
                 }
             }
