@@ -6,6 +6,7 @@ import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import static esercitazione4.bet.esercizio4_2.Logging.*;
 
 public class Race extends Thread {
 
@@ -24,13 +25,6 @@ public class Race extends Thread {
         this.startTime = startTime;
         this.startBetting = calculateStartBetting(startTime);
         this.bets = new LinkedList<>();
-    }
-
-    static void printInfo(String message) {
-        System.out.println("INFO: " + message);
-    }
-    static void printError(String message, Exception e) {
-        System.err.println(message + "\n JVM: " + e);
     }
 
     boolean placeBet(Bet bet) {
@@ -105,7 +99,7 @@ public class Race extends Thread {
 
         @Override
         public void run() {
-            printInfo(this + " started!");
+            print(Type.INFO, "Finished accepting bets", null, this, null);
             MulticastSocket ms = null;
             try {
                 ms = new MulticastSocket();
@@ -118,10 +112,10 @@ public class Race extends Thread {
                     buf = dString.getBytes();
                     DatagramPacket packet = new DatagramPacket(buf, buf.length, group, SERVER_MULTICAST_PORT);
                     ms.send(packet);
-                    printInfo("Broadcasting: " + dString);
+                    print(Type.INFO, "Broadcasting: " + dString, null, this, null);
                 }
             } catch (IOException e) {
-                printError("Multicast failed", e);
+                print(Type.ERROR, "Multicast failed", null, this, e);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             } finally {

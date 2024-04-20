@@ -7,22 +7,12 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
+import static esercitazione4.bet.esercizio4_2.Logging.*;
 
 public class BetServer {
 
     static final int SERVER_TCP_PORT = 8001;
     private final int STARTER_DELAY_SECONDS = 1;
-
-    static void printInfo(String message) {
-        System.out.println("INFO: " + message);
-    }
-    static void printInfo(String message, Thread t) {
-        String threadInfo = t.getClass().getSimpleName() + "/" + t.getName();
-        System.out.println("INFO (" + threadInfo + "): " + message);
-    }
-    static void printError(String message, Exception e) {
-        System.err.println(message + "\n JVM: " + e);
-    }
 
     private Dispatcher dispatcher;
     private Starter starter;
@@ -44,13 +34,13 @@ public class BetServer {
             ServerSocket server = null;
             try {
                 server = new ServerSocket(SERVER_TCP_PORT);
-                printInfo("Server started on port " + SERVER_TCP_PORT, this);
+                print(Type.INFO, "Server started on port " + SERVER_TCP_PORT, null, this, null);
                 while (true) {
                     Socket client = server.accept();
-                    printInfo("");
+                    print(Type.INFO, "Accepted client " + client, null, this, null);
                     starter.addClient(client);
                 }
-            } catch (IOException e) { printError("Couldn't accept clients", e);}
+            } catch (IOException e) { print(Type.ERROR, "Couldn't accept clients", null, this, e);}
         }
     }
 
@@ -65,12 +55,12 @@ public class BetServer {
 
         @Override
         public void run() {
-            printInfo("Started managing requests", this);
+            print(Type.INFO, "Started managing requests", null, this, null);
             try {
                 while (true) {
                     if (!clients.isEmpty()) {
                         while (managed > clients.size()) {
-                            printInfo("No clients available, sleeping for " + STARTER_DELAY_SECONDS);
+                            print(Type.INFO, "No clients available, sleeping for " + STARTER_DELAY_SECONDS, null, null, null);
                             Thread.sleep(STARTER_DELAY_SECONDS * 1000);
                         }
                         Socket client = clients.getLast();
@@ -79,7 +69,7 @@ public class BetServer {
                     }
                 }
             } catch(InterruptedException e){
-                printError("Thread couldn't sleep", e);
+                print(Type.ERROR, "Thread couldn't sleep", null, this, e);
             }
         }
     }
@@ -94,7 +84,7 @@ public class BetServer {
 
         @Override
         public void run() {
-            printInfo("Trying to communicate with client " + client);
+            print(Type.INFO, "Trying to communicate with client " + client, null, null, null);
             BufferedReader in = null;
             PrintWriter out = null;
             try {
@@ -114,9 +104,9 @@ public class BetServer {
                     responseToClient = "Bet can't be placed";
                 }
                 out.println(responseToClient);
-                printInfo(responseToClient, this);
+                print(Type.INFO, responseToClient, null, this, null);
             } catch (IOException e) {
-                printError("Can't communicate with client", e);
+                print(Type.ERROR,"Can't communicate with client", null, this, e);
             } catch (IllegalArgumentException e) {
                 if (out != null) out.println(Bet.usage());
             }
@@ -155,7 +145,7 @@ public class BetServer {
 
         @Override
         public void run() {
-            printInfo("Started managing races", this);
+            print(Type.INFO, "Started managing races", null, this, null);
             Date now;
             while (true) {
                 for (Race race : races) {
