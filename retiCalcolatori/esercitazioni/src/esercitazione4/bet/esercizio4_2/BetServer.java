@@ -94,6 +94,7 @@ public class BetServer {
                 for (String line : raceLines) {
                     out.println(line);
                 }
+                out.println("");
                 in = new BufferedReader(new InputStreamReader(client.getInputStream()));
                 String response = in.readLine();
                 Bet bet = new Bet(client.getInetAddress(), response);
@@ -133,6 +134,7 @@ public class BetServer {
 
         public String getRacesAsString() {
             StringBuilder sb = new StringBuilder();
+            sb.append("The following races are available to bet on:\n");
             for (Race race : races) {
                 if (race.isActive()) {
                     sb.append("- ");
