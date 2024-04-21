@@ -41,6 +41,7 @@ public class BetServer {
                     starter.addClient(client);
                 }
             } catch (IOException e) { print(Type.ERROR, "Couldn't accept clients", null, this, e);}
+            print(Type.INFO, "Service shutting down", null, this, null);
         }
     }
 
@@ -71,6 +72,7 @@ public class BetServer {
             } catch(InterruptedException e){
                 print(Type.ERROR, "Thread couldn't sleep", null, this, e);
             }
+            print(Type.INFO, "Service shutting down", null, this, null);
         }
     }
 
@@ -111,6 +113,7 @@ public class BetServer {
             } catch (IllegalArgumentException e) {
                 if (out != null) out.println(Bet.usage());
             }
+            print(Type.INFO, "Service shutting down", null, this, null);
         }
 
     }
@@ -162,6 +165,7 @@ public class BetServer {
 
                 }
             }
+            // print(Type.INFO, "Service shutting down", null, this, null);
         }
     }
 
