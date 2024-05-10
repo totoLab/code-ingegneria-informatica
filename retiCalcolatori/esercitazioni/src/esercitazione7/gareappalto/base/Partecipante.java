@@ -65,12 +65,14 @@ public class Partecipante {
                     // ----- //
 
                     multicastSocket.joinGroup(group);
-                    buf = new byte[1024];
-                    packet = new DatagramPacket(buf, buf.length);
-                    multicastSocket.receive(packet);
-                    String response = new String(packet.getData()).trim();
-                    print(Logging.Type.INFO,response, null, Thread.currentThread(), null);
-
+                    String response = "Richiesta";
+                    while (response.startsWith("Richiesta")) {
+                        buf = new byte[1024];
+                        packet = new DatagramPacket(buf, buf.length);
+                        multicastSocket.receive(packet);
+                        response = new String(packet.getData()).trim();
+                    }
+                    print(Logging.Type.INFO, response, null, Thread.currentThread(), null);
                     multicastSocket.leaveGroup(group);
 
                 } catch (IOException e) {
