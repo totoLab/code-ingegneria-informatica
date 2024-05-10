@@ -1,0 +1,14 @@
+Ente
+Giudice
+Partecipante
+Richiesta
+Offerta
+
+ente invia richiesta 
+giudice riceve richiesta TCP 2000
+giudice broadcast richiesta 230.0.0.1 3000
+partecipante i-esimo invia una offerta TCP 4000
+giudice selezione offerta migliore dopo l'invio di tutte quante
+invio offerta all'ente TCP, invio offerta vincitrice ai partecipanti in broadcast
+
+NB: n noto
