@@ -83,7 +83,7 @@ public class Giudice {
                         offertaMigliore = offerta;
                     }
                 }
-
+                partecipante.close();
             }
         } catch (SocketTimeoutException e) {
             print(Type.INFO, "Offering time has finished", null, this, e);
