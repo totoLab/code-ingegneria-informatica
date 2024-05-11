@@ -1,0 +1,6 @@
+Il Giudice gestisce diverse gare d’appalto in parallelo (non una singola gara per volta).
+Per gestire più gare di appalto contemporaneamente utilizziamo una struttura dati condivisa RegistroGare che ci consente di memorizzare e condividere con più thread:
+- La richiesta in arrivo da un Ente
+- Il socket aperto con ogni Ente
+- Lo stato di una gara di appalto (aperta/chiusa)
+- La migliore offerta ricevuta

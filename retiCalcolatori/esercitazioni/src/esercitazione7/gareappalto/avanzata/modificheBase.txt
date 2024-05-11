@@ -1,2 +1,1 @@
 1. Riceve un oggetto istanza della classe Offerta solo dai Partecipanti interessati alla gara d’appalto. Attende le offerte per un tempo massimo pari ad 1 minuto. Allo scadere del tempo massimo comunica l’offerta vincente.
-2. Il Giudice gestisce diverse gare d’appalto in parallelo (non una singola gara per volta).
