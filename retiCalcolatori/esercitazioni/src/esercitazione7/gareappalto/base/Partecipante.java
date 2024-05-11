@@ -52,7 +52,7 @@ public class Partecipante {
                     Socket server = new Socket(InetAddress.getLocalHost(), 4000);
                     ObjectOutputStream oos = new ObjectOutputStream(server.getOutputStream());
 
-                    int importo = rand.nextInt(0, 5000);
+                    int importo = rand.nextInt(importoMassimo / 10, importoMassimo);
                     Offerta offerta = new Offerta(finalI, importo);
 
                     print(Logging.Type.INFO,"Sending offer: " + offerta, null, Thread.currentThread(), null);
