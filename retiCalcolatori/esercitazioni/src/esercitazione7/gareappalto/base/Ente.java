@@ -5,23 +5,30 @@ import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.Random;
 
 public class Ente {
 
     public static void main(String[] args) {
-        try {
-            Richiesta richiesta = new Richiesta("Ponte sullo Stretto", 5000);
-            Socket server = new Socket(InetAddress.getLocalHost(), 2000);
-            ObjectOutputStream oos = new ObjectOutputStream(server.getOutputStream());
-            System.out.println("Sent request " + richiesta);
-            oos.writeObject(richiesta);
-            oos.flush();
+        Random rand = new Random();
+        for (int i = 0; i < 3; i++) {
+            int importo = rand.nextInt(4000, 5000);
+            Richiesta richiesta = new Richiesta("Ponte #" + (i + 1), importo);
+            new Thread(() -> {
+                try {
+                    Socket server = new Socket(InetAddress.getLocalHost(), 2000);
+                    ObjectOutputStream oos = new ObjectOutputStream(server.getOutputStream());
+                    System.out.println("Sent request " + richiesta);
+                    oos.writeObject(richiesta);
+                    oos.flush();
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(server.getInputStream()));
-            String response = br.readLine();
-            System.out.println(response);
-        } catch (Exception e) {
-            e.printStackTrace();
+                    BufferedReader br = new BufferedReader(new InputStreamReader(server.getInputStream()));
+                    String response = br.readLine();
+                    System.out.println(response);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }).start();
         }
     }
 }

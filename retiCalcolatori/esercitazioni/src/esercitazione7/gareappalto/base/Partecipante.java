@@ -1,5 +1,6 @@
 package esercitazione7.gareappalto.base;
 
+import esercitazione7.gareappalto.slides.Offerta;
 import utils.Logging;
 
 import java.io.IOException;
@@ -34,6 +35,7 @@ public class Partecipante {
                     while(!ok) {
                         multicastSocket.receive(packet);
                         String content = new String(packet.getData()).trim();
+                        print(Logging.Type.INFO, "Received packet content: " + content, null, Thread.currentThread(), null);
                         String[] parts = content.split("importoMassimo=");
                         if (parts.length == 2) {
                             String number = parts[1].replace("}", "").trim();
@@ -53,7 +55,7 @@ public class Partecipante {
                     ObjectOutputStream oos = new ObjectOutputStream(server.getOutputStream());
 
                     int importo = rand.nextInt(importoMassimo / 10, importoMassimo);
-                    Offerta offerta = new Offerta(finalI, importo);
+                    Offerta offerta = new Offerta(0, importo, finalI);
 
                     print(Logging.Type.INFO,"Sending offer: " + offerta, null, Thread.currentThread(), null);
                     oos.writeObject(offerta);
