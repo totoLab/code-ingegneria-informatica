@@ -1,6 +1,7 @@
 package esercitazione7.gareappalto.base;
 
 import utils.Logging;
+import esercitazione7.gareappalto.registrogare.Offerta;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -11,17 +12,16 @@ import java.net.Socket;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-import static utils.Logging.print;
+import static utils.Logging.*;
 
 public class Partecipante {
-
-
 
     public static void main(String[] args) {
         for (int i = 0; i < 10; i++) {
 
             int finalI = i;
             new Thread(() -> {
+                print(Type.INFO, "Started Thread #" + finalI, null, null, null);
                 try {
                     Random rand = new Random();
                     MulticastSocket multicastSocket = new MulticastSocket(3000);
@@ -30,6 +30,7 @@ public class Partecipante {
                     byte[] buf = new byte[1024];
                     DatagramPacket packet = new DatagramPacket(buf, buf.length);
                     boolean ok = false;
+                    Integer id = -1;
                     Integer importoMassimo = -1;
                     while(!ok) {
                         multicastSocket.receive(packet);
@@ -37,15 +38,24 @@ public class Partecipante {
                         print(Logging.Type.INFO, "Received packet content: " + content, null, Thread.currentThread(), null);
                         String[] parts = content.split("importoMassimo=");
                         if (parts.length == 2) {
-                            String number = parts[1].replace("}", "").trim();
+                            String idToParse = parts[0];
+                            idToParse = idToParse.split("\\)\\{")[0];
+                            idToParse = idToParse.replace("Richiesta(", "");
+                            String importoToParse = parts[1];
+                            importoToParse = importoToParse.replace("}", "");
+
                             try {
-                                importoMassimo = Integer.parseInt(number);
+                                id = Integer.parseInt(idToParse);
+                                importoMassimo = Integer.parseInt(importoToParse);
                                 ok = true;
                             } catch (NumberFormatException e) {
-                                System.out.println("Couldn't parse importo: " + number);
+                                print(Type.ERROR,"Couldn't parse something", null, null, e);
                             }
+                        } else {
+                            print(Type.ERROR, "AAAAAAAAAAAAAA", null, null, null);
                         }
                     }
+
                     multicastSocket.leaveGroup(group);
 
                     // ---------- //
@@ -54,7 +64,7 @@ public class Partecipante {
                     ObjectOutputStream oos = new ObjectOutputStream(server.getOutputStream());
 
                     int importo = rand.nextInt(importoMassimo / 10, importoMassimo);
-                    Offerta offerta = new Offerta(importo, finalI);
+                    Offerta offerta = new Offerta(id, importo, finalI);
 
                     print(Logging.Type.INFO,"Sending offer: " + offerta, null, Thread.currentThread(), null);
                     oos.writeObject(offerta);
@@ -78,7 +88,7 @@ public class Partecipante {
 
                 } catch (IOException e) {
                     e.printStackTrace();
-                } catch (InterruptedException e) {
+                } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
             }).start();
