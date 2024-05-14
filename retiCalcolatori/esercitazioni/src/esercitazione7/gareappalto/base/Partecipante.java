@@ -1,6 +1,5 @@
 package esercitazione7.gareappalto.base;
 
-import esercitazione7.gareappalto.slides.Offerta;
 import utils.Logging;
 
 import java.io.IOException;
@@ -55,7 +54,7 @@ public class Partecipante {
                     ObjectOutputStream oos = new ObjectOutputStream(server.getOutputStream());
 
                     int importo = rand.nextInt(importoMassimo / 10, importoMassimo);
-                    Offerta offerta = new Offerta(0, importo, finalI);
+                    Offerta offerta = new Offerta(importo, finalI);
 
                     print(Logging.Type.INFO,"Sending offer: " + offerta, null, Thread.currentThread(), null);
                     oos.writeObject(offerta);

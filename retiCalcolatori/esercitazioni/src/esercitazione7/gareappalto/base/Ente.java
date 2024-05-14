@@ -1,5 +1,7 @@
 package esercitazione7.gareappalto.base;
 
+import esercitazione7.gareappalto.slides.Richiesta;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;
@@ -13,7 +15,7 @@ public class Ente {
         Random rand = new Random();
         for (int i = 0; i < 3; i++) {
             int importo = rand.nextInt(4000, 5000);
-            Richiesta richiesta = new Richiesta("Ponte #" + (i + 1), importo);
+            Richiesta richiesta = new Richiesta(i, "Ponte #" + (i + 1), importo);
             new Thread(() -> {
                 try {
                     Socket server = new Socket(InetAddress.getLocalHost(), 2000);
