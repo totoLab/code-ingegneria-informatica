@@ -1,4 +1,4 @@
-package esercitazione7.gareappalto.base;
+package esercitazione9.gareappalto.base;
 
 import java.io.Serializable;
 

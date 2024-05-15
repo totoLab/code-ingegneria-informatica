@@ -1,4 +1,4 @@
-package esercitazione7.gareappalto.slides;
+package esercitazione9.gareappalto.slides;
 
 import java.net.Socket;
 
@@ -10,7 +10,7 @@ public class Gara {
     Offerta offertaMigliore;
     boolean status;
 
-    Gara(Socket ente, esercitazione7.gareappalto.slides.Richiesta richiesta) {
+    Gara(Socket ente, esercitazione9.gareappalto.slides.Richiesta richiesta) {
         this.ente = ente;
         this.richiesta = richiesta;
         this.status = true;

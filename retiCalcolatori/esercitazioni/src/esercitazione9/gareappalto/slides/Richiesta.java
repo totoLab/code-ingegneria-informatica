@@ -1,4 +1,4 @@
-package esercitazione7.gareappalto.slides;
+package esercitazione9.gareappalto.slides;
 
 import java.io.Serializable;
 

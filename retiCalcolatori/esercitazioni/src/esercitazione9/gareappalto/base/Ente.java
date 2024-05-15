@@ -1,6 +1,6 @@
-package esercitazione7.gareappalto.base;
+package esercitazione9.gareappalto.base;
 
-import esercitazione7.gareappalto.registrogare.Richiesta;
+import esercitazione9.gareappalto.registrogare.Richiesta;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

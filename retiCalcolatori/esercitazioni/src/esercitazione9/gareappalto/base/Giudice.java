@@ -1,7 +1,4 @@
-package esercitazione7.gareappalto.avanzata;
-
-import esercitazione7.gareappalto.base.Offerta;
-import esercitazione7.gareappalto.base.Richiesta;
+package esercitazione9.gareappalto.base;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -18,6 +15,8 @@ public class Giudice {
     final String ipBroadcast = "230.0.0.1";
     final int UDP_PORT_BROADCAST = 3000;
     final int TCP_PORT_PARTECIPANTE = 4000;
+
+    final int nPartecipanti = 10;
 
     private Socket ente;
     private Richiesta richiestaCorrente;
@@ -64,12 +63,11 @@ public class Giudice {
     }
 
     void acceptPartecipanteOffers() {
-        ServerSocket ss = null;
+        ServerSocket ss;
+        int offerteRegistrate = 0;
         try {
             ss = new ServerSocket(TCP_PORT_PARTECIPANTE);
-            ss.setSoTimeout(15 * 1000);
-            boolean done = false;
-            while (!done) {
+            while (offerteRegistrate < nPartecipanti) {
                 Socket partecipante = ss.accept();
 
                 ObjectInputStream ois = new ObjectInputStream(partecipante.getInputStream());
@@ -77,24 +75,20 @@ public class Giudice {
                 Offerta offerta = (Offerta) ois.readObject();
                 if (offerta != null) {
                     print(Type.INFO, "Got new offer " + offerta.getImportoRichiesto(), null, null, null);
+                    offerteRegistrate += 1;
 
                     if (offertaMigliore == null) offertaMigliore = offerta;
                     else if (offerta.getImportoRichiesto() < offertaMigliore.getImportoRichiesto()) {
                         offertaMigliore = offerta;
                     }
                 }
-                partecipante.close();
+
             }
-        } catch (SocketTimeoutException e) {
-            print(Type.INFO, "Offering time has finished", null, this, e);
+            ss.close();
         } catch (IOException e) {
             print(Type.ERROR, "Couldn't communicate correctly with client", null, this, e);
         } catch (ClassNotFoundException e) {
             print(Type.ERROR, "Couldn't cast object", null, this, e);
-        } finally {
-            try {
-                if (ss != null) ss.close();
-            } catch (IOException e) { print(Type.ERROR, "Couldn't gracefully close ServerSocket", null, this, e); }
         }
     }
 

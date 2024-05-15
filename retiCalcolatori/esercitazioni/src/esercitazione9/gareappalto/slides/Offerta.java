@@ -1,35 +1,27 @@
-package esercitazione7.gareappalto.registrogare;
+package esercitazione9.gareappalto.slides;
 
 import java.io.Serializable;
 
 public class Offerta implements Serializable {
-    private int idGara;
-    private int idPartecipante;
+    private int id;
     private int importoRichiesto;
-    public Offerta(int idGara, int importoRichiesto, int idPartecipante) {
-        this.idGara = idGara;
+    private int idPartecipante;
+
+    public Offerta(int id, int importoRichiesto, int idPartecipante) {
+        this.id = id;
         this.importoRichiesto = importoRichiesto;
         this.idPartecipante = idPartecipante;
     }
-
-    public int getIdGara() {
-        return idGara;
-    }
-
+    public int getId() { return id; }
     public int getImportoRichiesto() {
         return importoRichiesto;
     }
-
-    public int getIdPartecipante() {
-        return idPartecipante;
-    }
-
+    public int getIdPartecipante() { return idPartecipante; }
     @Override
     public String toString() {
         return "Offerta{" +
-                "gara=" + idGara +
+                "id=" + id +
                 ", importoRichiesto=" + importoRichiesto +
-                ", partecipante=" + idPartecipante +
                 '}';
     }
 }

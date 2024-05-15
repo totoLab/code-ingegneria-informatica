@@ -1,13 +1,11 @@
-package esercitazione7.gareappalto.registrogare;
+package esercitazione9.gareappalto.base;
 
 import java.io.Serializable;
 
 public class Richiesta implements Serializable {
-    private int id;
     private String descrizione;
     private int importoMassimo;
-    public Richiesta(int id, String descrizione, int importoMassimo) {
-        this.id = id;
+    public Richiesta(String descrizione, int importoMassimo) {
         this.descrizione = descrizione;
         this.importoMassimo = importoMassimo;
     }
@@ -18,7 +16,7 @@ public class Richiesta implements Serializable {
 
     @Override
     public String toString() {
-        return "Richiesta(" + id + "){" +
+        return "Richiesta{" +
                 "descrizione='" + descrizione + '\'' +
                 ", importoMassimo=" + importoMassimo +
                 '}';

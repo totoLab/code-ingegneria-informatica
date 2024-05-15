@@ -1,7 +1,7 @@
-package esercitazione7.gareappalto.base;
+package esercitazione9.gareappalto.base;
 
 import utils.Logging;
-import esercitazione7.gareappalto.registrogare.Offerta;
+import esercitazione9.gareappalto.registrogare.Offerta;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;

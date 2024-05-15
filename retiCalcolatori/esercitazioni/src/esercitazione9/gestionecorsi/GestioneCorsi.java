@@ -1,4 +1,4 @@
-package esercitazione7.gestionecorsi;
+package esercitazione9.gestionecorsi;
 
 import java.util.HashMap;
 

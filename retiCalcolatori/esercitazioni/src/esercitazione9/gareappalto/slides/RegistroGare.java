@@ -1,4 +1,4 @@
-package esercitazione7.gareappalto.slides;
+package esercitazione9.gareappalto.slides;
 
 import utils.Logging;
 
@@ -13,7 +13,7 @@ public class RegistroGare {
     int counter = 0;
 
     public Richiesta getRichiesta(int idGara) {
-        esercitazione7.gareappalto.slides.Richiesta richiesta = this.gare.get(idGara).richiesta;
+        esercitazione9.gareappalto.slides.Richiesta richiesta = this.gare.get(idGara).richiesta;
         return richiesta;
     }
     public Offerta getOffertaVincente(int idGara) {
