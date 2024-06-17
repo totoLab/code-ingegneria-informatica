@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RemoteTargetsManager">
+    <targets>
+      <target name="toto@192.168.168.92:22" type="ssh/sftp" uuid="3b8b2800-1265-4146-b140-50b698706d9c">
+        <config>
+          <option name="projectRootOnTarget" value="$USER_HOME$/retiCalcolatori" />
+          <option name="serverName" value="toto@192.168.168.92:22 key" />
+          <option name="useRsync" value="true" />
+        </config>
+        <ContributedStateBase type="JavaLanguageRuntime">
+          <config>
+            <option name="homePath" value="$USER_HOME$/.sdkman/candidates/java/21.0.3-tem" />
+            <option name="javaVersionString" value="21.0.3" />
+          </config>
+        </ContributedStateBase>
+      </target>
+      <target name="toto@archv-laptop:22" type="ssh/sftp" uuid="2324c020-0f73-4c70-8db9-65939ccf7646">
+        <config>
+          <option name="projectRootOnTarget" value="$PROJECT_DIR$/../../../../remote/retiCalcolatori" />
+          <option name="serverName" value="toto@archv-laptop:22 key" />
+        </config>
+        <ContributedStateBase type="JavaLanguageRuntime">
+          <config>
+            <option name="homePath" value="/usr/lib/jvm/java-21-openjdk" />
+            <option name="javaVersionString" value="21" />
+          </config>
+        </ContributedStateBase>
+      </target>
+    </targets>
+  </component>
+</project>
