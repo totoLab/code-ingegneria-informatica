@@ -1,0 +1,14 @@
+Server
+Client
+StatoSensore
+
+Sensore invia richiesta
+ricezione StatoSensore da Client TCP 3000
+se ricezione
+- in [8:00-13:00]
+- umidità è uguale alla media dei valori ricevuti dal sensore +-5% and temp = media valori tmp di tutti i sensori +-5%
+allora messaggio di accettazione con numero progressivo dello stato
+altrimenti messaggio di rifiuto
+
+Sensore invia richiesta con id su TCP 4000 per registrarsi al servizio di notifica
+Poi, per ogni StatoSensore registrato viene inviato a tutti i sensori registrati, tranne quello che l'ha inviato, la stringa ID#NUMERO#MISURE
