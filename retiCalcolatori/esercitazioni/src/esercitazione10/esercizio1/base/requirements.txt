@@ -1,0 +1,6 @@
+cliente -> intermediario
+cliente invia richiesta TCP 2345
+richiesta a tutti i venditori UDP 6789
+venditore risponde con Risposta (stessa porta)
+intermediario gestisce solo richieste entro 1 minuto
+intermediario invia risposta al cliente (stesso socket)
