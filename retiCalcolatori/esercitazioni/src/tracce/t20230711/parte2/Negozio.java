@@ -1,4 +1,4 @@
-package tracce.t20230711;
+package tracce.t20230711.parte2;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;

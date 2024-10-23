@@ -1,0 +1,7 @@
+<types>
+
+</types>
+
+<message name="UpdatePrezzoRequest">
+    <part name="prezzoProdotto" type/>
+</message>

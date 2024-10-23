@@ -1,4 +1,4 @@
-package tracce.t20230711;
+package tracce.t20230711.parte2;
 
 public class Offerta {
 
