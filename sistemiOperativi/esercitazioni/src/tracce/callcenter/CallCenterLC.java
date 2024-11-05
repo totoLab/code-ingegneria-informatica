@@ -23,10 +23,9 @@ public class CallCenterLC extends CallCenter {
     HashMap<Thread, Integer> coppia = new HashMap<>();
     HashMap<Integer, Boolean> risolto = new HashMap<>();
     HashMap<Integer, Boolean> soluzioni = new HashMap<>();
-    HashMap<Thread, Integer> pausa = new HashMap<>();
 
     boolean mioTurno() {
-        return Thread.currentThread() == coda.getFirst();
+        return Thread.currentThread().equals(coda.getFirst());
     }
 
     boolean soluzione() {
@@ -81,11 +80,6 @@ public class CallCenterLC extends CallCenter {
                 clienteDisponibile.await();
             }
 
-            if (!pausa.containsKey(Thread.currentThread())) {
-                pausa.put(Thread.currentThread(), 0);
-            }
-            pausa.put(Thread.currentThread(), pausa.get(Thread.currentThread()) + 1);
-
             int idCliente = coppia.get(Thread.currentThread());
             while (!risolto.get(idCliente)) {
                 log("Genero una soluzione", Tipo.OPERATORE);
@@ -115,10 +109,6 @@ public class CallCenterLC extends CallCenter {
 
     @Override
     void prossimoCliente() {
-        if (pausa.get(Thread.currentThread()) % 15 == 0) {
-            log("In pausa", Tipo.OPERATORE);
-            attesa(5);
-        }
         l.lock();
         try {
             operatoreLibero.signalAll();
@@ -127,9 +117,8 @@ public class CallCenterLC extends CallCenter {
         }
     }
 
-
     public static void main(String[] args) {
         CallCenter cc = new CallCenterLC();
-        cc.test(1, 3);
+        cc.test(2, 3);
     }
 }
