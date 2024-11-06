@@ -32,6 +32,9 @@ public class ProntoSoccorsoLC extends ProntoSoccorso {
     boolean visitaFinita = false;
     Condition fineVisita = l.newCondition();
 
+    ProntoSoccorsoLC(int numeroMedici) {
+        super(numeroMedici);
+    }
 
     void assegnaCodice() {
         int codice = random.nextInt(3);
@@ -128,7 +131,7 @@ public class ProntoSoccorsoLC extends ProntoSoccorso {
     }
 
     public static void main(String[] args) {
-        ProntoSoccorso ps = new ProntoSoccorsoLC();
-        ps.test(1, 30);
+        ProntoSoccorso ps = new ProntoSoccorsoLC(1);
+        ps.test(30);
     }
 }
