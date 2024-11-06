@@ -8,14 +8,14 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class UfficioPostaleLC extends UfficioPostale {
 
-    int[] durataOperazione = new int[] { 3, 5, 7};
+    int[] durataOperazione = new int[] { 3, 5, 7 };
 
     Lock l = new ReentrantLock();
     Condition possoRitirare = l.newCondition();
 
     LinkedList<Thread> coda = new LinkedList<>();
     int[] ticketEmessi = new int[] { 0, 0, 0 };
-    final int TICKET_MAX = 50;
+    final int TICKET_MAX = 2;
 
     Map<Integer, LinkedList<Thread>> sportelli = Map.of(
             0, new LinkedList<>(),
@@ -46,6 +46,7 @@ public class UfficioPostaleLC extends UfficioPostale {
     boolean ritiraTicket(String operazione) throws InterruptedException {
         l.lock();
         try {
+            log("Voglio ritirare il ticket " + operazione, -1);
             coda.add(Thread.currentThread());
             while (!Thread.currentThread().equals(coda.getFirst())) {
                 possoRitirare.await();
@@ -54,6 +55,7 @@ public class UfficioPostaleLC extends UfficioPostale {
             int codice = converti(operazione);
             if (ticketEmessi[codice] == TICKET_MAX) return false;
             ticketEmessi[codice]++;
+            log("Può ritirare il prossimo", -1);
             possoRitirare.signalAll();
             return true;
         } finally {
@@ -70,13 +72,19 @@ public class UfficioPostaleLC extends UfficioPostale {
         l.lock();
         try {
             int codice = converti(operazione);
+            sportelli.get(codice).add(Thread.currentThread());
+            log("Attendo l'operatore...", -1);
             while (!mioTurno(codice)) {
                 turnoSportello.await();
             }
+            sportelli.get(codice).removeFirst();
             clienteAlloSportello[codice] = true;
+            clienteDisponibile[codice].signal();
+            log("Attendo il completamento dell'operazione " + operazione, -1);
             while (!operazioneTerminata[codice]) {
                 termineOperazione[codice].await();
             }
+            clienteAlloSportello[codice] = false;
 
         } finally {
             l.unlock();
@@ -87,7 +95,12 @@ public class UfficioPostaleLC extends UfficioPostale {
     void prossimoCliente() throws InterruptedException {
         l.lock();
         try {
-            turnoSportello.signalAll();
+            int codice = ((Impiegato) Thread.currentThread()).tipo;
+            operazioneTerminata[codice] = false;
+            if (!sportelli.get(codice).isEmpty()) {
+                log("Avanti il prossimo", codice);
+                turnoSportello.signalAll();
+            }
         } finally {
             l.unlock();
         }
@@ -106,10 +119,13 @@ public class UfficioPostaleLC extends UfficioPostale {
             l.unlock();
         }
 
+        log("Comincio l'operazione", codice);
         attesa(durataOperazione[codice]);
 
         l.lock();
         try {
+            log("Operazione terminata, saluto il cliente", codice);
+            operazioneTerminata[codice] = true;
             termineOperazione[codice].signal();
         } finally {
             l.unlock();
@@ -118,6 +134,6 @@ public class UfficioPostaleLC extends UfficioPostale {
 
     public static void main(String[] args) {
         UfficioPostale ufficio = new UfficioPostaleLC(1);
-        ufficio.test(200);
+        ufficio.test(5);
     }
 }
