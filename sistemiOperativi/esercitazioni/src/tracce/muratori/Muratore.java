@@ -22,6 +22,7 @@ public class Muratore extends Thread {
                     casa.attesa(10); // posa
                     casa.log(tipo, "fine posa");
                     casa.termina(tipo);
+                    casa.attesa(5);
                 }
             }
         } catch (InterruptedException e) { e.printStackTrace(); }
