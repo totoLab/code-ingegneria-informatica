@@ -2,12 +2,12 @@ package es5.cinque_filosofi;
 
 import java.util.concurrent.Semaphore;
 
-public class TavoloSem extends Tavolo {
+public class TavoloSemSlow extends Tavolo {
 
     Semaphore[] bacchette = new Semaphore[NUM_FILOSOFI];
     Semaphore turno = new Semaphore(1);
 
-    TavoloSem() {
+    TavoloSemSlow() {
         for (int i = 0; i < NUM_FILOSOFI; i++) {
             bacchette[i] = new Semaphore(1);
         }
@@ -18,17 +18,17 @@ public class TavoloSem extends Tavolo {
         turno.acquire();
         bacchette[i].acquire();
         bacchette[(i + 1) % NUM_FILOSOFI].acquire();
-        turno.release();
     }
 
     @Override
     public void rilasciaBacchette(int i) {
         bacchette[i].release();
         bacchette[(i + 1) % NUM_FILOSOFI].release();
+        turno.release();
     }
 
     public static void main(String[] args) {
-        Tavolo tavolo = new TavoloSem();
+        Tavolo tavolo = new TavoloSemSlow();
         tavolo.test();
     }
 }

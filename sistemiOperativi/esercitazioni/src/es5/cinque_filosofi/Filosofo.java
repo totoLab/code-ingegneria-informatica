@@ -17,9 +17,9 @@ public class Filosofo extends Thread {
         try {
             while (true) {
                 tavolo.prendiBacchette(posizione);
-                // System.out.format("Il filosofo %d ha iniziato a mangiare%n", posizione);
+                System.out.format("Il filosofo %d ha iniziato a mangiare%n", posizione);
                 mangia();
-                // System.out.format("Il filosofo %d ha finito di mangiare%n", posizione);
+                System.out.format("Il filosofo %d ha finito di mangiare%n", posizione);
                 tavolo.rilasciaBacchette(posizione);
                 pensa();
             }
