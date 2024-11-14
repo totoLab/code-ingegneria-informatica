@@ -7,7 +7,6 @@ public class Stampa2_1 {
 
     static Semaphore semA = new Semaphore(2);
     static Semaphore semB = new Semaphore(0);
-    static Semaphore mutex = new Semaphore(1);
     static boolean AoB = false;
 
     static class A extends Thread {
@@ -17,9 +16,7 @@ public class Stampa2_1 {
             try {
                 semA.acquire(2);
                 System.out.print("A");
-                mutex.acquire();
                 AoB = !AoB;
-                mutex.release();
                 if (AoB) {
                     semA.release(2);
                 } else {
