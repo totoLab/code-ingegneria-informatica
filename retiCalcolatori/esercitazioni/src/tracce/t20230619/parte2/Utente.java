@@ -1,6 +1,5 @@
 package tracce.t20230619.parte2;
 
-import tracce.t20230619.parte2schifo.Sondaggio;
 
 import java.io.*;
 import java.net.DatagramPacket;
@@ -44,7 +43,7 @@ public class Utente {
             PrintWriter pw = new PrintWriter(server.getOutputStream(), true);
             pw.println(id);
             ObjectInputStream ois = new ObjectInputStream(server.getInputStream());
-            tracce.t20230619.parte2schifo.Sondaggio sondaggio = (tracce.t20230619.parte2schifo.Sondaggio) ois.readObject();
+            Sondaggio sondaggio = (Sondaggio) ois.readObject();
             if (sondaggio.getDomande().isEmpty()) {
                 System.out.println("Sondaggio terminato");
             } else {
