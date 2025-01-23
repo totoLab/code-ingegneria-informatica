@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="9cb651ca-7e06-4ee5-80fc-d704a6ae8290" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../../retiCalcolatori/esercitazioni/src/tracce/t20240624/parte1/FilmService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../retiCalcolatori/esercitazioni/src/tracce/t20240624/parte2/FornitoreDiRisultati.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../retiCalcolatori/esercitazioni/src/tracce/t20240624/parte2/Partita.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../retiCalcolatori/esercitazioni/src/tracce/t20240624/parte2/Server.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../retiCalcolatori/esercitazioni/src/tracce/t20240624/parte2/Utente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../retiCalcolatori/esercitazioni/src/tracce/t20230619/parte2/Utente.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../retiCalcolatori/esercitazioni/src/tracce/t20230619/parte2/Utente.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 5
+}]]></component>
+  <component name="ProjectId" id="2ql8uqMU34bEK68aXVyRqpHcmaB" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "kotlin-language-version-configured": "true",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9cb651ca-7e06-4ee5-80fc-d704a6ae8290" name="Changes" comment="" />
+      <created>1735226026331</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1735226026331</updated>
+      <workItem from="1735226027347" duration="2000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
